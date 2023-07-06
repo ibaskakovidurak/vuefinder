@@ -3641,7 +3641,7 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
     }
   },
   setup(r) {
-    const t = r, s = Vo(), { setStore: o, getStore: i } = Je(t.id), a = L(i("adapter"));
+    const t = r, s = Vo(), { setStore: o, getStore: i } = Je(t.id), a = L("local");
     Ut("emitter", s), Ut("storage", Je(t.id)), Ut("postData", t.postData), Ut("adapter", a), Ut("maxFileSize", t.maxFileSize);
     const d = Vl(t.id, t.locale, s);
     Ut("i18n", d);

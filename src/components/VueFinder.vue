@@ -72,7 +72,8 @@ const props = defineProps({
 });
 const emitter = mitt();
 const {setStore, getStore} = useStorage(props.id);
-const adapter =ref(getStore('adapter'));
+const adapter = ref('local');
+// const adapter = ref(getStore('adapter'));
 
 provide('emitter', emitter);
 provide('storage', useStorage(props.id));
