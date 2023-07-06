@@ -1,4 +1,5 @@
 export const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+export const token = localStorage.getItem('token')
 
 export default (url, {method = 'get', params = {}, json = true, signal = null}) => {
     const init = {method: method};
@@ -11,6 +12,10 @@ export default (url, {method = 'get', params = {}, json = true, signal = null}) 
 
         if (csrf) {
             init.headers['X-CSRF-Token'] = csrf;
+        }
+
+        if (token) {
+            init.headers['Authorization'] = `Bearer ${token}`;
         }
 
         let formData = new FormData();
