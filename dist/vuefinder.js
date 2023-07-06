@@ -1,18 +1,18 @@
 import { ref as L, watch as jt, inject as P, openBlock as w, createElementBlock as D, createElementVNode as f, unref as x, normalizeClass as ce, createTextVNode as se, toDisplayString as E, createCommentVNode as Z, createVNode as Ce, TransitionGroup as Lo, withCtx as F, Fragment as le, renderList as we, reactive as Lt, onMounted as Me, onUpdated as Oo, withDirectives as Se, vShow as $t, withModifiers as We, nextTick as Rt, isRef as as, vModelSelect as Nr, createStaticVNode as Po, customRef as No, withKeys as ot, vModelText as nt, normalizeStyle as ls, provide as Ue, createBlock as q, resolveDynamicComponent as jo, renderSlot as Gt } from "vue";
 import dt from "plupload";
 var is;
-const jr = (is = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : is.getAttribute("content"), Ro = localStorage.getItem("token"), Ot = (r, { method: e = "GET", params: s = {}, json: o = !0, signal: i = null }) => {
-  let a = "https://sf-core.7de-dev.space/api/vuefinder";
-  const d = { method: e };
-  if (d.signal = i, d.headers = {}, d.headers["Content-Type"] = "application/json", d.headers.Accept = "application/json, */*", d.headers.Authorization = `Bearer ${Ro}`, d.headers["Access-Control-Allow-Origin"] = "*", d.headers["Access-Control-Allow-Methods"] = "", d.headers["Access-Control-Allow-Headers"] = "*", e === "GET")
-    a += "?" + new URLSearchParams(s);
+const jr = (is = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : is.getAttribute("content"), Ro = localStorage.getItem("token"), Ot = (r, e = !1, { method: s = "GET", params: o = {}, json: i = !0, signal: a = null }) => {
+  let d = e ? "https://sf-gate.7de-dev.space/api/vuefinder" : "https://sf-core.7de-dev.space/api/vuefinder";
+  const g = { method: s };
+  if (g.signal = a, g.headers = {}, g.headers["Content-Type"] = "application/json", g.headers.Accept = "application/json, */*", g.headers.Authorization = `Bearer ${Ro}`, g.headers["Access-Control-Allow-Origin"] = "*", g.headers["Access-Control-Allow-Methods"] = "", g.headers["Access-Control-Allow-Headers"] = "*", s === "GET")
+    d += "?" + new URLSearchParams(o);
   else {
-    const g = new FormData();
-    for (const [l, v] of Object.entries(s))
-      g.append(l, v);
-    d.body = g;
+    const l = new FormData();
+    for (const [v, p] of Object.entries(o))
+      l.append(v, p);
+    g.body = l;
   }
-  return fetch(a, d).then((g) => g.ok ? o ? g.json() : g.text() : g.json().then(Promise.reject.bind(Promise)));
+  return fetch(d, g).then((l) => l.ok ? i ? l.json() : l.text() : l.json().then(Promise.reject.bind(Promise)));
 };
 function Vo(r) {
   return { all: r = r || /* @__PURE__ */ new Map(), on: function(e, s) {
@@ -3610,6 +3610,9 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
   name: "VueFinder"
 }, Ul = /* @__PURE__ */ Object.assign(Hl, {
   props: {
+    dev: {
+      type: Boolean
+    },
     url: {
       type: [String]
     },
@@ -3676,7 +3679,7 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
     }), s.on("vf-fetch", ({ params: H, onSuccess: V = null, onError: j = null }) => {
       ["index", "search"].includes(H.q) && (T && T.abort(), S.value = !0), T = new AbortController();
       const z = T.signal;
-      Ot(g.value, { params: H, signal: z }).then((X) => {
+      Ot(g.value, e.dev, { params: H, signal: z }).then((X) => {
         a.value = X.adapter, ["index", "search"].includes(H.q) && (S.value = !1), s.emit("vf-modal-close"), I(X), V(X);
       }).catch((X) => {
         j && j(X);

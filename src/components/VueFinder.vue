@@ -39,6 +39,9 @@ import VFContextMenu from '../components/ContextMenu.vue';
 import {useI18n} from '../composables/useI18n.js';
 
 const props = defineProps({
+  dev: {
+    type: Boolean
+  },
   url: {
     type: [String],
   },
@@ -150,7 +153,7 @@ emitter.on('vf-fetch', ({params, onSuccess = null, onError = null}) => {
 
   controller = new AbortController();
   const signal = controller.signal;
-  ajax(apiUrl.value, {params, signal})
+  ajax(apiUrl.value, props.dev, {params, signal})
       .then(data => {
         adapter.value = data.adapter;
         if (['index', 'search'].includes(params.q)) {
