@@ -2,7 +2,7 @@ export const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttrib
 
 export const token = localStorage.getItem('token')
 
-export default (url, {method = 'get', params = {}, json = true, signal = null}) => {
+export default (url, {method = 'GET', params = {}, json = true, signal = null}) => {
     const init = {method: method};
     init.signal = signal;
     init.headers = {};
@@ -12,11 +12,11 @@ export default (url, {method = 'get', params = {}, json = true, signal = null}) 
     //init.headers['Access-Control-Allow-Headers'] = '*';
     init.mode = `cors`;
     init.headers['Access-Control-Allow-Origin'] = '*';
-    init.headers['Access-Control-Allow-Methods'] = '';
+    init.headers['Access-Control-Allow-Methods'] = 'GET,POST';
     init.headers['Access-Control-Allow-Headers'] = '*';
     init.headers['Authorization'] = `Bearer ${token}`;
 
-    if (method == 'get') {
+    if (method === 'GET') {
         url += '?' + new URLSearchParams(params);
     } else {
         // if (csrf) {

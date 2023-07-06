@@ -1,9 +1,9 @@
 import { ref as L, watch as je, inject as P, openBlock as w, createElementBlock as D, createElementVNode as f, unref as x, normalizeClass as ct, createTextVNode as st, toDisplayString as E, createCommentVNode as Z, createVNode as Ct, TransitionGroup as Lo, withCtx as F, Fragment as lt, renderList as wt, reactive as Le, onMounted as Mt, onUpdated as Oo, withDirectives as St, vShow as $e, withModifiers as Wt, nextTick as Re, isRef as as, vModelSelect as Nr, createStaticVNode as Po, customRef as No, withKeys as oe, vModelText as ne, normalizeStyle as ls, provide as Ut, createBlock as q, resolveDynamicComponent as jo, renderSlot as Ge } from "vue";
 import de from "plupload";
 var is;
-const jr = (is = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : is.getAttribute("content"), Ro = localStorage.getItem("token"), Oe = (r, { method: t = "get", params: s = {}, json: o = !0, signal: a = null }) => {
+const jr = (is = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : is.getAttribute("content"), Ro = localStorage.getItem("token"), Oe = (r, { method: t = "GET", params: s = {}, json: o = !0, signal: a = null }) => {
   const i = { method: t };
-  if (i.signal = a, i.headers = {}, i.mode = "cors", i.headers["Access-Control-Allow-Origin"] = "*", i.headers["Access-Control-Allow-Methods"] = "", i.headers["Access-Control-Allow-Headers"] = "*", i.headers.Authorization = `Bearer ${Ro}`, t == "get")
+  if (i.signal = a, i.headers = {}, i.mode = "cors", i.headers["Access-Control-Allow-Origin"] = "*", i.headers["Access-Control-Allow-Methods"] = "GET,POST", i.headers["Access-Control-Allow-Headers"] = "*", i.headers.Authorization = `Bearer ${Ro}`, t === "GET")
     r += "?" + new URLSearchParams(s);
   else {
     let d = new FormData();
