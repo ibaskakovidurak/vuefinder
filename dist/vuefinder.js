@@ -3996,7 +3996,7 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
       a.value != "" && s.emit("vf-fetch", {
         params: {
           q: "newfolder",
-          adapter: o.value,
+          adapter: o.value ? o.value : "local",
           path: t.current.dirname,
           name: a.value
         },
