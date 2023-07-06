@@ -7,15 +7,13 @@ export default (url, { method = 'GET', params = {}, json = true, signal = null }
     const init = { method: method }
     init.signal = signal
     init.headers = { }
-    init.mode = 'no-cors'
+    init.mode = 'cors'
     init.headers['Content-Type'] = 'application/json';
     init.headers['Accept'] = 'application/json, */*';
     init.headers['Authorization'] = `Bearer ${token}`
     init.headers['Access-Control-Allow-Origin'] = '*';
     init.headers['Access-Control-Allow-Methods'] = '';
     init.headers['Access-Control-Allow-Headers'] = '*';
-
-    console.log(init)
 
     if (method === 'GET') {
         url += '?' + new URLSearchParams(params)

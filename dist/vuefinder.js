@@ -3,7 +3,7 @@ import de from "plupload";
 var is;
 const jr = (is = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : is.getAttribute("content"), Ro = localStorage.getItem("token"), Oe = (r, { method: t = "GET", params: s = {}, json: o = !0, signal: a = null }) => {
   const i = { method: t };
-  if (i.signal = a, i.headers = {}, i.mode = "no-cors", i.headers["Content-Type"] = "application/json", i.headers.Accept = "application/json, */*", i.headers.Authorization = `Bearer ${Ro}`, i.headers["Access-Control-Allow-Origin"] = "*", i.headers["Access-Control-Allow-Methods"] = "", i.headers["Access-Control-Allow-Headers"] = "*", console.log(i), t === "GET")
+  if (i.signal = a, i.headers = {}, i.mode = "cors", i.headers["Content-Type"] = "application/json", i.headers.Accept = "application/json, */*", i.headers.Authorization = `Bearer ${Ro}`, i.headers["Access-Control-Allow-Origin"] = "*", i.headers["Access-Control-Allow-Methods"] = "", i.headers["Access-Control-Allow-Headers"] = "*", t === "GET")
     r += "?" + new URLSearchParams(s);
   else {
     const d = new FormData();
