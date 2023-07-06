@@ -7,9 +7,9 @@ export default (url, {method = 'get', params = {}, json = true, signal = null}) 
     init.signal = signal;
     init.headers = {};
     //init.headers['Content-Type'] = config.isFileUpload ? 'multipart/form-data' : 'application/json';
-    init.headers['Access-Control-Allow-Origin'] = '';
-    init.headers['Access-Control-Allow-Methods'] = '';
-    init.headers['Access-Control-Allow-Headers'] = '*';
+    //init.headers['Access-Control-Allow-Origin'] = '';
+    //init.headers['Access-Control-Allow-Methods'] = '';
+    //init.headers['Access-Control-Allow-Headers'] = '*';
     init.headers['Authorization'] = `Bearer ${token}`;
 
     if (method == 'get') {
