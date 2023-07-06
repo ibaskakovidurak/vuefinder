@@ -9,7 +9,7 @@ export default (url, { method = 'GET', params = {}}) => {
     //init.headers['Content-Type'] = 'application/json';
     //init.headers['Accept'] = 'application/json, */*';
     init.headers = { }
-    init.mode = 'cors'
+    // init.mode = 'cors'
     init.headers['Authorization'] = `Bearer ${token}`
     //init.headers['Access-Control-Allow-Origin'] = '*';
     //init.headers['Access-Control-Allow-Methods'] = '';
