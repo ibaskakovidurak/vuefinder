@@ -160,6 +160,9 @@ emitter.on('vf-fetch', ({params, onSuccess = null, onError = null}) => {
           loadingState.value = false;
         }
         emitter.emit('vf-modal-close');
+
+        console.log(data)
+
         updateItems(data);
         onSuccess(data);
       })

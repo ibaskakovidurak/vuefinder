@@ -3679,7 +3679,7 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
       ["index", "search"].includes(H.q) && (T && T.abort(), S.value = !0), T = new AbortController();
       const z = T.signal;
       Oe(m.value, { params: H, signal: z }).then((X) => {
-        a.value = X.adapter, ["index", "search"].includes(H.q) && (S.value = !1), s.emit("vf-modal-close"), I(X), V(X);
+        a.value = X.adapter, ["index", "search"].includes(H.q) && (S.value = !1), s.emit("vf-modal-close"), console.log(X), I(X), V(X);
       }).catch((X) => {
         j && j(X);
       }).finally(() => {
