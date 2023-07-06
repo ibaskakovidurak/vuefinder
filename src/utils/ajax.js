@@ -2,14 +2,14 @@ export const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttrib
 
 export const token = localStorage.getItem('token')
 
-export default (url, { method = 'GET', params = {}, signal = null}) => {
+export default (url, { method = 'GET', params = {}}) => {
     //let urlFinder = type ? 'https://sf-gate.7de-dev.space/api/vuefinder' : 'https://sf-core.7de-dev.space/api/vuefinder'
     const init = { method: method }
-    init.signal = signal
-    init.headers = { }
-    init.mode = 'cors'
+    //init.signal = signal
     //init.headers['Content-Type'] = 'application/json';
     //init.headers['Accept'] = 'application/json, */*';
+    init.headers = { }
+    init.mode = 'cors'
     init.headers['Authorization'] = `Bearer ${token}`
     //init.headers['Access-Control-Allow-Origin'] = '*';
     //init.headers['Access-Control-Allow-Methods'] = '';
