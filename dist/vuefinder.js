@@ -1,17 +1,18 @@
 import { ref as L, watch as jt, inject as P, openBlock as w, createElementBlock as D, createElementVNode as f, unref as x, normalizeClass as ce, createTextVNode as se, toDisplayString as E, createCommentVNode as Z, createVNode as Ce, TransitionGroup as Lo, withCtx as F, Fragment as le, renderList as we, reactive as Lt, onMounted as Me, onUpdated as Oo, withDirectives as Se, vShow as $t, withModifiers as We, nextTick as Rt, isRef as as, vModelSelect as Nr, createStaticVNode as Po, customRef as No, withKeys as ot, vModelText as nt, normalizeStyle as ls, provide as Ue, createBlock as q, resolveDynamicComponent as jo, renderSlot as Gt } from "vue";
 import dt from "plupload";
 var is;
-const jr = (is = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : is.getAttribute("content"), Ro = localStorage.getItem("token"), Ot = (r, { method: e = "GET", params: s = {}, json: o = !0, signal: a = null }) => {
-  const i = { method: e };
-  if (i.signal = a, i.headers = {}, i.headers["Content-Type"] = "application/json", i.headers.Accept = "application/json", i.headers.Authorization = `Bearer ${Ro}`, i.headers["Cache-Control"] = "no-cache", i.headers.Origin = window.location.origin, i.headers["Access-Control-Allow-Origin"] = window.location.origin, i.headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS", i.headers["Access-Control-Allow-Headers"] = "*", i.headers["Access-Control-Allow-Credentials"] = !0, e === "GET")
-    r += "?" + new URLSearchParams(s);
+const jr = (is = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : is.getAttribute("content"), Ro = localStorage.getItem("token"), Ot = (r, { method: e = "GET", params: s = {}, json: o = !0, signal: i = null }) => {
+  let a = "https://sf-core.7de-dev.space/api/vuefinder";
+  const d = { method: e };
+  if (d.signal = i, d.headers = {}, d.headers["Content-Type"] = "application/json", d.headers.Accept = "application/json, */*", d.headers.Authorization = `Bearer ${Ro}`, d.headers["Access-Control-Allow-Origin"] = "*", d.headers["Access-Control-Allow-Methods"] = "", d.headers["Access-Control-Allow-Headers"] = "*", e === "GET")
+    a += "?" + new URLSearchParams(s);
   else {
-    const d = new FormData();
-    for (const [m, l] of Object.entries(s))
-      d.append(m, l);
-    i.body = d;
+    const g = new FormData();
+    for (const [l, v] of Object.entries(s))
+      g.append(l, v);
+    d.body = g;
   }
-  return fetch(r, i).then((d) => d.ok ? o ? d.json() : d.text() : d.json().then(Promise.reject.bind(Promise)));
+  return fetch(a, d).then((g) => g.ok ? o ? g.json() : g.text() : g.json().then(Promise.reject.bind(Promise)));
 };
 function Vo(r) {
   return { all: r = r || /* @__PURE__ */ new Map(), on: function(e, s) {
@@ -22,10 +23,10 @@ function Vo(r) {
     o && (s ? o.splice(o.indexOf(s) >>> 0, 1) : r.set(e, []));
   }, emit: function(e, s) {
     var o = r.get(e);
-    o && o.slice().map(function(a) {
-      a(s);
-    }), (o = r.get("*")) && o.slice().map(function(a) {
-      a(e, s);
+    o && o.slice().map(function(i) {
+      i(s);
+    }), (o = r.get("*")) && o.slice().map(function(i) {
+      i(e, s);
     });
   } };
 }
@@ -36,13 +37,13 @@ function Jt(r) {
   function o() {
     s.value === null || s.value === "" ? localStorage.removeItem(r + "_storage") : localStorage.setItem(r + "_storage", JSON.stringify(s.value));
   }
-  function a(m, l) {
-    s.value = Object.assign({ ...s.value }, { [m]: l });
+  function i(g, l) {
+    s.value = Object.assign({ ...s.value }, { [g]: l });
   }
-  function i() {
+  function a() {
     s.value = null;
   }
-  return { getStore: (m, l = null) => s.value === null || s.value === "" ? l : s.value.hasOwnProperty(m) ? s.value[m] : l, setStore: a, clearStore: i };
+  return { getStore: (g, l = null) => s.value === null || s.value === "" ? l : s.value.hasOwnProperty(g) ? s.value[g] : l, setStore: i, clearStore: a };
 }
 const Rr = L("");
 function Ae() {
@@ -186,42 +187,42 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
     data: Object
   },
   setup(r) {
-    const e = P("emitter"), { getStore: s, setStore: o } = P("storage"), { t: a } = P("i18n"), i = L(s("viewport", "grid")), d = L([]), m = L(s("full-screen", !1)), l = L("");
+    const e = P("emitter"), { getStore: s, setStore: o } = P("storage"), { t: i } = P("i18n"), a = L(s("viewport", "grid")), d = L([]), g = L(s("full-screen", !1)), l = L("");
     e.on("vf-search-query", ({ newQuery: S }) => {
       l.value = S;
     });
     const v = P("loadingState"), p = () => v.value, b = () => {
-      m.value = !m.value, e.emit("vf-fullscreen-toggle");
+      g.value = !g.value, e.emit("vf-fullscreen-toggle");
     };
     return e.on("vf-nodes-selected", (S) => {
       d.value = S;
     }), e.on("vf-view-toggle", (S) => {
-      o("viewport", S), i.value = S;
+      o("viewport", S), a.value = S;
     }), (S, M) => (w(), D("div", Bo, [
       l.value.length ? (w(), D("div", un, [
         f("div", dn, [
-          se(E(x(a)("Search results for")) + " ", 1),
+          se(E(x(i)("Search results for")) + " ", 1),
           f("span", hn, E(l.value), 1)
         ]),
         p() ? (w(), D("svg", fn, mn)) : Z("", !0)
       ])) : (w(), D("div", zo, [
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(a)("New Folder"),
+          "aria-label": x(i)("New Folder"),
           "data-microtip-position": "bottom-right",
           role: "tooltip",
           onClick: M[0] || (M[0] = ($) => x(e).emit("vf-modal-show", { type: "new-folder", items: d.value }))
         }, Ko, 8, Ho),
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(a)("New File"),
+          "aria-label": x(i)("New File"),
           "data-microtip-position": "bottom",
           role: "tooltip",
           onClick: M[1] || (M[1] = ($) => x(e).emit("vf-modal-show", { type: "new-file", items: d.value }))
         }, Xo, 8, Yo),
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(a)("Rename"),
+          "aria-label": x(i)("Rename"),
           "data-microtip-position": "bottom",
           role: "tooltip",
           onClick: M[2] || (M[2] = ($) => d.value.length != 1 || x(e).emit("vf-modal-show", { type: "rename", items: d.value }))
@@ -237,7 +238,7 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
         ], 8, Zo),
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(a)("Delete"),
+          "aria-label": x(i)("Delete"),
           "data-microtip-position": "bottom",
           role: "tooltip",
           onClick: M[3] || (M[3] = ($) => !d.value.length || x(e).emit("vf-modal-show", { type: "delete", items: d.value }))
@@ -253,7 +254,7 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
         ], 8, Go),
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(a)("Upload"),
+          "aria-label": x(i)("Upload"),
           "data-microtip-position": "bottom",
           role: "tooltip",
           onClick: M[4] || (M[4] = ($) => x(e).emit("vf-modal-show", { type: "upload", items: d.value }))
@@ -261,7 +262,7 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
         d.value.length == 1 && d.value[0].mime_type == "application/zip" ? (w(), D("div", {
           key: 0,
           class: "mx-1.5",
-          "aria-label": x(a)("Unrchive"),
+          "aria-label": x(i)("Unrchive"),
           "data-microtip-position": "bottom",
           role: "tooltip",
           onClick: M[5] || (M[5] = ($) => !d.value.length || x(e).emit("vf-modal-show", { type: "unarchive", items: d.value }))
@@ -277,7 +278,7 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
         ], 8, sn)) : (w(), D("div", {
           key: 1,
           class: "mx-1.5",
-          "aria-label": x(a)("Archive"),
+          "aria-label": x(i)("Archive"),
           "data-microtip-position": "bottom",
           role: "tooltip",
           onClick: M[6] || (M[6] = ($) => !d.value.length || x(e).emit("vf-modal-show", { type: "archive", items: d.value }))
@@ -295,7 +296,7 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
       f("div", vn, [
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(a)("Dark Mode"),
+          "aria-label": x(i)("Dark Mode"),
           "data-microtip-position": "bottom",
           role: "tooltip"
         }, [
@@ -310,21 +311,21 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
         ], 8, bn),
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(a)("Toggle Full Screen"),
+          "aria-label": x(i)("Toggle Full Screen"),
           "data-microtip-position": "bottom-left",
           role: "tooltip",
           onClick: b
         }, [
           (w(), D("svg", _n, [
-            m.value ? (w(), D("path", xn)) : (w(), D("path", kn))
+            g.value ? (w(), D("path", xn)) : (w(), D("path", kn))
           ]))
         ], 8, wn),
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(a)("Change View"),
+          "aria-label": x(i)("Change View"),
           "data-microtip-position": "bottom-left",
           role: "tooltip",
-          onClick: M[8] || (M[8] = ($) => l.value.length || x(e).emit("vf-view-toggle", i.value == "list" ? "grid" : "list"))
+          onClick: M[8] || (M[8] = ($) => l.value.length || x(e).emit("vf-view-toggle", a.value == "list" ? "grid" : "list"))
         }, [
           (w(), D("svg", {
             xmlns: "http://www.w3.org/2000/svg",
@@ -334,8 +335,8 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
             stroke: "none",
             "stroke-width": "1.5"
           }, [
-            i.value == "grid" ? (w(), D("path", Cn)) : Z("", !0),
-            i.value == "list" ? (w(), D("path", Mn)) : Z("", !0)
+            a.value == "grid" ? (w(), D("path", Cn)) : Z("", !0),
+            a.value == "list" ? (w(), D("path", Mn)) : Z("", !0)
           ], 2))
         ], 8, Dn)
       ])
@@ -354,14 +355,14 @@ var cs = { exports: {} };
     function s(c, u) {
       var t = c == null ? null : typeof Symbol < "u" && c[Symbol.iterator] || c["@@iterator"];
       if (t != null) {
-        var g, n, h, y, _ = [], C = !0, B = !1;
+        var m, n, h, y, _ = [], C = !0, B = !1;
         try {
           if (h = (t = t.call(c)).next, u === 0) {
             if (Object(t) !== t)
               return;
             C = !1;
           } else
-            for (; !(C = (g = h.call(t)).done) && (_.push(g.value), _.length !== u); C = !0)
+            for (; !(C = (m = h.call(t)).done) && (_.push(m.value), _.length !== u); C = !0)
               ;
         } catch (W) {
           B = !0, n = W;
@@ -380,35 +381,35 @@ var cs = { exports: {} };
     function o(c, u) {
       var t = Object.keys(c);
       if (Object.getOwnPropertySymbols) {
-        var g = Object.getOwnPropertySymbols(c);
-        u && (g = g.filter(function(n) {
+        var m = Object.getOwnPropertySymbols(c);
+        u && (m = m.filter(function(n) {
           return Object.getOwnPropertyDescriptor(c, n).enumerable;
-        })), t.push.apply(t, g);
+        })), t.push.apply(t, m);
       }
       return t;
     }
-    function a(c) {
+    function i(c) {
       for (var u = 1; u < arguments.length; u++) {
         var t = arguments[u] != null ? arguments[u] : {};
-        u % 2 ? o(Object(t), !0).forEach(function(g) {
-          l(c, g, t[g]);
-        }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(c, Object.getOwnPropertyDescriptors(t)) : o(Object(t)).forEach(function(g) {
-          Object.defineProperty(c, g, Object.getOwnPropertyDescriptor(t, g));
+        u % 2 ? o(Object(t), !0).forEach(function(m) {
+          l(c, m, t[m]);
+        }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(c, Object.getOwnPropertyDescriptors(t)) : o(Object(t)).forEach(function(m) {
+          Object.defineProperty(c, m, Object.getOwnPropertyDescriptor(t, m));
         });
       }
       return c;
     }
-    function i(c, u) {
+    function a(c, u) {
       if (!(c instanceof u))
         throw new TypeError("Cannot call a class as a function");
     }
     function d(c, u) {
       for (var t = 0; t < u.length; t++) {
-        var g = u[t];
-        g.enumerable = g.enumerable || !1, g.configurable = !0, "value" in g && (g.writable = !0), Object.defineProperty(c, R(g.key), g);
+        var m = u[t];
+        m.enumerable = m.enumerable || !1, m.configurable = !0, "value" in m && (m.writable = !0), Object.defineProperty(c, R(m.key), m);
       }
     }
-    function m(c, u, t) {
+    function g(c, u, t) {
       return u && d(c.prototype, u), t && d(c, t), Object.defineProperty(c, "prototype", {
         writable: !1
       }), c;
@@ -440,8 +441,8 @@ var cs = { exports: {} };
       }, p(c);
     }
     function b(c, u) {
-      return b = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function(g, n) {
-        return g.__proto__ = n, g;
+      return b = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function(m, n) {
+        return m.__proto__ = n, m;
       }, b(c, u);
     }
     function S() {
@@ -469,27 +470,27 @@ var cs = { exports: {} };
     }
     function I(c) {
       var u = typeof Map == "function" ? /* @__PURE__ */ new Map() : void 0;
-      return I = function(g) {
-        if (g === null || !$(g))
-          return g;
-        if (typeof g != "function")
+      return I = function(m) {
+        if (m === null || !$(m))
+          return m;
+        if (typeof m != "function")
           throw new TypeError("Super expression must either be null or a function");
         if (typeof u < "u") {
-          if (u.has(g))
-            return u.get(g);
-          u.set(g, n);
+          if (u.has(m))
+            return u.get(m);
+          u.set(m, n);
         }
         function n() {
-          return M(g, arguments, p(this).constructor);
+          return M(m, arguments, p(this).constructor);
         }
-        return n.prototype = Object.create(g.prototype, {
+        return n.prototype = Object.create(m.prototype, {
           constructor: {
             value: n,
             enumerable: !1,
             writable: !0,
             configurable: !0
           }
-        }), b(n, g);
+        }), b(n, m);
       }, I(c);
     }
     function T(c) {
@@ -507,12 +508,12 @@ var cs = { exports: {} };
     function V(c) {
       var u = S();
       return function() {
-        var g = p(c), n;
+        var m = p(c), n;
         if (u) {
           var h = p(this).constructor;
-          n = Reflect.construct(g, arguments, h);
+          n = Reflect.construct(m, arguments, h);
         } else
-          n = g.apply(this, arguments);
+          n = m.apply(this, arguments);
         return H(this, n);
       };
     }
@@ -522,11 +523,11 @@ var cs = { exports: {} };
       return c;
     }
     function z() {
-      return typeof Reflect < "u" && Reflect.get ? z = Reflect.get.bind() : z = function(u, t, g) {
+      return typeof Reflect < "u" && Reflect.get ? z = Reflect.get.bind() : z = function(u, t, m) {
         var n = j(u, t);
         if (n) {
           var h = Object.getOwnPropertyDescriptor(n, t);
-          return h.get ? h.get.call(arguments.length < 3 ? u : g) : h.value;
+          return h.get ? h.get.call(arguments.length < 3 ? u : m) : h.value;
         }
       }, z.apply(this, arguments);
     }
@@ -561,9 +562,9 @@ var cs = { exports: {} };
     }
     function ue(c, u) {
       (u == null || u > c.length) && (u = c.length);
-      for (var t = 0, g = new Array(u); t < u; t++)
-        g[t] = c[t];
-      return g;
+      for (var t = 0, m = new Array(u); t < u; t++)
+        m[t] = c[t];
+      return m;
     }
     function ve() {
       throw new TypeError(`Invalid attempt to spread non-iterable instance.
@@ -578,16 +579,16 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       if (!t) {
         if (Array.isArray(c) || (t = te(c)) || u && c && typeof c.length == "number") {
           t && (c = t);
-          var g = 0, n = function() {
+          var m = 0, n = function() {
           };
           return {
             s: n,
             n: function() {
-              return g >= c.length ? {
+              return m >= c.length ? {
                 done: !0
               } : {
                 done: !1,
-                value: c[g++]
+                value: c[m++]
               };
             },
             e: function(C) {
@@ -626,9 +627,9 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         return c;
       var t = c[Symbol.toPrimitive];
       if (t !== void 0) {
-        var g = t.call(c, u || "default");
-        if (typeof g != "object")
-          return g;
+        var m = t.call(c, u || "default");
+        if (typeof m != "object")
+          return m;
         throw new TypeError("@@toPrimitive must return a primitive value.");
       }
       return (u === "string" ? String : Number)(c);
@@ -637,8 +638,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       var u = A(c, "string");
       return typeof u == "symbol" ? u : String(u);
     }
-    var O = function(u, t, g) {
-      var n = u.x, h = u.y, y = g.x, _ = g.y, C = {
+    var O = function(u, t, m) {
+      var n = u.x, h = u.y, y = m.x, _ = m.y, C = {
         "+": {
           x: n + y,
           y: h + _
@@ -680,18 +681,18 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     }, be = function(c, u) {
       var t = u;
       window.addEventListener("resize", t), window.addEventListener("scroll", t);
-      var g = new MutationObserver(t);
+      var m = new MutationObserver(t);
       c.forEach(function(h, y) {
-        g.observe(h, {
+        m.observe(h, {
           childList: y !== 0,
           attributes: !0
         });
       });
       var n = function() {
-        return fo(g, t);
+        return fo(m, t);
       };
       return {
-        observer: g,
+        observer: m,
         callback: t,
         cleanup: n
       };
@@ -707,7 +708,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     }, Dt = function(c, u) {
       var t;
       return function() {
-        for (var g = arguments.length, n = new Array(g), h = 0; h < g; h++)
+        for (var m = arguments.length, n = new Array(m), h = 0; h < m; h++)
           n[h] = arguments[h];
         var y = function() {
           t = null, c.apply(void 0, n);
@@ -715,15 +716,15 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         clearTimeout(t), t = setTimeout(y, u);
       };
     }, Yt = function() {
-      var c, u, t, g;
+      var c, u, t, m;
       return {
         y: ((c = document.body) === null || c === void 0 ? void 0 : c.scrollTop) || ((u = document.documentElement) === null || u === void 0 ? void 0 : u.scrollTop) || 0,
-        x: ((t = document.body) === null || t === void 0 ? void 0 : t.scrollLeft) || ((g = document.documentElement) === null || g === void 0 ? void 0 : g.scrollLeft) || 0
+        x: ((t = document.body) === null || t === void 0 ? void 0 : t.scrollLeft) || ((m = document.documentElement) === null || m === void 0 ? void 0 : m.scrollLeft) || 0
       };
     }, Mr = function(c) {
-      var u = function t(g) {
-        var n, h = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0, y = (n = g[h]) === null || n === void 0 ? void 0 : n.parentNode;
-        return y ? (g.push(y), h++, t(g, h)) : g;
+      var u = function t(m) {
+        var n, h = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 0, y = (n = m[h]) === null || n === void 0 ? void 0 : n.parentNode;
+        return y ? (m.push(y), h++, t(m, h)) : m;
       };
       return u([c]);
     }, to = function(c, u) {
@@ -754,8 +755,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         width: Number.NEGATIVE_INFINITY,
         height: Number.NEGATIVE_INFINITY
       };
-      return Ne(c).forEach(function(g) {
-        var n = u.getRect(g);
+      return Ne(c).forEach(function(m) {
+        var n = u.getRect(m);
         t.top = Math.min(t.top, n.top), t.left = Math.min(t.left, n.left), t.bottom = Math.max(t.bottom, n.bottom), t.right = Math.max(t.right, n.right);
       }), t.height = t.bottom - t.top, t.width = t.right - t.left, t;
     }, Ct = function(c) {
@@ -764,10 +765,10 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         y: c.scrollTop >= 0 ? c.scrollTop : Yt().y
       };
     }, $r = function(c) {
-      var u = c.elementRect, t = c.containerRect, g = c.tolerance, n = g === void 0 ? {
+      var u = c.elementRect, t = c.containerRect, m = c.tolerance, n = m === void 0 ? {
         x: 0,
         y: 0
-      } : g, h = [];
+      } : m, h = [];
       return u.top - n.y < t.top && h.push("top"), u.left - n.x < t.left && h.push("left"), u.bottom + n.y > t.bottom && h.push("bottom"), u.right + n.y > t.right && h.push("right"), /** @type {DSEdges} */
       h;
     }, ro = function(c) {
@@ -777,24 +778,24 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         y: u.clientY
       };
     }, so = function(c) {
-      var u = c.scrollAmount, t = c.initialPointerPos, g = c.pointerPos, n = {};
-      return g.x > t.x - u.x ? (n.left = t.x - u.x, n.width = g.x - t.x + u.x) : (n.left = g.x, n.width = t.x - g.x - u.x), g.y > t.y - u.y ? (n.top = t.y - u.y, n.height = g.y - t.y + u.y) : (n.top = g.y, n.height = t.y - g.y - u.y), n;
+      var u = c.scrollAmount, t = c.initialPointerPos, m = c.pointerPos, n = {};
+      return m.x > t.x - u.x ? (n.left = t.x - u.x, n.width = m.x - t.x + u.x) : (n.left = m.x, n.width = t.x - m.x - u.x), m.y > t.y - u.y ? (n.top = t.y - u.y, n.height = m.y - t.y + u.y) : (n.top = m.y, n.height = t.y - m.y - u.y), n;
     }, Tr = function(u) {
       var t = {
         x: 0,
         y: 0
-      }, g = window.getComputedStyle(u);
-      if (!g.transform || g.transform === "none")
+      }, m = window.getComputedStyle(u);
+      if (!m.transform || m.transform === "none")
         return t;
-      if (g.transform.indexOf("3d") >= 0) {
-        var n = g.transform.trim().match(/matrix3d\((.*?)\)/);
+      if (m.transform.indexOf("3d") >= 0) {
+        var n = m.transform.trim().match(/matrix3d\((.*?)\)/);
         if (n && n.length) {
           var h, y = (h = n[1]) === null || h === void 0 ? void 0 : h.split(",");
           t.x = parseInt(y[12]) || 0, t.y = parseInt(y[13]) || 0;
         }
         return t;
       }
-      var _ = g.transform.trim().match(/matrix\((.*?)\)/);
+      var _ = m.transform.trim().match(/matrix\((.*?)\)/);
       if (_ && _.length) {
         var C, B = (C = _[1]) === null || C === void 0 ? void 0 : C.split(",");
         t.x = parseInt(B[4]) || 0, t.y = parseInt(B[5]) || 0;
@@ -804,7 +805,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       var t = u.style.transform;
       if (!t || t.indexOf("translate") < 0)
         return Tr(u);
-      var g = {
+      var m = {
         x: 0,
         y: 0
       }, n = t.trim().match(/translate[3dD]*?\(.*?\)/);
@@ -812,63 +813,63 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         var h, y = (h = n[0]) === null || h === void 0 ? void 0 : h.split("(");
         if (y) {
           var _, C = (_ = y[1]) === null || _ === void 0 ? void 0 : _.split(",");
-          g.x = parseInt(C[0]) || 0, g.y = parseInt(C[1]) || 0;
+          m.x = parseInt(C[0]) || 0, m.y = parseInt(C[1]) || 0;
         }
       }
-      return !g.x && !g.x ? Tr(u) : g;
+      return !m.x && !m.x ? Tr(u) : m;
     }, no = function(u) {
-      var t = u.style, g = {
+      var t = u.style, m = {
         x: parseInt(t.left) || 0,
         y: parseInt(t.top) || 0
       };
-      if (!g.x && !g.x) {
+      if (!m.x && !m.x) {
         var n = window.getComputedStyle(u);
         return {
           x: parseInt(n.left) || 0,
           y: parseInt(n.top) || 0
         };
       }
-      return g;
+      return m;
     }, io = function(c, u) {
       return u ? oo(c) : no(c);
     }, ao = function(c) {
-      var u = c.element, t = c.edges, g = c.elementRect, n = c.containerRect, h = c.elementPos, y = c.useTransform;
+      var u = c.element, t = c.edges, m = c.elementRect, n = c.containerRect, h = c.elementPos, y = c.useTransform;
       t.includes("top") && lt(u, {
-        y: h.y + n.top - g.top,
+        y: h.y + n.top - m.top,
         x: h.x
       }, y), t.includes("left") && lt(u, {
         y: h.y,
-        x: h.x + n.left - g.left
+        x: h.x + n.left - m.left
       }, y), t.includes("bottom") && lt(u, {
-        y: h.y + n.bottom - g.bottom,
+        y: h.y + n.bottom - m.bottom,
         x: h.x
       }, y), t.includes("right") && lt(u, {
         y: h.y,
-        x: h.x + n.right - g.right
+        x: h.x + n.right - m.right
       }, y);
     }, Ir = function(c) {
-      var u = c.computedStyle, t = c.node, g = u.position, n = g === "absolute" || g === "relative" || g === "fixed";
+      var u = c.computedStyle, t = c.node, m = u.position, n = m === "absolute" || m === "relative" || m === "fixed";
       !(t instanceof Document) && !n && (t.style.position = "relative");
     }, lo = function(c) {
-      var u = c.shiftKey, t = c.keyboardDragSpeed, g = c.zoom, n = c.key, h = c.dragKeys, y = c.scrollDiff, _ = c.canScroll, C = c.scrollCallback, B = {
+      var u = c.shiftKey, t = c.keyboardDragSpeed, m = c.zoom, n = c.key, h = c.dragKeys, y = c.scrollDiff, _ = c.canScroll, C = c.scrollCallback, B = {
         x: 0,
         y: 0
-      }, W = u ? t * 4 * g : t * g;
+      }, W = u ? t * 4 * m : t * m;
       return h.left.includes(n) && (B.x = y.x || -W, !u && !y.x && _ && C(["left"], t)), h.right.includes(n) && (B.x = y.x || W, !u && !y.x && _ && C(["right"], t)), h.up.includes(n) && (B.y = y.y || -W, !u && !y.y && _ && C(["top"], t)), h.down.includes(n) && (B.y = y.y || W, !u && !y.y && _ && C(["bottom"], t)), B;
     }, co = function(c) {
-      var u = c.element, t = c.force, g = c.multiSelectionToggle, n = c.SelectedSet, h = c.hoverClassName;
-      u.classList.contains(h) && !t || (n.has(u) ? g && n.delete(u) : n.add(u), u.classList.add(h));
+      var u = c.element, t = c.force, m = c.multiSelectionToggle, n = c.SelectedSet, h = c.hoverClassName;
+      u.classList.contains(h) && !t || (n.has(u) ? m && n.delete(u) : n.add(u), u.classList.add(h));
     }, uo = function(c) {
-      var u = c.element, t = c.force, g = c.SelectedSet, n = c.PrevSelectedSet, h = c.hoverClassName;
+      var u = c.element, t = c.force, m = c.SelectedSet, n = c.PrevSelectedSet, h = c.hoverClassName;
       if (!u.classList.contains(h) && !t)
         return !1;
-      var y = g.has(u), _ = n.has(u);
-      y && !_ ? g.delete(u) : !y && _ && g.add(u), u.classList.remove(h);
-    }, at = function(u, t, g) {
+      var y = m.has(u), _ = n.has(u);
+      y && !_ ? m.delete(u) : !y && _ && m.add(u), u.classList.remove(h);
+    }, at = function(u, t, m) {
       return console.warn('[DragSelect] TypeIssue: setting "'.concat(u, '" is not of type "').concat(t, '".'));
-    }, Y = function(u, t, g, n) {
+    }, Y = function(u, t, m, n) {
       if (t === void 0)
-        return g ? l({}, u, n) : {};
+        return m ? l({}, u, n) : {};
       if (t === null)
         return l({}, u, null);
       var h = !0, y = !1, _ = typeof n == "string";
@@ -881,12 +882,12 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       W && (h = typeof t == "boolean"), W && !h && (y = !0, at(u, "boolean"));
       var ie = Array.isArray(n);
       ie && (h = Array.isArray(t)), ie && !h && (y = !0, at(u, "array"));
-      var xe = y || g;
+      var xe = y || m;
       return u === "dragKeys" && h ? l({}, u, Object.assign(n, t)) : u === "dragKeys" && !h ? xe ? l({}, u, n) : {} : (u === "dropZones" && h && new Set(t.map(function(ke) {
         return ke.id;
       })).size !== t.length && console.warn('[DragSelect] UniqueConstraintsIssue: setting "dropZones" contains duplicate ids.'), h ? l({}, u, t) : xe ? l({}, u, n) : {});
     }, ho = function(c, u) {
-      return a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a({}, Y("area", c.area, u, document)), Y("selectables", c.selectables, u, null)), Y("autoScrollSpeed", c.autoScrollSpeed, u, 5)), Y("overflowTolerance", c.overflowTolerance, u, {
+      return i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i({}, Y("area", c.area, u, document)), Y("selectables", c.selectables, u, null)), Y("autoScrollSpeed", c.autoScrollSpeed, u, 5)), Y("overflowTolerance", c.overflowTolerance, u, {
         x: 25,
         y: 25
       })), Y("zoom", c.zoom, u, 1)), Y("customStyles", c.customStyles, u, !1)), Y("multiSelectMode", c.multiSelectMode, u, !1)), Y("multiSelectToggling", c.multiSelectToggling, u, !0)), Y("multiSelectKeys", c.multiSelectKeys, u, ["Control", "Shift", "Meta"])), Y("selector", c.selector, u, null)), Y("selectionThreshold", c.selectionThreshold, u, 0)), Y("draggability", c.draggability, u, !0)), Y("immediateDrag", c.immediateDrag, u, !0)), Y("keyboardDrag", c.keyboardDrag, u, !0)), Y("dragKeys", c.dragKeys, u, {
@@ -896,32 +897,32 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         right: ["ArrowRight"]
       })), Y("keyboardDragSpeed", c.keyboardDragSpeed, u, 10)), Y("useTransform", c.useTransform, u, !0)), Y("refreshMemoryRate", c.refreshMemoryRate, u, 80)), Y("dropZones", c.dropZones, u, [])), Y("dropInsideThreshold", c.dropInsideThreshold, u, 1)), Y("dropTargetThreshold", c.dropTargetThreshold, u, 0)), Y("usePointerEvents", c.usePointerEvents, u, !1)), Y("hoverClass", c.hoverClass, u, "ds-hover")), Y("selectableClass", c.selectableClass, u, "ds-selectable")), Y("selectedClass", c.selectedClass, u, "ds-selected")), Y("selectorClass", c.selectorClass, u, "ds-selector")), Y("selectorAreaClass", c.selectorAreaClass, u, "ds-selector-area")), Y("droppedTargetClass", c.droppedTargetClass, u, "ds-dropped-target")), Y("droppedInsideClass", c.droppedInsideClass, u, "ds-dropped-inside")), Y("droppableClass", c.droppableClass, u, "ds-droppable")), Y("dropZoneClass", c.dropZoneClass, u, "ds-dropzone")), Y("dropZoneReadyClass", c.dropZoneReadyClass, u, "ds-dropzone-ready")), Y("dropZoneTargetClass", c.dropZoneTargetClass, u, "ds-dropzone-target")), Y("dropZoneInsideClass", c.dropZoneInsideClass, u, "ds-dropzone-inside")), Y("dragAsBlock", c.dragAsBlock, u, !1));
     }, Ge = function(c, u) {
-      var t = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : 0, g = c;
+      var t = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : 0, m = c;
       if (t > 0) {
         var n = (c.right - c.left) * t, h = (c.bottom - c.top) * t;
-        g = {
+        m = {
           left: c.left + n,
           right: c.right - n,
           top: c.top + h,
           bottom: c.bottom - h
         };
       }
-      return g.left < u.right && // 1.
-      g.right > u.left && // 2.
-      g.top < u.bottom && // 3.
-      g.bottom > u.top;
+      return m.left < u.right && // 1.
+      m.right > u.left && // 2.
+      m.top < u.bottom && // 3.
+      m.bottom > u.top;
     }, Ar = function(c) {
-      var u = c.element, t = c.posDirection, g = c.containerRect, n = c.useTransform, h = io(u, n), y = O(h, "+", t);
+      var u = c.element, t = c.posDirection, m = c.containerRect, n = c.useTransform, h = io(u, n), y = O(h, "+", t);
       lt(u, y, n);
       var _ = u.getBoundingClientRect(), C = $r({
         elementRect: _,
-        containerRect: g
+        containerRect: m
       });
       ao({
         element: u,
         edges: C,
         elementRect: _,
-        containerRect: g,
+        containerRect: m,
         elementPos: y,
         useTransform: n
       });
@@ -929,18 +930,18 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       window.removeEventListener("resize", u), window.removeEventListener("scroll", u), c.disconnect();
     }, po = function(c, u, t) {
       if (u.length) {
-        var g = document && document.documentElement && document.documentElement.scrollTop && document.documentElement, n = c instanceof Document ? g || document.body : c, h = u.includes("top") && n.scrollTop > 0, y = u.includes("bottom") && n.scrollTop < n.scrollHeight, _ = u.includes("left") && n.scrollLeft > 0, C = u.includes("right") && n.scrollLeft < n.scrollWidth;
+        var m = document && document.documentElement && document.documentElement.scrollTop && document.documentElement, n = c instanceof Document ? m || document.body : c, h = u.includes("top") && n.scrollTop > 0, y = u.includes("bottom") && n.scrollTop < n.scrollHeight, _ = u.includes("left") && n.scrollLeft > 0, C = u.includes("right") && n.scrollLeft < n.scrollWidth;
         h && (n.scrollTop -= 1 * t), y && (n.scrollTop += 1 * t), _ && (n.scrollLeft -= 1 * t), C && (n.scrollLeft += 1 * t);
       }
     }, lt = function(c, u, t) {
       if (t) {
-        var g = c.style.transform;
-        c.style.transform = "translate3d(".concat(u.x, "px,").concat(u.y, "px,1px) ").concat(g.replace(/translate.*?\)/g, ""));
+        var m = c.style.transform;
+        c.style.transform = "translate3d(".concat(u.x, "px,").concat(u.y, "px,1px) ").concat(m.replace(/translate.*?\)/g, ""));
       } else
         c.style.left = "".concat(u.x, "px"), c.style.top = "".concat(u.y, "px");
       return c;
     }, go = function(c) {
-      for (var u = c.subscribe, t = c.publish, g = c.Interaction, n = c.SelectedSet, h = c.DropZones, y = {
+      for (var u = c.subscribe, t = c.publish, m = c.Interaction, n = c.SelectedSet, h = c.DropZones, y = {
         "Selected:added": [{
           name: "elementselect"
         }],
@@ -970,7 +971,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             name: "callback",
             extraData: function() {
               var ie = h.getTarget();
-              return a({}, ie ? {
+              return i({}, ie ? {
                 dropTarget: ie.toObject()
               } : {});
             }
@@ -981,9 +982,9 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         ["pre", !1].forEach(function(Ee) {
           return u(Ee ? "".concat(xe, ":").concat(Ee) : xe, function(ne) {
             return ke.forEach(function(me) {
-              return (!me.condition || me.condition(ne)) && t(Ee ? "".concat(Ee).concat(me.name) : me.name, a(a({
+              return (!me.condition || me.condition(ne)) && t(Ee ? "".concat(Ee).concat(me.name) : me.name, i(i({
                 items: n.elements,
-                isDragging: g.isDragging
+                isDragging: m.isDragging
               }, ne), me.extraData ? me.extraData(ne) : {}));
             });
           });
@@ -996,8 +997,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       c.style.left = "".concat(u.left, "px"), c.style.top = "".concat(u.top, "px"), c.style.width = "".concat(u.width, "px"), c.style.height = "".concat(u.height, "px");
     }, mo = /* @__PURE__ */ function() {
       function c(u) {
-        var t = this, g = u.DS;
-        i(this, c), l(this, "DS", void 0), l(this, "_observers", void 0), l(this, "_node", void 0), l(this, "_parentNodes", void 0), l(this, "_computedStyle", void 0), l(this, "_computedBorder", void 0), l(this, "_rect", void 0), l(this, "setArea", function(n) {
+        var t = this, m = u.DS;
+        a(this, c), l(this, "DS", void 0), l(this, "_observers", void 0), l(this, "_node", void 0), l(this, "_parentNodes", void 0), l(this, "_computedStyle", void 0), l(this, "_computedBorder", void 0), l(this, "_rect", void 0), l(this, "setArea", function(n) {
           t.reset(), t._node = n, Ir({
             computedStyle: t.computedStyle,
             node: t._node
@@ -1028,12 +1029,12 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             scroll_multiplier: h
           };
           t.DS.PubSub.publish("Area:scroll:pre", y), po(t._node, n, h), t.DS.PubSub.publish("Area:scroll", y);
-        }), this.DS = g, this.setArea(this.DS.stores.SettingsStore.s.area), this.DS.PubSub.subscribe("Settings:updated:area", function(n) {
+        }), this.DS = m, this.setArea(this.DS.stores.SettingsStore.s.area), this.DS.PubSub.subscribe("Settings:updated:area", function(n) {
           var h = n.settings;
           t.setArea(h.area);
         }), this.DS.PubSub.subscribe("Interaction:init", this.start), this.DS.PubSub.subscribe("Interaction:end", this.reset);
       }
-      return m(c, [{
+      return g(c, [{
         key: "HTMLNode",
         get: (
           /// ///////////////////////////////////////////////////////////////////////////////////
@@ -1085,8 +1086,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       }]), c;
     }(), vo = /* @__PURE__ */ function() {
       function c(u) {
-        var t = this, g = u.DS;
-        i(this, c), l(this, "_prevCursorPos", void 0), l(this, "_prevScrollPos", void 0), l(this, "_elements", []), l(this, "_dragKeys", void 0), l(this, "_dragKeysFlat", []), l(this, "_selectionRect", void 0), l(this, "assignDragkeys", function() {
+        var t = this, m = u.DS;
+        a(this, c), l(this, "_prevCursorPos", void 0), l(this, "_prevScrollPos", void 0), l(this, "_elements", []), l(this, "_dragKeys", void 0), l(this, "_dragKeysFlat", []), l(this, "_selectionRect", void 0), l(this, "assignDragkeys", function() {
           t._dragKeys = {
             up: t.DS.stores.SettingsStore.s.dragKeys.up.map(function(n) {
               return n.toLowerCase();
@@ -1169,31 +1170,31 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           t._elements.forEach(function(h) {
             return h.style.zIndex = "".concat((parseInt(h.style.zIndex) || 0) + n ? 9999 : -9998);
           });
-        }), this.DS = g, this.DS.subscribe("Settings:updated:dragKeys", this.assignDragkeys), this.assignDragkeys(), this.DS.subscribe("Interaction:start", this.start), this.DS.subscribe("Interaction:end", this.stop), this.DS.subscribe("Interaction:update", this.update), this.DS.subscribe("KeyStore:down", this.keyboardDrag), this.DS.subscribe("KeyStore:up", this.keyboardEnd);
+        }), this.DS = m, this.DS.subscribe("Settings:updated:dragKeys", this.assignDragkeys), this.assignDragkeys(), this.DS.subscribe("Interaction:start", this.start), this.DS.subscribe("Interaction:end", this.stop), this.DS.subscribe("Interaction:update", this.update), this.DS.subscribe("KeyStore:down", this.keyboardDrag), this.DS.subscribe("KeyStore:up", this.keyboardEnd);
       }
-      return m(c, [{
+      return g(c, [{
         key: "_cursorDiff",
         get: function() {
-          var t = this.DS.stores.PointerStore.currentVal, g = this._prevCursorPos ? O(t, "-", this._prevCursorPos) : {
+          var t = this.DS.stores.PointerStore.currentVal, m = this._prevCursorPos ? O(t, "-", this._prevCursorPos) : {
             x: 0,
             y: 0
           };
-          return this._prevCursorPos = t, g;
+          return this._prevCursorPos = t, m;
         }
       }, {
         key: "_scrollDiff",
         get: function() {
-          var t = this.DS.stores.ScrollStore.currentVal, g = this._prevScrollPos ? O(t, "-", this._prevScrollPos) : {
+          var t = this.DS.stores.ScrollStore.currentVal, m = this._prevScrollPos ? O(t, "-", this._prevScrollPos) : {
             x: 0,
             y: 0
           };
-          return this._prevScrollPos = t, g;
+          return this._prevScrollPos = t, m;
         }
       }]), c;
     }(), bo = /* @__PURE__ */ function() {
       function c(u) {
-        var t = this, g = u.DS, n = u.id, h = u.element, y = u.droppables;
-        i(this, c), l(this, "id", void 0), l(this, "element", void 0), l(this, "_droppables", void 0), l(this, "_rect", void 0), l(this, "_observers", void 0), l(this, "_timeout", void 0), l(this, "_itemsDropped", []), l(this, "_itemsInside", void 0), l(this, "setReadyClasses", function(_) {
+        var t = this, m = u.DS, n = u.id, h = u.element, y = u.droppables;
+        a(this, c), l(this, "id", void 0), l(this, "element", void 0), l(this, "_droppables", void 0), l(this, "_rect", void 0), l(this, "_observers", void 0), l(this, "_timeout", void 0), l(this, "_itemsDropped", []), l(this, "_itemsInside", void 0), l(this, "setReadyClasses", function(_) {
           if (!t.isDestroyed) {
             var C = t.droppables.filter(function(B) {
               return t.DS.SelectedSet.has(B);
@@ -1235,19 +1236,19 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             itemsDropped: t.itemsDropped,
             itemsInside: t.itemsInside
           };
-        }), this.DS = g, this.Settings = g.stores.SettingsStore.s, this.id = n, this.element = h, y && (this.droppables = Ne(y)), this.element.classList.add("".concat(this.Settings.dropZoneClass)), this.DS.subscribe("Settings:updated:dropZoneClass", function(_) {
+        }), this.DS = m, this.Settings = m.stores.SettingsStore.s, this.id = n, this.element = h, y && (this.droppables = Ne(y)), this.element.classList.add("".concat(this.Settings.dropZoneClass)), this.DS.subscribe("Settings:updated:dropZoneClass", function(_) {
           var C = _.settings;
           t.element && (t.element.classList.remove(C["dropZoneClass:pre"]), t.element.classList.add(C.dropZoneClass));
         }), this._observers = be(this.parentNodes, Dt(function() {
           return t._rect = null;
         }, this.Settings.refreshMemoryRate)), this.DS.subscribe("Interaction:start", this.start), this.DS.subscribe("Interaction:end", this.stop);
       }
-      return m(c, [{
+      return g(c, [{
         key: "destroy",
         value: function() {
           var t = this;
-          this._observers.cleanup(), this.element.classList.remove("".concat(this.Settings.dropZoneClass)), this.element.classList.remove("".concat(this.Settings.dropZoneTargetClass)), this.element.classList.remove("".concat(this.Settings.dropZoneReadyClass)), this.droppables.forEach(function(g) {
-            g.classList.remove("".concat(t.Settings.droppedTargetClass)), g.classList.remove("".concat(t.Settings.droppedTargetClass, "-").concat(t.id)), g.classList.remove("".concat(t.Settings.droppableClass)), g.classList.remove("".concat(t.Settings.droppableClass, "-").concat(t.id));
+          this._observers.cleanup(), this.element.classList.remove("".concat(this.Settings.dropZoneClass)), this.element.classList.remove("".concat(this.Settings.dropZoneTargetClass)), this.element.classList.remove("".concat(this.Settings.dropZoneReadyClass)), this.droppables.forEach(function(m) {
+            m.classList.remove("".concat(t.Settings.droppedTargetClass)), m.classList.remove("".concat(t.Settings.droppedTargetClass, "-").concat(t.id)), m.classList.remove("".concat(t.Settings.droppableClass)), m.classList.remove("".concat(t.Settings.droppableClass, "-").concat(t.id));
           }), this.DS.unsubscribe("Interaction:start", this.start), this.DS.unsubscribe("Interaction:end", this.stop), this.element = null, this.droppables = null, this.id = null, this._itemsDropped = null, this._itemsInside = null, this.isDestroyed = !0;
         }
         /**
@@ -1267,8 +1268,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         key: "itemsInside",
         get: function() {
           var t = this;
-          return this.isDestroyed ? null : this._itemsInside ? this._itemsInside : (this._itemsInside = this.droppables.flatMap(function(g) {
-            return Ge(t.DS.SelectableSet.rects.get(g), t.rect, t.Settings.dropInsideThreshold) ? [g] : [];
+          return this.isDestroyed ? null : this._itemsInside ? this._itemsInside : (this._itemsInside = this.droppables.flatMap(function(m) {
+            return Ge(t.DS.SelectableSet.rects.get(m), t.rect, t.Settings.dropInsideThreshold) ? [m] : [];
           }), this._timeout && clearTimeout(this._timeout), this._timeout = setTimeout(function() {
             return t._itemsInside = null;
           }, this.Settings.refreshMemoryRate), this._itemsInside);
@@ -1287,7 +1288,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           this._droppables = t;
         }
       }]), c;
-    }(), yo = /* @__PURE__ */ m(
+    }(), yo = /* @__PURE__ */ g(
       /**
        * Get the drop zone by the zone element
        * @type {Map<DSElement, DropZone>}
@@ -1314,13 +1315,13 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
        * @ignore
        */
       function c(u) {
-        var t = this, g = u.DS;
-        i(this, c), l(this, "_zoneByElement", /* @__PURE__ */ new Map()), l(this, "_zoneById", /* @__PURE__ */ new Map()), l(this, "_zonesByDroppable", /* @__PURE__ */ new Map()), l(this, "_zones", void 0), l(this, "setDropZones", function(n) {
+        var t = this, m = u.DS;
+        a(this, c), l(this, "_zoneByElement", /* @__PURE__ */ new Map()), l(this, "_zoneById", /* @__PURE__ */ new Map()), l(this, "_zonesByDroppable", /* @__PURE__ */ new Map()), l(this, "_zones", void 0), l(this, "setDropZones", function(n) {
           var h = n.dropZones;
           h && (t._zones && t._zones.forEach(function(y) {
             return y.destroy();
           }), t._zones = h.map(function(y) {
-            return new bo(a({
+            return new bo(i({
               DS: t.DS
             }, y));
           }), t._zones.forEach(function(y) {
@@ -1374,7 +1375,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
               }
             );
           }
-        }), this.DS = g, this.Settings = g.stores.SettingsStore.s, this.DS.subscribe("Settings:updated:dropZones", function(n) {
+        }), this.DS = m, this.Settings = m.stores.SettingsStore.s, this.DS.subscribe("Settings:updated:dropZones", function(n) {
           var h = n.settings;
           return t.setDropZones(h);
         }), this.setDropZones({
@@ -1390,8 +1391,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
        */
     ), So = /* @__PURE__ */ function() {
       function c(u) {
-        var t = this, g = u.DS;
-        i(this, c), l(this, "isInteracting", void 0), l(this, "isDragging", void 0), l(this, "init", function() {
+        var t = this, m = u.DS;
+        a(this, c), l(this, "isInteracting", void 0), l(this, "isDragging", void 0), l(this, "init", function() {
           return t.DS.publish("Interaction:init:pre", {});
         }), l(this, "_init", function() {
           t.stop(), t.Settings.usePointerEvents ? t.DS.Area.HTMLNode.addEventListener("pointerdown", t.start, {
@@ -1460,7 +1461,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             event: n,
             isDragging: h
           });
-        }), this.DS = g, this.Settings = g.stores.SettingsStore.s, this.DS.subscribe("Settings:updated:area", function(n) {
+        }), this.DS = m, this.Settings = m.stores.SettingsStore.s, this.DS.subscribe("Settings:updated:area", function(n) {
           var h = n.settings;
           t.stop(h["area:pre"]), t.init();
         }), this.DS.subscribe("PointerStore:updated", this.update), this.DS.subscribe("Selectable:click", this.onClick), this.DS.subscribe("Selectable:pointer", function(n) {
@@ -1474,14 +1475,14 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           return t._reset(h);
         }), this.DS.subscribe("Area:scroll", this.update);
       }
-      return m(c, [{
+      return g(c, [{
         key: "_canInteract",
         value: (
           /**
            * @param {DSEvent} event
            */
           function(t) {
-            var g = (
+            var m = (
               /** @type {MouseEvent} */
               t.clientX === 0 && /** @type {MouseEvent} */
               t.clientY === 0 && /** @type {MouseEvent} */
@@ -1495,7 +1496,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
                 /** @type {DSElement} */
                 t.target
               ) || // fix outside elements issue
-              !g && !this.DS.SelectorArea.isClicked(t))
+              !m && !this.DS.SelectorArea.isClicked(t))
             );
           }
         )
@@ -1503,10 +1504,10 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
          * @param {DSEvent} event
          */
       }]), c;
-    }(), wo = /* @__PURE__ */ m(
+    }(), wo = /* @__PURE__ */ g(
       function c(u) {
-        var t = this, g = u.DS;
-        i(this, c), l(this, "subscribers", {}), l(this, "subscribe", function(n, h) {
+        var t = this, m = u.DS;
+        a(this, c), l(this, "subscribers", {}), l(this, "subscribe", function(n, h) {
           return Array.isArray(t.subscribers[n]) || (t.subscribers[n] = []), t.subscribers[n].push(h), t.subscribers[n].length - 1;
         }), l(this, "unsubscribe", function(n, h, y) {
           y >= 0 ? t.subscribers[n].splice(y, 1) : h && (t.subscribers[n] = t.subscribers[n].filter(function(_) {
@@ -1531,7 +1532,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
               return;
             n[y](h);
           }
-        }), this.DS = g;
+        }), this.DS = m;
       }
       /**
        * Subscribe to an event
@@ -1544,9 +1545,9 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     ), _o = /* @__PURE__ */ function(c) {
       v(t, c);
       var u = V(t);
-      function t(g) {
-        var n, h = g.DS;
-        return i(this, t), n = u.call(this), l(T(n), "_rects", void 0), l(T(n), "_timeout", void 0), l(T(n), "init", function() {
+      function t(m) {
+        var n, h = m.DS;
+        return a(this, t), n = u.call(this), l(T(n), "_rects", void 0), l(T(n), "_timeout", void 0), l(T(n), "init", function() {
           return Ne(n.Settings.selectables).forEach(function(y) {
             return n.add(y);
           });
@@ -1581,7 +1582,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           });
         }), n;
       }
-      return m(t, [{
+      return g(t, [{
         key: "add",
         value: (
           /** 
@@ -1647,9 +1648,9 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     }(/* @__PURE__ */ I(Set)), xo = /* @__PURE__ */ function(c) {
       v(t, c);
       var u = V(t);
-      function t(g) {
-        var n, h = g.DS;
-        return i(this, t), n = u.call(this), l(T(n), "clear", function() {
+      function t(m) {
+        var n, h = m.DS;
+        return a(this, t), n = u.call(this), l(T(n), "clear", function() {
           return n.forEach(function(y) {
             return n.delete(y);
           });
@@ -1663,7 +1664,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           });
         }), n.DS = h, n;
       }
-      return m(t, [{
+      return g(t, [{
         key: "add",
         value: function(n) {
           if (z(p(t.prototype), "has", this).call(this, n))
@@ -1712,8 +1713,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       }]), t;
     }(/* @__PURE__ */ I(Set)), ko = /* @__PURE__ */ function() {
       function c(u) {
-        var t = this, g = u.DS;
-        i(this, c), l(this, "_prevSelectedSet", void 0), l(this, "start", function(n) {
+        var t = this, m = u.DS;
+        a(this, c), l(this, "_prevSelectedSet", void 0), l(this, "start", function(n) {
           var h = n.event, y = n.isDragging;
           y || (t._storePrevious(h), t._handleInsideSelection(!0, h));
         }), l(this, "update", function(n) {
@@ -1761,20 +1762,20 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             select: h,
             unselect: y
           };
-        }), this.DS = g, this.Settings = this.DS.stores.SettingsStore.s, this.DS.subscribe("Interaction:start", this.start), this.DS.subscribe("Interaction:update", this.update);
+        }), this.DS = m, this.Settings = this.DS.stores.SettingsStore.s, this.DS.subscribe("Interaction:start", this.start), this.DS.subscribe("Interaction:update", this.update);
       }
-      return m(c, [{
+      return g(c, [{
         key: "_storePrevious",
         value: function(t) {
-          var g = this.DS, n = g.stores.KeyStore, h = g.SelectedSet;
+          var m = this.DS, n = m.stores.KeyStore, h = m.SelectedSet;
           n.isMultiSelectKeyPressed(t) ? this._prevSelectedSet = new Set(h) : this._prevSelectedSet = /* @__PURE__ */ new Set();
         }
         /** @param {{event:DSEvent,isDragging:boolean}} event */
       }]), c;
     }(), Do = /* @__PURE__ */ function() {
       function c(u) {
-        var t = this, g = u.DS;
-        i(this, c), l(this, "_rect", void 0), l(this, "attachSelector", function() {
+        var t = this, m = u.DS;
+        a(this, c), l(this, "_rect", void 0), l(this, "attachSelector", function() {
           var n, h;
           t.HTMLNode && (n = t.DS.SelectorArea) !== null && n !== void 0 && n.HTMLNode && t.DS.SelectorArea.HTMLNode.removeChild(t.HTMLNode), t.HTMLNode = t.DS.stores.SettingsStore.s.selector || Kt(t.DS.stores.SettingsStore.s.customStyles), t.HTMLNode.classList.add(t.DS.stores.SettingsStore.s.selectorClass), t.HTMLNode && (h = t.DS.SelectorArea) !== null && h !== void 0 && h.HTMLNode && t.DS.SelectorArea.HTMLNode.appendChild(t.HTMLNode);
         }), l(this, "start", function(n) {
@@ -1795,12 +1796,12 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             });
             Lr(t.HTMLNode, B), t._rect = null;
           }
-        }), this.DS = g, this.DS.subscribe("Settings:updated:selectorClass", function(n) {
+        }), this.DS = m, this.DS.subscribe("Settings:updated:selectorClass", function(n) {
           var h = n.settings;
           t.HTMLNode.classList.remove(h["selectorClass:pre"]), t.HTMLNode.classList.add(h.selectorClass);
         }), this.DS.subscribe("Settings:updated:selector", this.attachSelector), this.DS.subscribe("Settings:updated:customStyles", this.attachSelector), this.attachSelector(), this.DS.subscribe("Interaction:start", this.start), this.DS.subscribe("Interaction:update", this.update), this.DS.subscribe("Interaction:end", this.stop);
       }
-      return m(c, [{
+      return g(c, [{
         key: "rect",
         get: function() {
           return this._rect ? this._rect : this._rect = this.HTMLNode.getBoundingClientRect();
@@ -1808,8 +1809,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       }]), c;
     }(), Co = /* @__PURE__ */ function() {
       function c(u) {
-        var t = this, g = u.DS;
-        i(this, c), l(this, "_scrollInterval", void 0), l(this, "_rect", void 0), l(this, "currentEdges", []), l(this, "start", function() {
+        var t = this, m = u.DS;
+        a(this, c), l(this, "_scrollInterval", void 0), l(this, "_rect", void 0), l(this, "currentEdges", []), l(this, "start", function() {
           t.applyElements("append"), t.updatePos();
         }), l(this, "applyElements", function() {
           var n = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "append", h = document.body ? "body" : "documentElement", y = "".concat(n, "Child");
@@ -1837,14 +1838,14 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           t.currentEdges = [], clearInterval(t._scrollInterval);
         }), l(this, "isInside", function(n, h) {
           return t.DS.Area.HTMLNode.contains(n) && t.DS.stores.ScrollStore.canScroll ? !0 : Ge(t.rect, h || n.getBoundingClientRect());
-        }), this.DS = g, this.HTMLNode = kt(), this.DS.subscribe("Settings:updated:selectorAreaClass", function(n) {
+        }), this.DS = m, this.HTMLNode = kt(), this.DS.subscribe("Settings:updated:selectorAreaClass", function(n) {
           var h = n.settings;
           t.HTMLNode.classList.remove(h["selectorAreaClass:pre"]), t.HTMLNode.classList.add(h.selectorAreaClass);
         }), this.HTMLNode.classList.add(this.DS.stores.SettingsStore.s.selectorAreaClass), this.DS.subscribe("Area:modified", this.updatePos), this.DS.subscribe("Area:modified", this.updatePos), this.DS.subscribe("Interaction:init", this.start), this.DS.subscribe("Interaction:start", this.startAutoScroll), this.DS.subscribe("Interaction:end", function() {
           t.updatePos(), t.stopAutoScroll();
         });
       }
-      return m(c, [{
+      return g(c, [{
         key: "isClicked",
         value: (
           /**
@@ -1853,7 +1854,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
            * @returns {boolean}
            */
           function(t) {
-            var g = this.DS.stores.PointerStore, n = t ? g.getPointerPosition(t) : g.initialVal;
+            var m = this.DS.stores.PointerStore, n = t ? m.getPointerPosition(t) : m.initialVal;
             return Ge({
               left: n.x,
               top: n.y,
@@ -1870,8 +1871,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       }]), c;
     }(), Mo = /* @__PURE__ */ function() {
       function c(u) {
-        var t = this, g = u.DS;
-        i(this, c), l(this, "_currentValues", /* @__PURE__ */ new Set()), l(this, "_keyMapping", {
+        var t = this, m = u.DS;
+        a(this, c), l(this, "_currentValues", /* @__PURE__ */ new Set()), l(this, "_keyMapping", {
           control: "ctrlKey",
           shift: "shiftKey",
           meta: "metaKey"
@@ -1899,14 +1900,14 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           document.removeEventListener("keydown", t.keydown), document.removeEventListener("keyup", t.reset), window.removeEventListener("blur", t.reset), t.reset();
         }), l(this, "reset", function() {
           return t._currentValues.clear();
-        }), this.DS = g, this.DS.subscribe("Interaction:init", this.init);
+        }), this.DS = m, this.DS.subscribe("Interaction:init", this.init);
       }
-      return m(c, [{
+      return g(c, [{
         key: "isMultiSelectKeyPressed",
         value: (
           /** @param {KeyboardEvent|MouseEvent|PointerEvent|TouchEvent} [event] */
           function(t) {
-            var g = this;
+            var m = this;
             if (this.DS.stores.SettingsStore.s.multiSelectMode)
               return !0;
             var n = this.DS.stores.SettingsStore.s.multiSelectKeys.map(function(h) {
@@ -1915,7 +1916,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             return !!(this.currentValues.some(function(h) {
               return n.includes(h.toLocaleLowerCase());
             }) || t && n.some(function(h) {
-              return t[g._keyMapping[h]];
+              return t[m._keyMapping[h]];
             }));
           }
         )
@@ -1927,8 +1928,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       }]), c;
     }(), Eo = /* @__PURE__ */ function() {
       function c(u) {
-        var t = this, g = u.DS;
-        i(this, c), l(this, "_isMouseInteraction", !1), l(this, "_initialValArea", void 0), l(this, "_currentValArea", void 0), l(this, "_lastValArea", void 0), l(this, "_initialVal", void 0), l(this, "_currentVal", void 0), l(this, "_lastVal", void 0), l(this, "_lastTouch", void 0), l(this, "init", function() {
+        var t = this, m = u.DS;
+        a(this, c), l(this, "_isMouseInteraction", !1), l(this, "_initialValArea", void 0), l(this, "_currentValArea", void 0), l(this, "_lastValArea", void 0), l(this, "_initialVal", void 0), l(this, "_currentVal", void 0), l(this, "_lastVal", void 0), l(this, "_lastTouch", void 0), l(this, "init", function() {
           t.Settings.usePointerEvents ? document.addEventListener("pointermove", t.update, {
             // @ts-ignore
             passive: !1
@@ -1958,7 +1959,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           }, 100);
         }), l(this, "reset", function(n) {
           n && (t.currentVal = t.lastVal = t.getPointerPosition(n), t.stop(), t.init());
-        }), this.DS = g, this.Settings = g.stores.SettingsStore.s, this.DS.subscribe("Interaction:init", this.init), this.DS.subscribe("Interaction:start", function(n) {
+        }), this.DS = m, this.Settings = m.stores.SettingsStore.s, this.DS.subscribe("Interaction:init", this.init), this.DS.subscribe("Interaction:start", function(n) {
           var h = n.event;
           return t.start(h);
         }), this.DS.subscribe("Interaction:end", function(n) {
@@ -1966,7 +1967,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           return t.reset(h);
         });
       }
-      return m(c, [{
+      return g(c, [{
         key: "start",
         value: (
           /** @param {DSEvent} [event] */
@@ -2051,8 +2052,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       }]), c;
     }(), $o = /* @__PURE__ */ function() {
       function c(u) {
-        var t = this, g = u.DS;
-        i(this, c), l(this, "_initialVal", void 0), l(this, "_currentVal", void 0), l(this, "_canScroll", void 0), l(this, "init", function() {
+        var t = this, m = u.DS;
+        a(this, c), l(this, "_initialVal", void 0), l(this, "_currentVal", void 0), l(this, "_canScroll", void 0), l(this, "init", function() {
           return t.DS.stores.SettingsStore.s.area.addEventListener("scroll", t.update);
         }), l(this, "start", function() {
           t._currentVal = t._initialVal = Ct(t.DS.stores.SettingsStore.s.area), t.DS.stores.SettingsStore.s.area.addEventListener("scroll", t.update);
@@ -2065,13 +2066,13 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           }, t._canScroll = null;
         }), l(this, "reset", function() {
           t.stop(), t.start();
-        }), this.DS = g, this.DS.subscribe("Interaction:init", this.init), this.DS.subscribe("Interaction:start", function() {
+        }), this.DS = m, this.DS.subscribe("Interaction:init", this.init), this.DS.subscribe("Interaction:start", function() {
           return t.start();
         }), this.DS.subscribe("Interaction:end", function() {
           return t.reset();
         });
       }
-      return m(c, [{
+      return g(c, [{
         key: "canScroll",
         get: function() {
           return typeof this._canScroll == "boolean" ? this._canScroll : this._canScroll = xt(this.DS.stores.SettingsStore.s.area);
@@ -2079,7 +2080,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       }, {
         key: "scrollAmount",
         get: function() {
-          var t = O(this.currentVal, "-", this.initialVal), g = _e(this.DS.stores.SettingsStore.s.zoom), n = O(O(t, "*", g), "-", t);
+          var t = O(this.currentVal, "-", this.initialVal), m = _e(this.DS.stores.SettingsStore.s.zoom), n = O(O(t, "*", m), "-", t);
           return {
             x: t.x + n.x,
             y: t.y + n.y
@@ -2099,7 +2100,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           return this._currentVal || (this._currentVal = Ct(this.DS.stores.SettingsStore.s.area)), this._currentVal;
         }
       }]), c;
-    }(), To = /* @__PURE__ */ m(
+    }(), To = /* @__PURE__ */ g(
       /**
        * @type {Settings}
        * @private
@@ -2119,10 +2120,10 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
        * @ignore
        */
       function c(u) {
-        var t = this, g = u.DS, n = u.settings;
-        i(this, c), l(this, "_settings", {}), l(this, "s", {}), l(this, "update", function(h) {
+        var t = this, m = u.DS, n = u.settings;
+        a(this, c), l(this, "_settings", {}), l(this, "s", {}), l(this, "update", function(h) {
           var y = h.settings, _ = h.init;
-          return t.DS.publish("Settings:updated:pre", a({
+          return t.DS.publish("Settings:updated:pre", i({
             settings: y
           }, _ ? {
             init: _
@@ -2146,7 +2147,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             t.DS.publish("Settings:updated", ct), t.DS.publish("Settings:updated:".concat(ne), ct);
           }, W = 0, ie = Object.entries(C); W < ie.length; W++)
             B();
-        }), this.DS = g, this.DS.subscribe("Settings:updated:pre", this._update), this.update({
+        }), this.DS = m, this.DS.subscribe("Settings:updated:pre", this._update), this.update({
           settings: n,
           init: !0
         });
@@ -2155,13 +2156,13 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     ), Or = /* @__PURE__ */ function() {
       function c(u) {
         var t = this;
-        i(this, c), l(this, "continue", !1), l(this, "start", function() {
+        a(this, c), l(this, "continue", !1), l(this, "start", function() {
           t.stopped = !1, t.Interaction.init();
         }), l(this, "break", function() {
           return t.continue = !0;
-        }), l(this, "setSettings", function(g) {
+        }), l(this, "setSettings", function(m) {
           return t.stores.SettingsStore.update({
-            settings: g
+            settings: m
           });
         }), l(this, "getSelection", function() {
           return t.SelectedSet.elements;
@@ -2179,17 +2180,17 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           return t.stores.PointerStore.currentValArea;
         }), l(this, "getPreviousCursorPositionArea", function() {
           return t.stores.PointerStore.lastValArea;
-        }), l(this, "isMultiSelect", function(g) {
-          return t.stores.KeyStore.isMultiSelectKeyPressed(g);
+        }), l(this, "isMultiSelect", function(m) {
+          return t.stores.KeyStore.isMultiSelectKeyPressed(m);
         }), l(this, "isDragging", function() {
           return t.Interaction.isDragging;
-        }), l(this, "getZoneByCoordinates", function(g) {
+        }), l(this, "getZoneByCoordinates", function(m) {
           var n;
-          return (n = t.DropZones.getTarget(g)) === null || n === void 0 ? void 0 : n.toObject();
-        }), l(this, "getItemsDroppedByZoneId", function(g) {
-          return t.DropZones.getItemsDroppedById(g);
-        }), l(this, "getItemsInsideByZoneId", function(g, n) {
-          return t.DropZones.getItemsInsideById(g, n);
+          return (n = t.DropZones.getTarget(m)) === null || n === void 0 ? void 0 : n.toObject();
+        }), l(this, "getItemsDroppedByZoneId", function(m) {
+          return t.DropZones.getItemsDroppedById(m);
+        }), l(this, "getItemsInsideByZoneId", function(m, n) {
+          return t.DropZones.getItemsInsideById(m, n);
         }), this.PubSub = new wo({
           DS: this
         }), this.subscribe = this.PubSub.subscribe, this.unsubscribe = this.PubSub.unsubscribe, this.publish = this.PubSub.publish, this.stores = /** @type {{ SettingsStore:SettingsStore, PointerStore:PointerStore, ScrollStore:ScrollStore, KeyStore:KeyStore }} */
@@ -2230,7 +2231,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
           return t.continue = !1;
         }), this.start();
       }
-      return m(c, [{
+      return g(c, [{
         key: "stop",
         value: (
           /**
@@ -2241,10 +2242,10 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
            * @param {boolean} [withCallback] - if elements should also be added/removed to the selection.
            */
           function() {
-            var t = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : !0, g = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !0, n = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !1;
+            var t = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : !0, m = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !0, n = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !1;
             n && this.publish("callback", {
               items: this.getSelection()
-            }), this.Interaction.stop(), this.Area.stop(), this.Drag.stop(), this.Selector.stop(), this.SelectorArea.stop(t), this.stores.KeyStore.stop(), this.stores.PointerStore.stop(), this.stores.ScrollStore.stop(), t && this.SelectableSet.clear(), g && this.SelectedSet.clear(), this.stopped = !0;
+            }), this.Interaction.stop(), this.Area.stop(), this.Drag.stop(), this.Selector.stop(), this.SelectorArea.stop(t), this.stores.KeyStore.stop(), this.stores.PointerStore.stop(), this.stores.ScrollStore.stop(), t && this.SelectableSet.clear(), m && this.SelectedSet.clear(), this.stopped = !0;
           }
         )
         /**
@@ -2264,8 +2265,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
            * @return {DSElements} all selected elements
            */
           function(t) {
-            var g = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, n = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !1;
-            return this.SelectedSet.addAll(Ne(t)), n || this.addSelectables(t), g && this.PubSub.publish("callback", {
+            var m = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, n = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !1;
+            return this.SelectedSet.addAll(Ne(t)), n || this.addSelectables(t), m && this.PubSub.publish("callback", {
               items: this.getSelection()
             }), this.getSelection();
           }
@@ -2281,8 +2282,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       }, {
         key: "removeSelection",
         value: function(t) {
-          var g = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, n = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !1;
-          return this.SelectedSet.deleteAll(Ne(t)), n && this.removeSelectables(t), g && this.PubSub.publish("callback", {
+          var m = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, n = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !1;
+          return this.SelectedSet.deleteAll(Ne(t)), n && this.removeSelectables(t), m && this.PubSub.publish("callback", {
             items: this.getSelection()
           }), this.getSelection();
         }
@@ -2298,9 +2299,9 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       }, {
         key: "toggleSelection",
         value: function(t) {
-          var g = this, n = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, h = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !1;
+          var m = this, n = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, h = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !1;
           return Ne(t).forEach(function(y) {
-            return g.SelectedSet.has(y) ? g.removeSelection(t, n, h) : g.addSelection(t, n, h);
+            return m.SelectedSet.has(y) ? m.removeSelection(t, n, h) : m.addSelection(t, n, h);
           }), n && this.PubSub.publish("callback", {
             items: this.getSelection()
           }), this.getSelection();
@@ -2316,8 +2317,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       }, {
         key: "setSelection",
         value: function(t) {
-          var g = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, n = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !1;
-          return this.clearSelection(), this.addSelection(t, g, n), this.getSelection();
+          var m = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, n = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !1;
+          return this.clearSelection(), this.addSelection(t, m, n), this.getSelection();
         }
         /**
          * Unselect / Deselect all current selected Nodes
@@ -2341,9 +2342,9 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
          */
       }, {
         key: "addSelectables",
-        value: function(t, g, n) {
+        value: function(t, m, n) {
           var h = Ne(t);
-          return this.SelectableSet.addAll(h), g && this.SelectedSet.addAll(h), n && this.PubSub.publish("callback", {
+          return this.SelectableSet.addAll(h), m && this.SelectedSet.addAll(h), n && this.PubSub.publish("callback", {
             items: this.getSelection()
           }), t;
         }
@@ -2364,8 +2365,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
            * @return {DSInputElements} elements – the added element(s)
            */
           function(t) {
-            var g = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, n = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !1;
-            return console.warn('[DragSelect] DEPRECATION ".setSelectables" is deprecated and will be removed soon. Please use "ds.setSettings({ selectables: << new dom elements >> })" instead (see docs)'), this.removeSelectables(t, g), this.addSelectables(t, n);
+            var m = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : !1, n = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : !1;
+            return console.warn('[DragSelect] DEPRECATION ".setSelectables" is deprecated and will be removed soon. Please use "ds.setSettings({ selectables: << new dom elements >> })" instead (see docs)'), this.removeSelectables(t, m), this.addSelectables(t, n);
           }
         )
         /**
@@ -2377,8 +2378,8 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
          */
       }, {
         key: "removeSelectables",
-        value: function(t, g, n) {
-          return this.SelectableSet.deleteAll(Ne(t)), g && this.removeSelection(t), n && this.PubSub.publish("callback", {
+        value: function(t, m, n) {
+          return this.SelectableSet.deleteAll(Ne(t)), m && this.removeSelection(t), n && this.PubSub.publish("callback", {
             items: this.getSelection()
           }), t;
         }
@@ -2389,7 +2390,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   });
 })(cs);
 var An = cs.exports;
-const Ln = /* @__PURE__ */ In(An), us = (r, e, s, o, a) => (e = Math, s = e.log, o = 1024, a = s(r) / s(o) | 0, r / e.pow(o, a)).toFixed(0) + " " + (a ? "KMGTPEZY"[--a] + "iB" : "B"), ds = (r, e = null) => new Date(r * 1e3).toLocaleString(e ?? navigator.language ?? "en-US"), On = {
+const Ln = /* @__PURE__ */ In(An), us = (r, e, s, o, i) => (e = Math, s = e.log, o = 1024, i = s(r) / s(o) | 0, r / e.pow(o, i)).toFixed(0) + " " + (i ? "KMGTPEZY"[--i] + "iB" : "B"), ds = (r, e = null) => new Date(r * 1e3).toLocaleString(e ?? navigator.language ?? "en-US"), On = {
   key: 0,
   xmlns: "http://www.w3.org/2000/svg",
   class: "h-5 w-5",
@@ -2427,18 +2428,18 @@ const Ln = /* @__PURE__ */ In(An), us = (r, e, s, o, a) => (e = Math, s = e.log,
   name: "VFToast.vue"
 }, Un = /* @__PURE__ */ Object.assign(Hn, {
   setup(r) {
-    const e = P("emitter"), { getStore: s } = P("storage"), o = L(s("full-screen", !1)), a = (l) => l == "error" ? "text-red-400 border-red-400 dark:text-red-300 dark:border-red-300" : "text-lime-600 border-lime-600 dark:text-lime-300 dark:border-lime-1300", i = L([]), d = (l) => {
-      i.value.splice(l, 1);
-    }, m = (l) => {
-      let v = i.value.findIndex((p) => p.id === l);
+    const e = P("emitter"), { getStore: s } = P("storage"), o = L(s("full-screen", !1)), i = (l) => l == "error" ? "text-red-400 border-red-400 dark:text-red-300 dark:border-red-300" : "text-lime-600 border-lime-600 dark:text-lime-300 dark:border-lime-1300", a = L([]), d = (l) => {
+      a.value.splice(l, 1);
+    }, g = (l) => {
+      let v = a.value.findIndex((p) => p.id === l);
       v !== -1 && d(v);
     };
     return e.on("vf-toast-clear", () => {
-      i.value = [];
+      a.value = [];
     }), e.on("vf-toast-push", (l) => {
       let v = (/* @__PURE__ */ new Date()).getTime().toString(36).concat(performance.now().toString(), Math.random().toString()).replace(/\./g, "");
-      l.id = v, i.value.push(l), setTimeout(() => {
-        m(v);
+      l.id = v, a.value.push(l), setTimeout(() => {
+        g(v);
       }, 5e3);
     }), (l, v) => (w(), D("div", {
       class: ce([o.value.value ? "fixed" : "absolute", "bottom-0 max-w-fit flex flex-col bottom-0 left-1/2 -translate-x-1/2"])
@@ -2449,10 +2450,10 @@ const Ln = /* @__PURE__ */ In(An), us = (r, e, s, o, a) => (e = Math, s = e.log,
         "leave-to-class": "opacity-0"
       }, {
         default: F(() => [
-          (w(!0), D(le, null, we(i.value, (p, b) => (w(), D("div", {
+          (w(!0), D(le, null, we(a.value, (p, b) => (w(), D("div", {
             onClick: (S) => d(b),
             key: p,
-            class: ce([a(p.type), "inline-block mx-auto my-0.5 py-0.5 px-2 min-w-max bg-gray-50 dark:bg-gray-600 border text-xs sm:text-sm rounded cursor-pointer"])
+            class: ce([i(p.type), "inline-block mx-auto my-0.5 py-0.5 px-2 min-w-max bg-gray-50 dark:bg-gray-600 border text-xs sm:text-sm rounded cursor-pointer"])
           }, E(p.label), 11, zn))), 128))
         ]),
         _: 1
@@ -2494,11 +2495,11 @@ const Ln = /* @__PURE__ */ In(An), us = (r, e, s, o, a) => (e = Math, s = e.log,
   restore_on_error: !1
 }, ms = (r) => Object.assign({}, Yn, r), Vr = function(r, e) {
   let s;
-  const o = "LazyLoad::Initialized", a = new r(e);
+  const o = "LazyLoad::Initialized", i = new r(e);
   try {
-    s = new CustomEvent(o, { detail: { instance: a } });
+    s = new CustomEvent(o, { detail: { instance: i } });
   } catch {
-    s = document.createEvent("CustomEvent"), s.initCustomEvent(o, !1, !1, { instance: a });
+    s = document.createEvent("CustomEvent"), s.initCustomEvent(o, !1, !1, { instance: i });
   }
   window.dispatchEvent(s);
 }, Wn = (r, e) => {
@@ -2618,18 +2619,18 @@ const Ln = /* @__PURE__ */ In(An), us = (r, e, s, o, a) => (e = Math, s = e.log,
 }, hi = (r, e) => {
   st(r, $s), Be(r, bs, fe(r, e.data_src));
 }, fi = (r, e, s) => {
-  const o = fe(r, e.data_bg), a = fe(r, e.data_bg_hidpi), i = gs && a ? a : o;
-  i && (r.style.backgroundImage = `url("${i}")`, ks(r).setAttribute(Pe, i), Ls(r, e, s));
+  const o = fe(r, e.data_bg), i = fe(r, e.data_bg_hidpi), a = gs && i ? i : o;
+  a && (r.style.backgroundImage = `url("${a}")`, ks(r).setAttribute(Pe, a), Ls(r, e, s));
 }, pi = (r, e, s) => {
-  const o = fe(r, e.data_bg_multi), a = fe(r, e.data_bg_multi_hidpi), i = gs && a ? a : o;
-  i && (r.style.backgroundImage = i, As(r, e, s));
+  const o = fe(r, e.data_bg_multi), i = fe(r, e.data_bg_multi_hidpi), a = gs && i ? i : o;
+  a && (r.style.backgroundImage = a, As(r, e, s));
 }, gi = (r, e, s) => {
   const o = fe(r, e.data_bg_set);
   if (!o)
     return;
-  const a = o.split("|");
-  let i = a.map((d) => `image-set(${d})`);
-  r.style.backgroundImage = i.join(), r.style.backgroundImage === "" && (i = a.map((d) => `-webkit-image-set(${d})`), r.style.backgroundImage = i.join()), As(r, e, s);
+  const i = o.split("|");
+  let a = i.map((d) => `image-set(${d})`);
+  r.style.backgroundImage = a.join(), r.style.backgroundImage === "" && (a = i.map((d) => `-webkit-image-set(${d})`), r.style.backgroundImage = a.join()), As(r, e, s);
 }, Os = {
   IMG: ci,
   IFRAME: ui,
@@ -2663,11 +2664,11 @@ const Ln = /* @__PURE__ */ In(An), us = (r, e, s, o, a) => (e = Math, s = e.log,
 }, Ns = (r, e, s) => {
   ei(r), vr(s, -1), si(s), $e(r, e.class_loading), e.unobserve_completed && Bt(r, s);
 }, _i = (r, e, s, o) => {
-  const a = mr(e);
-  Ns(e, s, o), it(e, s.class_loaded), qe(e, ys), He(s.callback_loaded, e, o), a || Ps(s, o);
+  const i = mr(e);
+  Ns(e, s, o), it(e, s.class_loaded), qe(e, ys), He(s.callback_loaded, e, o), i || Ps(s, o);
 }, xi = (r, e, s, o) => {
-  const a = mr(e);
-  Ns(e, s, o), it(e, s.class_error), qe(e, pr), He(s.callback_error, e, o), s.restore_on_error && Xe(e, vt), a || Ps(s, o);
+  const i = mr(e);
+  Ns(e, s, o), it(e, s.class_error), qe(e, pr), He(s.callback_error, e, o), s.restore_on_error && Xe(e, vt), i || Ps(s, o);
 }, Sr = (r, e, s) => {
   const o = ks(r) || r;
   if (yr(o))
@@ -2722,8 +2723,8 @@ const Ln = /* @__PURE__ */ In(An), us = (r, e, s, o, a) => (e = Math, s = e.log,
 }, Pi = (r, e, s, o) => {
   s.cancel_on_exit && Fn(r) && r.tagName === "IMG" && (er(r), Mi(r), js(r), $e(r, s.class_loading), vr(o, -1), Vt(r), He(s.callback_cancel, r, e, o));
 }, Ni = (r, e, s, o) => {
-  const a = Jn(r);
-  qe(r, Xn), it(r, s.class_entered), $e(r, s.class_exited), ri(r, s, o), He(s.callback_enter, r, e, o), !a && wr(r, s, o);
+  const i = Jn(r);
+  qe(r, Xn), it(r, s.class_entered), $e(r, s.class_exited), ri(r, s, o), He(s.callback_enter, r, e, o), !i && wr(r, s, o);
 }, ji = (r, e, s, o) => {
   gr(r) || (it(r, s.class_exited), Pi(r, e, s, o), He(s.callback_exit, r, e, o));
 }, Ri = ["IMG", "IFRAME", "VIDEO"], Rs = (r) => r.use_native && "loading" in HTMLImageElement.prototype, Vi = (r, e, s) => {
@@ -2912,7 +2913,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
     search: Object
   },
   setup(r) {
-    const e = r, s = P("emitter"), { setStore: o, getStore: a } = P("storage"), i = P("adapter"), d = (A) => A == null ? void 0 : A.substring(0, 3), m = (A) => A.replace(/((?=([\w\W]{0,14}))([\w\W]{8,})([\w\W]{8,}))/, "$2..$4"), l = L(null), v = L(null), p = L(0), b = L(null), { t: S } = P("i18n"), M = Math.floor(Math.random() * 2 ** 32), $ = L(a("full-screen", !1)), I = new _t();
+    const e = r, s = P("emitter"), { setStore: o, getStore: i } = P("storage"), a = P("adapter"), d = (A) => A == null ? void 0 : A.substring(0, 3), g = (A) => A.replace(/((?=([\w\W]{0,14}))([\w\W]{8,})([\w\W]{8,}))/, "$2..$4"), l = L(null), v = L(null), p = L(0), b = L(null), { t: S } = P("i18n"), M = Math.floor(Math.random() * 2 ** 32), $ = L(i("full-screen", !1)), I = new _t();
     s.on("vf-fullscreen-toggle", () => {
       l.value.style.height = null, $.value = !$.value, o("full-screen", $.value);
     });
@@ -2965,7 +2966,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
     }, ve = (A, R) => {
       A.preventDefault();
       let O = JSON.parse(A.dataTransfer.getData("items"));
-      if (O.find((ee) => ee.storage != i.value)) {
+      if (O.find((ee) => ee.storage != a.value)) {
         alert("Moving items between different storages is not supported yet.");
         return;
       }
@@ -3124,12 +3125,12 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
               O.type == "dir" ? (w(), D("svg", Ea, Ta)) : (O.mime_type ?? "").startsWith("image") ? (w(), D("img", {
                 key: 1,
                 class: "lazy h-10 md:h-12 m-auto",
-                "data-src": x(Qt)(x(i).value, O.path),
+                "data-src": x(Qt)(x(a).value, O.path),
                 alt: O.basename
               }, null, 8, Ia)) : (w(), D("svg", Aa, Oa)),
               !(O.mime_type ?? "").startsWith("image") && O.type != "dir" ? (w(), D("div", Pa, E(d(O.extension)), 1)) : Z("", !0)
             ]),
-            f("span", Na, E(m(O.basename)), 1)
+            f("span", Na, E(g(O.basename)), 1)
           ])
         ], 42, Ca))), 256)) : Z("", !0)
       ], 34),
@@ -3176,11 +3177,11 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
     data: Object
   },
   setup(r) {
-    const e = P("emitter"), { getStore: s, setStore: o } = P("storage"), a = L(0), i = P("adapter"), { t: d, changeLocale: m } = P("i18n"), l = L(s("locale", "")), v = () => {
-      e.emit("vf-search-exit"), e.emit("vf-fetch", { params: { q: "index", adapter: i.value } }), o("adapter", i.value);
+    const e = P("emitter"), { getStore: s, setStore: o } = P("storage"), i = L(0), a = P("adapter"), { t: d, changeLocale: g } = P("i18n"), l = L(s("locale", "")), v = () => {
+      e.emit("vf-search-exit"), e.emit("vf-fetch", { params: { q: "index", adapter: a.value } }), o("adapter", a.value);
     };
     e.on("vf-nodes-selected", (b) => {
-      a.value = b.length;
+      i.value = b.length;
     });
     const p = L("");
     return e.on("vf-search-query", ({ newQuery: b }) => {
@@ -3194,23 +3195,23 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
           role: "tooltip"
         }, Ka, 8, Ha),
         Se(f("select", {
-          "onUpdate:modelValue": S[0] || (S[0] = (M) => as(i) ? i.value = M : null),
+          "onUpdate:modelValue": S[0] || (S[0] = (M) => as(a) ? a.value = M : null),
           onChange: v,
           class: "py-0.5 text-sm text-slate-500 dark:text-neutral-50 dark:bg-gray-700 rounded pl-2 pr-8"
         }, [
           (w(!0), D(le, null, we(r.data.storages, (M) => (w(), D("option", { value: M }, E(M), 9, Ya))), 256))
         ], 544), [
-          [Nr, x(i)]
+          [Nr, x(a)]
         ]),
         f("div", Wa, [
           p.value.length ? (w(), D("span", Xa, E(r.data.files.length) + " items found. ", 1)) : Z("", !0),
-          f("span", Za, E(a.value > 0 ? a.value + " " + x(d)("item(s) selected.") : ""), 1)
+          f("span", Za, E(i.value > 0 ? i.value + " " + x(d)("item(s) selected.") : ""), 1)
         ])
       ]),
       f("div", Fa, [
         Se(f("select", {
           "onUpdate:modelValue": S[1] || (S[1] = (M) => l.value = M),
-          onChange: S[2] || (S[2] = (M) => x(m)(M.target.value)),
+          onChange: S[2] || (S[2] = (M) => x(g)(M.target.value)),
           class: "py-0.5 text-sm text-slate-500 dark:text-neutral-50 dark:bg-gray-700 rounded pl-2 pr-8 mr-3"
         }, [
           f("option", qa, E(x(d)("Language")), 1),
@@ -3230,20 +3231,20 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
   }
 }), sl = (r, e = 0, s = !1) => {
   let o;
-  return (...a) => {
-    s && !o && r(...a), clearTimeout(o), o = setTimeout(() => {
-      r(...a);
+  return (...i) => {
+    s && !o && r(...i), clearTimeout(o), o = setTimeout(() => {
+      r(...i);
     }, e);
   };
 }, ol = (r, e, s) => {
   const o = L(r);
-  return No((i, d) => ({
+  return No((a, d) => ({
     get() {
-      return i(), o.value;
+      return a(), o.value;
     },
     set: sl(
-      (m) => {
-        o.value = m, d();
+      (g) => {
+        o.value = g, d();
       },
       e,
       s
@@ -3314,17 +3315,17 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
   setup(r) {
     const e = r, s = P("emitter");
     P("storage");
-    const o = P("adapter"), a = L(null), i = L([]), d = L(!1), m = L(null), { t: l } = P("i18n"), v = P("loadingState");
+    const o = P("adapter"), i = L(null), a = L([]), d = L(!1), g = L(null), { t: l } = P("i18n"), v = P("loadingState");
     s.on("vf-explorer-update", () => {
       let V = [], j = [];
-      a.value = e.data.dirname ?? o.value + "://", a.value.length == 0 && (i.value = []), a.value.replace(o.value + "://", "").split("/").forEach(function(z) {
+      i.value = e.data.dirname ?? o.value + "://", i.value.length == 0 && (a.value = []), i.value.replace(o.value + "://", "").split("/").forEach(function(z) {
         V.push(z), V.join("/") != "" && j.push({
           basename: z,
           name: z,
           path: o.value + "://" + V.join("/"),
           type: "dir"
         });
-      }), j.length > 4 && (j = j.slice(-5), j[0].name = ".."), i.value = j;
+      }), j.length > 4 && (j = j.slice(-5), j[0].name = ".."), a.value = j;
     });
     const p = () => {
       d.value = !1, S.value = "";
@@ -3333,12 +3334,12 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
       p();
     });
     const b = () => {
-      d.value = !0, Rt(() => m.value.focus());
+      d.value = !0, Rt(() => g.value.focus());
     }, S = ol("", 400), M = () => v.value;
     jt(S, (V) => {
       s.emit("vf-toast-clear"), s.emit("vf-search-query", { newQuery: V });
     });
-    const $ = () => i.value.length && !d.value, I = (V) => {
+    const $ = () => a.value.length && !d.value, I = (V) => {
       V.preventDefault();
       let j = JSON.parse(V.dataTransfer.getData("items"));
       if (j.find((z) => z.storage != o.value)) {
@@ -3347,7 +3348,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
       }
       s.emit("vf-modal-show", {
         type: "move",
-        items: { from: j, to: i.value[i.value.length - 2] ?? { path: o.value + "://" } }
+        items: { from: j, to: a.value[a.value.length - 2] ?? { path: o.value + "://" } }
       });
     }, T = (V) => {
       V.preventDefault(), $() ? V.dataTransfer.dropEffect = "copy" : (V.dataTransfer.dropEffect = "none", V.dataTransfer.effectAllowed = "none");
@@ -3365,7 +3366,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
           onDrop: j[1] || (j[1] = (z) => I(z)),
           onClick: j[2] || (j[2] = (z) => {
             var X;
-            return !$() || x(s).emit("vf-fetch", { params: { q: "index", adapter: r.data.adapter, path: ((X = i.value[i.value.length - 2]) == null ? void 0 : X.path) ?? x(o) + "://" } });
+            return !$() || x(s).emit("vf-fetch", { params: { q: "index", adapter: r.data.adapter, path: ((X = a.value[a.value.length - 2]) == null ? void 0 : X.path) ?? x(o) + "://" } });
           }),
           class: ce(["h-6 w-6 p-0.5 rounded", $() ? "text-slate-700 hover:bg-neutral-300 dark:text-neutral-200 dark:hover:bg-gray-700 cursor-pointer" : "text-gray-400 dark:text-neutral-500"]),
           xmlns: "http://www.w3.org/2000/svg",
@@ -3409,7 +3410,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
         Ml,
         Se(f("input", {
           ref_key: "searchInput",
-          ref: m,
+          ref: g,
           onKeydown: ot(p, ["esc"]),
           onBlur: H,
           "onUpdate:modelValue": j[6] || (j[6] = (z) => as(S) ? S.value = z : null),
@@ -3441,7 +3442,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
           fill: "currentColor"
         }, vl)),
         f("div", bl, [
-          (w(!0), D(le, null, we(i.value, (z, X) => (w(), D("div", { key: X }, [
+          (w(!0), D(le, null, we(a.value, (z, X) => (w(), D("div", { key: X }, [
             yl,
             f("span", {
               class: "px-1.5 py-1 text-slate-700 dark:text-slate-200 hover:bg-neutral-100 dark:hover:bg-gray-800 rounded cursor-pointer",
@@ -3461,7 +3462,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
     current: Object
   },
   setup(r) {
-    const e = r, s = P("emitter"), o = L(null), { apiUrl: a } = Ae(), i = Lt({
+    const e = r, s = P("emitter"), o = L(null), { apiUrl: i } = Ae(), a = Lt({
       active: !1,
       items: [],
       positions: {
@@ -3472,64 +3473,64 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
     s.on("vf-context-selected", (S) => {
       d.value = S;
     });
-    const { t: m } = P("i18n"), l = {
+    const { t: g } = P("i18n"), l = {
       newfolder: {
-        title: () => m("New Folder"),
+        title: () => g("New Folder"),
         action: () => {
           s.emit("vf-modal-show", { type: "new-folder" });
         }
       },
       delete: {
-        title: () => m("Delete"),
+        title: () => g("Delete"),
         action: () => {
           s.emit("vf-modal-show", { type: "delete", items: d });
         }
       },
       refresh: {
-        title: () => m("Refresh"),
+        title: () => g("Refresh"),
         action: () => {
           s.emit("vf-fetch", { params: { q: "index", adapter: e.current.adapter, path: e.current.dirname } });
         }
       },
       preview: {
-        title: () => m("Preview"),
+        title: () => g("Preview"),
         action: () => {
           s.emit("vf-modal-show", { type: "preview", adapter: e.current.adapter, item: d.value[0] });
         }
       },
       open: {
-        title: () => m("Open"),
+        title: () => g("Open"),
         action: () => {
           s.emit("vf-search-exit"), s.emit("vf-fetch", { params: { q: "index", adapter: e.current.adapter, path: d.value[0].path } });
         }
       },
       openDir: {
-        title: () => m("Open containing folder"),
+        title: () => g("Open containing folder"),
         action: () => {
           s.emit("vf-search-exit"), s.emit("vf-fetch", { params: { q: "index", adapter: e.current.adapter, path: d.value[0].dir } });
         }
       },
       download: {
-        title: () => m("Download"),
+        title: () => g("Download"),
         action: () => {
-          const S = a.value + "?" + Fe({ q: "download", adapter: e.current.adapter, path: d.value[0].path });
+          const S = i.value + "?" + Fe({ q: "download", adapter: e.current.adapter, path: d.value[0].path });
           s.emit("vf-download", S);
         }
       },
       archive: {
-        title: () => m("Archive"),
+        title: () => g("Archive"),
         action: () => {
           s.emit("vf-modal-show", { type: "archive", items: d });
         }
       },
       unarchive: {
-        title: () => m("Unarchive"),
+        title: () => g("Unarchive"),
         action: () => {
           s.emit("vf-modal-show", { type: "unarchive", items: d });
         }
       },
       rename: {
-        title: () => m("Rename"),
+        title: () => g("Rename"),
         action: () => {
           s.emit("vf-modal-show", { type: "rename", items: d });
         }
@@ -3540,34 +3541,34 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
     s.on("vf-search-query", ({ newQuery: S }) => {
       p.value = S;
     }), s.on("vf-contextmenu-show", ({ event: S, area: M, items: $, target: I = null }) => {
-      if (i.items = [], p.value)
+      if (a.items = [], p.value)
         if (I)
-          i.items.push(l.openDir), s.emit("vf-context-selected", [I]);
+          a.items.push(l.openDir), s.emit("vf-context-selected", [I]);
         else
           return;
       else
-        !I && !p.value ? (i.items.push(l.refresh), i.items.push(l.newfolder), s.emit("vf-context-selected", [])) : $.length > 1 && $.some((T) => T.path === I.path) ? (i.items.push(l.refresh), i.items.push(l.archive), i.items.push(l.delete), s.emit("vf-context-selected", $)) : (I.type == "dir" ? i.items.push(l.open) : (i.items.push(l.preview), i.items.push(l.download)), i.items.push(l.rename), I.mime_type == "application/zip" ? i.items.push(l.unarchive) : i.items.push(l.archive), i.items.push(l.delete), s.emit("vf-context-selected", [I]));
+        !I && !p.value ? (a.items.push(l.refresh), a.items.push(l.newfolder), s.emit("vf-context-selected", [])) : $.length > 1 && $.some((T) => T.path === I.path) ? (a.items.push(l.refresh), a.items.push(l.archive), a.items.push(l.delete), s.emit("vf-context-selected", $)) : (I.type == "dir" ? a.items.push(l.open) : (a.items.push(l.preview), a.items.push(l.download)), a.items.push(l.rename), I.mime_type == "application/zip" ? a.items.push(l.unarchive) : a.items.push(l.archive), a.items.push(l.delete), s.emit("vf-context-selected", [I]));
       b(S, M);
     }), s.on("vf-contextmenu-hide", () => {
-      i.active = !1;
+      a.active = !1;
     });
     const b = (S, M) => {
-      i.active = !0, Rt(() => {
+      a.active = !0, Rt(() => {
         let $ = M.getBoundingClientRect(), I = S.pageX, T = S.pageY, H = o.value.offsetHeight, V = o.value.offsetWidth;
-        I = $.right - S.pageX + window.scrollX < V ? I - V : I, T = $.bottom - S.pageY + window.scrollY < H ? T - H : T, i.positions = {
+        I = $.right - S.pageX + window.scrollX < V ? I - V : I, T = $.bottom - S.pageY + window.scrollY < H ? T - H : T, a.positions = {
           left: I + "px",
           top: T + "px"
         };
       });
     };
-    return (S, M) => i.active ? (w(), D("ul", {
+    return (S, M) => a.active ? (w(), D("ul", {
       key: 0,
       class: "z-30 absolute text-xs bg-neutral-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-neutral-300 dark:border-gray-600 shadow rounded select-none",
       ref_key: "contextmenu",
       ref: o,
-      style: ls(i.positions)
+      style: ls(a.positions)
     }, [
-      (w(!0), D(le, null, we(i.items, ($) => (w(), D("li", {
+      (w(!0), D(le, null, we(a.items, ($) => (w(), D("li", {
         class: "px-2 py-1.5 cursor-pointer hover:bg-neutral-200 dark:hover:bg-gray-700",
         key: $.title,
         onClick: (I) => v($)
@@ -3579,8 +3580,8 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
   }
 }), jl = (r, e) => {
   const s = r[e];
-  return s ? typeof s == "function" ? s() : Promise.resolve(s) : new Promise((o, a) => {
-    (typeof queueMicrotask == "function" ? queueMicrotask : setTimeout)(a.bind(null, new Error("Unknown variable dynamic import: " + e)));
+  return s ? typeof s == "function" ? s() : Promise.resolve(s) : new Promise((o, i) => {
+    (typeof queueMicrotask == "function" ? queueMicrotask : setTimeout)(i.bind(null, new Error("Unknown variable dynamic import: " + e)));
   });
 };
 async function Rl(r) {
@@ -3588,17 +3589,17 @@ async function Rl(r) {
   return JSON.parse(e.default);
 }
 function Vl(r, e, s) {
-  const { getStore: o, setStore: a } = Jt(r), i = L({}), d = (v) => {
+  const { getStore: o, setStore: i } = Jt(r), a = L({}), d = (v) => {
     Rl(v).then((p) => {
-      i.value = p, a("locale", v), a("translations", p), s.emit("vf-toast-push", { label: "The language is set to " + v });
+      a.value = p, i("locale", v), i("translations", p), s.emit("vf-toast-push", { label: "The language is set to " + v });
     }).catch((p) => {
       s.emit("vf-toast-push", { label: "The selected locale is not yet supported!", type: "error" }), d("en");
     });
   };
-  o("locale") ? i.value = o("translations") : d(e);
-  const m = (v, ...p) => p.length ? m(v = v.replace("%s", p.shift()), ...p) : v;
+  o("locale") ? a.value = o("translations") : d(e);
+  const g = (v, ...p) => p.length ? g(v = v.replace("%s", p.shift()), ...p) : v;
   function l(v, ...p) {
-    return i.value.hasOwnProperty(v) ? m(i.value[v], ...p) : m(v, ...p);
+    return a.value.hasOwnProperty(v) ? g(a.value[v], ...p) : g(v, ...p);
   }
   return { t: l, changeLocale: d };
 }
@@ -3638,19 +3639,19 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
     }
   },
   setup(r) {
-    const e = r, s = Vo(), { setStore: o, getStore: a } = Jt(e.id), i = L(a("adapter"));
-    Ue("emitter", s), Ue("storage", Jt(e.id)), Ue("postData", e.postData), Ue("adapter", i), Ue("maxFileSize", e.maxFileSize);
+    const e = r, s = Vo(), { setStore: o, getStore: i } = Jt(e.id), a = L(i("adapter"));
+    Ue("emitter", s), Ue("storage", Jt(e.id)), Ue("postData", e.postData), Ue("adapter", a), Ue("maxFileSize", e.maxFileSize);
     const d = Vl(e.id, e.locale, s);
     Ue("i18n", d);
-    const { apiUrl: m, setApiUrl: l } = Ae();
+    const { apiUrl: g, setApiUrl: l } = Ae();
     l(e.url);
-    const v = Lt({ adapter: i.value, storages: [], dirname: ".", files: [] }), p = L(a("viewport", "grid")), b = L(a("darkMode", e.dark));
+    const v = Lt({ adapter: a.value, storages: [], dirname: ".", files: [] }), p = L(i("viewport", "grid")), b = L(i("darkMode", e.dark));
     s.on("vf-darkMode-toggle", () => {
       b.value = !b.value, o("darkMode", b.value);
     });
     const S = L(!1);
     Ue("loadingState", S);
-    const M = L(a("full-screen", !1));
+    const M = L(i("full-screen", !1));
     s.on("vf-fullscreen-toggle", () => {
       M.value = !M.value, o("full-screen", M.value);
     }), s.on("vf-view-toggle", (H) => {
@@ -3675,8 +3676,8 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
     }), s.on("vf-fetch", ({ params: H, onSuccess: V = null, onError: j = null }) => {
       ["index", "search"].includes(H.q) && (T && T.abort(), S.value = !0), T = new AbortController();
       const z = T.signal;
-      Ot(m.value, { params: H, signal: z }).then((X) => {
-        i.value = X.adapter, ["index", "search"].includes(H.q) && (S.value = !1), s.emit("vf-modal-close"), I(X), V(X);
+      Ot(g.value, { params: H, signal: z }).then((X) => {
+        a.value = X.adapter, ["index", "search"].includes(H.q) && (S.value = !1), s.emit("vf-modal-close"), I(X), V(X);
       }).catch((X) => {
         j && j(X);
       }).finally(() => {
@@ -3684,7 +3685,7 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
     }), s.on("vf-download", (H) => {
       document.getElementById("download_frame").src = H, s.emit("vf-modal-close");
     }), Me(() => {
-      s.emit("vf-fetch", { params: { q: "index", adapter: i.value } });
+      s.emit("vf-fetch", { params: { q: "index", adapter: a.value } });
     }), (H, V) => (w(), D("div", Bl, [
       f("div", {
         class: ce(b.value ? "dark" : "")
@@ -3725,14 +3726,14 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
       "aria-labelledby": "modal-title",
       role: "dialog",
       "aria-modal": "true",
-      onKeyup: o[1] || (o[1] = ot((a) => x(e).emit("vf-modal-close"), ["esc"])),
+      onKeyup: o[1] || (o[1] = ot((i) => x(e).emit("vf-modal-close"), ["esc"])),
       tabindex: "0"
     }, [
       Kl,
       f("div", Yl, [
         f("div", {
           class: "flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0",
-          onMousedown: o[0] || (o[0] = We((a) => x(e).emit("vf-modal-close"), ["self"]))
+          onMousedown: o[0] || (o[0] = We((i) => x(e).emit("vf-modal-close"), ["self"]))
         }, [
           f("div", Wl, [
             f("div", Xl, [
@@ -3772,9 +3773,9 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
   },
   emits: ["hidden"],
   setup(r, { emit: e }) {
-    var m;
-    const { t: s } = P("i18n"), o = L(!1), a = L(null), i = L((m = a.value) == null ? void 0 : m.strMessage);
-    jt(i, () => o.value = !1);
+    var g;
+    const { t: s } = P("i18n"), o = L(!1), i = L(null), a = L((g = i.value) == null ? void 0 : g.strMessage);
+    jt(a, () => o.value = !1);
     const d = () => {
       e("hidden"), o.value = !0;
     };
@@ -3782,7 +3783,7 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
       o.value ? Z("", !0) : (w(), D("div", {
         key: 0,
         ref_key: "strMessage",
-        ref: a,
+        ref: i,
         class: ce(["flex mt-1 p-1 px-2 rounded text-sm", r.error ? "bg-red-100 text-red-600" : "bg-emerald-100 text-emerald-600"])
       }, [
         Gt(l.$slots, "default"),
@@ -3852,19 +3853,19 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
   setup(r) {
     const e = r, s = P("emitter");
     P("storage");
-    const o = P("adapter"), { t: a } = P("i18n"), i = L(e.selection.items), d = L(""), m = () => {
-      i.value.length && s.emit("vf-fetch", {
+    const o = P("adapter"), { t: i } = P("i18n"), a = L(e.selection.items), d = L(""), g = () => {
+      a.value.length && s.emit("vf-fetch", {
         params: {
           q: "delete",
           adapter: o.value,
           path: e.current.dirname,
-          items: JSON.stringify(i.value.map(({ path: l, type: v }) => ({ path: l, type: v })))
+          items: JSON.stringify(a.value.map(({ path: l, type: v }) => ({ path: l, type: v })))
         },
         onSuccess: () => {
-          s.emit("vf-toast-push", { label: a("Files deleted.") });
+          s.emit("vf-toast-push", { label: i("Files deleted.") });
         },
         onError: (l) => {
-          d.value = a(l.message);
+          d.value = i(l.message);
         }
       });
     };
@@ -3872,24 +3873,24 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
       buttons: F(() => [
         f("button", {
           type: "button",
-          onClick: m,
+          onClick: g,
           class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Yes, Delete!")), 1),
+        }, E(x(i)("Yes, Delete!")), 1),
         f("button", {
           type: "button",
           onClick: v[1] || (v[1] = (p) => x(s).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Cancel")), 1),
-        f("div", fc, E(x(a)("This action cannot be undone.")), 1)
+        }, E(x(i)("Cancel")), 1),
+        f("div", fc, E(x(i)("This action cannot be undone.")), 1)
       ]),
       default: F(() => [
         f("div", Ql, [
           ec,
           f("div", tc, [
-            f("h3", rc, E(x(a)("Delete files")), 1),
+            f("h3", rc, E(x(i)("Delete files")), 1),
             f("div", sc, [
-              f("p", oc, E(x(a)("Are you sure you want to delete these files?")), 1),
-              (w(!0), D(le, null, we(i.value, (p) => (w(), D("p", nc, [
+              f("p", oc, E(x(i)("Are you sure you want to delete these files?")), 1),
+              (w(!0), D(le, null, we(a.value, (p) => (w(), D("p", nc, [
                 p.type == "dir" ? (w(), D("svg", ic, lc)) : (w(), D("svg", cc, dc)),
                 f("span", hc, E(p.basename), 1)
               ]))), 256)),
@@ -3936,21 +3937,21 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
   },
   setup(r) {
     const e = P("emitter"), { t: s } = P("i18n");
-    return (o, a) => (w(), q(Le, null, {
+    return (o, i) => (w(), q(Le, null, {
       buttons: F(() => [
         f("button", {
           type: "button",
-          onClick: a[0] || (a[0] = (i) => x(e).emit("vf-modal-close")),
+          onClick: i[0] || (i[0] = (a) => x(e).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
         }, E(x(s)("Close")), 1)
       ]),
       default: F(() => {
-        var i, d;
+        var a, d;
         return [
           f("div", mc, [
             vc,
             f("div", bc, [
-              f("h3", yc, E(((i = r.selection) == null ? void 0 : i.title) ?? "Title"), 1),
+              f("h3", yc, E(((a = r.selection) == null ? void 0 : a.title) ?? "Title"), 1),
               f("div", Sc, [
                 f("p", wc, E(((d = r.selection) == null ? void 0 : d.message) ?? "Message") + ".", 1)
               ])
@@ -3989,19 +3990,19 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
   setup(r) {
     const e = r, s = P("emitter");
     P("storage");
-    const o = P("adapter"), { t: a } = P("i18n"), i = L(""), d = L(""), m = () => {
-      i.value != "" && s.emit("vf-fetch", {
+    const o = P("adapter"), { t: i } = P("i18n"), a = L(""), d = L(""), g = () => {
+      a.value != "" && s.emit("vf-fetch", {
         params: {
           q: "newfolder",
           adapter: o.value,
           path: e.current.dirname,
-          name: i.value
+          name: a.value
         },
         onSuccess: () => {
-          s.emit("vf-toast-push", { label: a("%s is created.", i.value) });
+          s.emit("vf-toast-push", { label: i("%s is created.", a.value) });
         },
         onError: (l) => {
-          d.value = a(l.message);
+          d.value = i(l.message);
         }
       });
     };
@@ -4009,30 +4010,30 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
       buttons: F(() => [
         f("button", {
           type: "button",
-          onClick: m,
+          onClick: g,
           class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 dark:bg-gray-700 dark:hover:bg-gray-600/75 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Create")), 1),
+        }, E(x(i)("Create")), 1),
         f("button", {
           type: "button",
           onClick: v[2] || (v[2] = (p) => x(s).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Cancel")), 1)
+        }, E(x(i)("Cancel")), 1)
       ]),
       default: F(() => [
         f("div", kc, [
           Dc,
           f("div", Cc, [
-            f("h3", Mc, E(x(a)("New Folder")), 1),
+            f("h3", Mc, E(x(i)("New Folder")), 1),
             f("div", Ec, [
-              f("p", $c, E(x(a)("Create a new folder")), 1),
+              f("p", $c, E(x(i)("Create a new folder")), 1),
               Se(f("input", {
-                "onUpdate:modelValue": v[0] || (v[0] = (p) => i.value = p),
-                onKeyup: ot(m, ["enter"]),
+                "onUpdate:modelValue": v[0] || (v[0] = (p) => a.value = p),
+                onKeyup: ot(g, ["enter"]),
                 class: "px-2 py-1 border rounded dark:bg-gray-700/25 dark:focus:ring-gray-600 dark:focus:border-gray-600 dark:text-gray-100 w-full",
-                placeholder: x(a)("Folder Name"),
+                placeholder: x(i)("Folder Name"),
                 type: "text"
               }, null, 40, Tc), [
-                [nt, i.value]
+                [nt, a.value]
               ]),
               d.value.length ? (w(), q(Oe, {
                 key: 0,
@@ -4079,19 +4080,19 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
   setup(r) {
     const e = r, s = P("emitter");
     P("storage");
-    const o = P("adapter"), { t: a } = P("i18n"), i = L(""), d = L(""), m = () => {
-      i.value != "" && s.emit("vf-fetch", {
+    const o = P("adapter"), { t: i } = P("i18n"), a = L(""), d = L(""), g = () => {
+      a.value != "" && s.emit("vf-fetch", {
         params: {
           q: "newfile",
           adapter: o.value,
           path: e.current.dirname,
-          name: i.value
+          name: a.value
         },
         onSuccess: () => {
-          s.emit("vf-toast-push", { label: a("%s is created.", i.value) });
+          s.emit("vf-toast-push", { label: i("%s is created.", a.value) });
         },
         onError: (l) => {
-          d.value = a(l.message);
+          d.value = i(l.message);
         }
       });
     };
@@ -4099,30 +4100,30 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
       buttons: F(() => [
         f("button", {
           type: "button",
-          onClick: m,
+          onClick: g,
           class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 dark:bg-gray-700 dark:hover:bg-gray-600/75 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Create")), 1),
+        }, E(x(i)("Create")), 1),
         f("button", {
           type: "button",
           onClick: v[2] || (v[2] = (p) => x(s).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Cancel")), 1)
+        }, E(x(i)("Cancel")), 1)
       ]),
       default: F(() => [
         f("div", Lc, [
           Oc,
           f("div", Pc, [
-            f("h3", Nc, E(x(a)("New File")), 1),
+            f("h3", Nc, E(x(i)("New File")), 1),
             f("div", jc, [
-              f("p", Rc, E(x(a)("Create a new file")), 1),
+              f("p", Rc, E(x(i)("Create a new file")), 1),
               Se(f("input", {
-                "onUpdate:modelValue": v[0] || (v[0] = (p) => i.value = p),
-                onKeyup: ot(m, ["enter"]),
+                "onUpdate:modelValue": v[0] || (v[0] = (p) => a.value = p),
+                onKeyup: ot(g, ["enter"]),
                 class: "px-2 py-1 border rounded dark:bg-gray-700/25 dark:focus:ring-gray-600 dark:focus:border-gray-600 dark:text-gray-100 w-full",
-                placeholder: x(a)("File Name"),
+                placeholder: x(i)("File Name"),
                 type: "text"
               }, null, 40, Vc), [
-                [nt, i.value]
+                [nt, a.value]
               ]),
               d.value.length ? (w(), q(Oe, {
                 key: 0,
@@ -4151,9 +4152,9 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
   },
   emits: ["load"],
   setup(r, { emit: e }) {
-    const s = r, o = L(""), a = L(""), i = L(null), d = L(!1), { apiUrl: m } = Ae(), l = L(""), v = L(!1), { t: p } = P("i18n");
+    const s = r, o = L(""), i = L(""), a = L(null), d = L(!1), { apiUrl: g } = Ae(), l = L(""), v = L(!1), { t: p } = P("i18n");
     Me(() => {
-      Ot(m.value, {
+      Ot(g.value, {
         params: { q: "preview", adapter: s.selection.adapter, path: s.selection.item.path },
         json: !1
       }).then(($) => {
@@ -4161,17 +4162,17 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
       });
     });
     const b = () => {
-      d.value = !d.value, a.value = o.value, d.value == !0 && Rt(() => {
-        i.value.focus();
+      d.value = !d.value, i.value = o.value, d.value == !0 && Rt(() => {
+        a.value.focus();
       });
     }, S = P("postData"), M = () => {
-      l.value = "", v.value = !1, Ot(m.value, {
+      l.value = "", v.value = !1, Ot(g.value, {
         method: "POST",
         params: Object.assign(S, {
           q: "save",
           adapter: s.selection.adapter,
           path: s.selection.item.path,
-          content: a.value
+          content: i.value
         }),
         json: !1
       }).then(($) => {
@@ -4205,15 +4206,15 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
         d.value ? (w(), D("div", Wc, [
           Se(f("textarea", {
             ref_key: "editInput",
-            ref: i,
-            "onUpdate:modelValue": I[1] || (I[1] = (T) => a.value = T),
+            ref: a,
+            "onUpdate:modelValue": I[1] || (I[1] = (T) => i.value = T),
             class: "w-full p-2 rounded dark:bg-gray-700 dark:text-gray-200 dark:focus:ring-gray-600 dark:focus:border-gray-600 dark:selection:bg-gray-500 min-h-[200px] max-h-[60vh] text-xs",
             name: "text",
             id: "",
             cols: "30",
             rows: "10"
           }, null, 512), [
-            [nt, a.value]
+            [nt, i.value]
           ])
         ])) : (w(), D("pre", Yc, E(o.value), 1)),
         l.value.length ? (w(), q(Oe, {
@@ -4243,8 +4244,8 @@ function Kr(r, e) {
   var s = Object.keys(r);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(r);
-    e && (o = o.filter(function(a) {
-      return Object.getOwnPropertyDescriptor(r, a).enumerable;
+    e && (o = o.filter(function(i) {
+      return Object.getOwnPropertyDescriptor(r, i).enumerable;
     })), s.push.apply(s, o);
   }
   return s;
@@ -4433,11 +4434,11 @@ function re(r, e) {
   })), r;
 }
 var Q = Object.assign || function(e) {
-  for (var s = arguments.length, o = new Array(s > 1 ? s - 1 : 0), a = 1; a < s; a++)
-    o[a - 1] = arguments[a];
-  return Ze(e) && o.length > 0 && o.forEach(function(i) {
-    Ze(i) && Object.keys(i).forEach(function(d) {
-      e[d] = i[d];
+  for (var s = arguments.length, o = new Array(s > 1 ? s - 1 : 0), i = 1; i < s; i++)
+    o[i - 1] = arguments[i];
+  return Ze(e) && o.length > 0 && o.forEach(function(a) {
+    Ze(a) && Object.keys(a).forEach(function(d) {
+      e[d] = a[d];
     });
   }), e;
 }, fu = /\.\d*(?:0|9){12}\d*$/;
@@ -4448,8 +4449,8 @@ function tt(r) {
 var pu = /^width|height|left|top|marginLeft|marginTop$/;
 function Re(r, e) {
   var s = r.style;
-  re(e, function(o, a) {
-    pu.test(a) && K(o) && (o = "".concat(o, "px")), s[a] = o;
+  re(e, function(o, i) {
+    pu.test(i) && K(o) && (o = "".concat(o, "px")), s[i] = o;
   });
 }
 function gu(r, e) {
@@ -4536,8 +4537,8 @@ var qs = /\s\s*/, Gs = function() {
        * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Getter_only}
        * @param {boolean} value - The value to set
        */
-      set: function(i) {
-        e = i;
+      set: function(a) {
+        e = a;
       }
     });
     Ie.addEventListener("test", s, o), Ie.removeEventListener("test", s, o);
@@ -4545,28 +4546,28 @@ var qs = /\s\s*/, Gs = function() {
   return r;
 }();
 function De(r, e, s) {
-  var o = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {}, a = s;
-  e.trim().split(qs).forEach(function(i) {
+  var o = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {}, i = s;
+  e.trim().split(qs).forEach(function(a) {
     if (!Gs) {
       var d = r.listeners;
-      d && d[i] && d[i][s] && (a = d[i][s], delete d[i][s], Object.keys(d[i]).length === 0 && delete d[i], Object.keys(d).length === 0 && delete r.listeners);
+      d && d[a] && d[a][s] && (i = d[a][s], delete d[a][s], Object.keys(d[a]).length === 0 && delete d[a], Object.keys(d).length === 0 && delete r.listeners);
     }
-    r.removeEventListener(i, a, o);
+    r.removeEventListener(a, i, o);
   });
 }
 function ye(r, e, s) {
-  var o = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {}, a = s;
-  e.trim().split(qs).forEach(function(i) {
+  var o = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {}, i = s;
+  e.trim().split(qs).forEach(function(a) {
     if (o.once && !Gs) {
-      var d = r.listeners, m = d === void 0 ? {} : d;
-      a = function() {
-        delete m[i][s], r.removeEventListener(i, a, o);
+      var d = r.listeners, g = d === void 0 ? {} : d;
+      i = function() {
+        delete g[a][s], r.removeEventListener(a, i, o);
         for (var v = arguments.length, p = new Array(v), b = 0; b < v; b++)
           p[b] = arguments[b];
         s.apply(r, p);
-      }, m[i] || (m[i] = {}), m[i][s] && r.removeEventListener(i, m[i][s], o), m[i][s] = a, r.listeners = m;
+      }, g[a] || (g[a] = {}), g[a][s] && r.removeEventListener(a, g[a][s], o), g[a][s] = i, r.listeners = g;
     }
-    r.addEventListener(i, a, o);
+    r.addEventListener(a, i, o);
   });
 }
 function rt(r, e, s) {
@@ -4594,51 +4595,51 @@ function ns(r) {
   return r + (r.indexOf("?") === -1 ? "?" : "&") + e;
 }
 function mt(r) {
-  var e = r.rotate, s = r.scaleX, o = r.scaleY, a = r.translateX, i = r.translateY, d = [];
-  K(a) && a !== 0 && d.push("translateX(".concat(a, "px)")), K(i) && i !== 0 && d.push("translateY(".concat(i, "px)")), K(e) && e !== 0 && d.push("rotate(".concat(e, "deg)")), K(s) && s !== 1 && d.push("scaleX(".concat(s, ")")), K(o) && o !== 1 && d.push("scaleY(".concat(o, ")"));
-  var m = d.length ? d.join(" ") : "none";
+  var e = r.rotate, s = r.scaleX, o = r.scaleY, i = r.translateX, a = r.translateY, d = [];
+  K(i) && i !== 0 && d.push("translateX(".concat(i, "px)")), K(a) && a !== 0 && d.push("translateY(".concat(a, "px)")), K(e) && e !== 0 && d.push("rotate(".concat(e, "deg)")), K(s) && s !== 1 && d.push("scaleX(".concat(s, ")")), K(o) && o !== 1 && d.push("scaleY(".concat(o, ")"));
+  var g = d.length ? d.join(" ") : "none";
   return {
-    WebkitTransform: m,
-    msTransform: m,
-    transform: m
+    WebkitTransform: g,
+    msTransform: g,
+    transform: g
   };
 }
 function yu(r) {
   var e = Bs({}, r), s = 0;
-  return re(r, function(o, a) {
-    delete e[a], re(e, function(i) {
-      var d = Math.abs(o.startX - i.startX), m = Math.abs(o.startY - i.startY), l = Math.abs(o.endX - i.endX), v = Math.abs(o.endY - i.endY), p = Math.sqrt(d * d + m * m), b = Math.sqrt(l * l + v * v), S = (b - p) / p;
+  return re(r, function(o, i) {
+    delete e[i], re(e, function(a) {
+      var d = Math.abs(o.startX - a.startX), g = Math.abs(o.startY - a.startY), l = Math.abs(o.endX - a.endX), v = Math.abs(o.endY - a.endY), p = Math.sqrt(d * d + g * g), b = Math.sqrt(l * l + v * v), S = (b - p) / p;
       Math.abs(S) > Math.abs(s) && (s = S);
     });
   }), s;
 }
 function At(r, e) {
-  var s = r.pageX, o = r.pageY, a = {
+  var s = r.pageX, o = r.pageY, i = {
     endX: s,
     endY: o
   };
-  return e ? a : Bs({
+  return e ? i : Bs({
     startX: s,
     startY: o
-  }, a);
+  }, i);
 }
 function Su(r) {
   var e = 0, s = 0, o = 0;
-  return re(r, function(a) {
-    var i = a.startX, d = a.startY;
-    e += i, s += d, o += 1;
+  return re(r, function(i) {
+    var a = i.startX, d = i.startY;
+    e += a, s += d, o += 1;
   }), e /= o, s /= o, {
     pageX: e,
     pageY: s
   };
 }
 function Ve(r) {
-  var e = r.aspectRatio, s = r.height, o = r.width, a = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "contain", i = ss(o), d = ss(s);
-  if (i && d) {
-    var m = s * e;
-    a === "contain" && m > o || a === "cover" && m < o ? s = o / e : o = s * e;
+  var e = r.aspectRatio, s = r.height, o = r.width, i = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "contain", a = ss(o), d = ss(s);
+  if (a && d) {
+    var g = s * e;
+    i === "contain" && g > o || i === "cover" && g < o ? s = o / e : o = s * e;
   } else
-    i ? s = o / e : d && (o = s * e);
+    a ? s = o / e : d && (o = s * e);
   return {
     width: o,
     height: s
@@ -4651,17 +4652,17 @@ function wu(r) {
       width: s,
       height: e
     };
-  var a = o % 90 * Math.PI / 180, i = Math.sin(a), d = Math.cos(a), m = e * d + s * i, l = e * i + s * d;
+  var i = o % 90 * Math.PI / 180, a = Math.sin(i), d = Math.cos(i), g = e * d + s * a, l = e * a + s * d;
   return o > 90 ? {
     width: l,
-    height: m
+    height: g
   } : {
-    width: m,
+    width: g,
     height: l
   };
 }
 function _u(r, e, s, o) {
-  var a = e.aspectRatio, i = e.naturalWidth, d = e.naturalHeight, m = e.rotate, l = m === void 0 ? 0 : m, v = e.scaleX, p = v === void 0 ? 1 : v, b = e.scaleY, S = b === void 0 ? 1 : b, M = s.aspectRatio, $ = s.naturalWidth, I = s.naturalHeight, T = o.fillColor, H = T === void 0 ? "transparent" : T, V = o.imageSmoothingEnabled, j = V === void 0 ? !0 : V, z = o.imageSmoothingQuality, X = z === void 0 ? "low" : z, k = o.maxWidth, N = k === void 0 ? 1 / 0 : k, G = o.maxHeight, oe = G === void 0 ? 1 / 0 : G, te = o.minWidth, ue = te === void 0 ? 0 : te, ve = o.minHeight, pe = ve === void 0 ? 0 : ve, ge = document.createElement("canvas"), A = ge.getContext("2d"), R = Ve({
+  var i = e.aspectRatio, a = e.naturalWidth, d = e.naturalHeight, g = e.rotate, l = g === void 0 ? 0 : g, v = e.scaleX, p = v === void 0 ? 1 : v, b = e.scaleY, S = b === void 0 ? 1 : b, M = s.aspectRatio, $ = s.naturalWidth, I = s.naturalHeight, T = o.fillColor, H = T === void 0 ? "transparent" : T, V = o.imageSmoothingEnabled, j = V === void 0 ? !0 : V, z = o.imageSmoothingQuality, X = z === void 0 ? "low" : z, k = o.maxWidth, N = k === void 0 ? 1 / 0 : k, G = o.maxHeight, oe = G === void 0 ? 1 / 0 : G, te = o.minWidth, ue = te === void 0 ? 0 : te, ve = o.minHeight, pe = ve === void 0 ? 0 : ve, ge = document.createElement("canvas"), A = ge.getContext("2d"), R = Ve({
     aspectRatio: M,
     width: N,
     height: oe
@@ -4670,14 +4671,14 @@ function _u(r, e, s, o) {
     width: ue,
     height: pe
   }, "cover"), ee = Math.min(R.width, Math.max(O.width, $)), U = Math.min(R.height, Math.max(O.height, I)), _e = Ve({
-    aspectRatio: a,
+    aspectRatio: i,
     width: N,
     height: oe
   }), be = Ve({
-    aspectRatio: a,
+    aspectRatio: i,
     width: ue,
     height: pe
-  }, "cover"), xt = Math.min(_e.width, Math.max(be.width, i)), kt = Math.min(_e.height, Math.max(be.height, d)), Kt = [-xt / 2, -kt / 2, xt, kt];
+  }, "cover"), xt = Math.min(_e.width, Math.max(be.width, a)), kt = Math.min(_e.height, Math.max(be.height, d)), Kt = [-xt / 2, -kt / 2, xt, kt];
   return ge.width = tt(ee), ge.height = tt(U), A.fillStyle = H, A.fillRect(0, 0, ee, U), A.save(), A.translate(ee / 2, U / 2), A.rotate(l * Math.PI / 180), A.scale(p, S), A.imageSmoothingEnabled = j, A.imageSmoothingQuality = X, A.drawImage.apply(A, [r].concat(zs(Kt.map(function(Dt) {
     return Math.floor(tt(Dt));
   })))), A.restore(), ge;
@@ -4686,48 +4687,48 @@ var Qs = String.fromCharCode;
 function xu(r, e, s) {
   var o = "";
   s += e;
-  for (var a = e; a < s; a += 1)
-    o += Qs(r.getUint8(a));
+  for (var i = e; i < s; i += 1)
+    o += Qs(r.getUint8(i));
   return o;
 }
 var ku = /^data:.*,/;
 function Du(r) {
-  var e = r.replace(ku, ""), s = atob(e), o = new ArrayBuffer(s.length), a = new Uint8Array(o);
-  return re(a, function(i, d) {
-    a[d] = s.charCodeAt(d);
+  var e = r.replace(ku, ""), s = atob(e), o = new ArrayBuffer(s.length), i = new Uint8Array(o);
+  return re(i, function(a, d) {
+    i[d] = s.charCodeAt(d);
   }), o;
 }
 function Cu(r, e) {
-  for (var s = [], o = 8192, a = new Uint8Array(r); a.length > 0; )
-    s.push(Qs.apply(null, Fs(a.subarray(0, o)))), a = a.subarray(o);
+  for (var s = [], o = 8192, i = new Uint8Array(r); i.length > 0; )
+    s.push(Qs.apply(null, Fs(i.subarray(0, o)))), i = i.subarray(o);
   return "data:".concat(e, ";base64,").concat(btoa(s.join("")));
 }
 function Mu(r) {
   var e = new DataView(r), s;
   try {
-    var o, a, i;
+    var o, i, a;
     if (e.getUint8(0) === 255 && e.getUint8(1) === 216)
-      for (var d = e.byteLength, m = 2; m + 1 < d; ) {
-        if (e.getUint8(m) === 255 && e.getUint8(m + 1) === 225) {
-          a = m;
+      for (var d = e.byteLength, g = 2; g + 1 < d; ) {
+        if (e.getUint8(g) === 255 && e.getUint8(g + 1) === 225) {
+          i = g;
           break;
         }
-        m += 1;
+        g += 1;
       }
-    if (a) {
-      var l = a + 4, v = a + 10;
+    if (i) {
+      var l = i + 4, v = i + 10;
       if (xu(e, l, 4) === "Exif") {
         var p = e.getUint16(v);
         if (o = p === 18761, (o || p === 19789) && e.getUint16(v + 2, o) === 42) {
           var b = e.getUint32(v + 4, o);
-          b >= 8 && (i = v + b);
+          b >= 8 && (a = v + b);
         }
       }
     }
-    if (i) {
-      var S = e.getUint16(i, o), M, $;
+    if (a) {
+      var S = e.getUint16(a, o), M, $;
       for ($ = 0; $ < S; $ += 1)
-        if (M = i + $ * 12 + 2, e.getUint16(M, o) === 274) {
+        if (M = a + $ * 12 + 2, e.getUint16(M, o) === 274) {
           M += 8, s = e.getUint16(M, o), e.setUint16(M, 1, o);
           break;
         }
@@ -4773,24 +4774,24 @@ var $u = {
     this.initContainer(), this.initCanvas(), this.initCropBox(), this.renderCanvas(), this.cropped && this.renderCropBox();
   },
   initContainer: function() {
-    var e = this.element, s = this.options, o = this.container, a = this.cropper, i = Number(s.minContainerWidth), d = Number(s.minContainerHeight);
-    ae(a, he), Te(e, he);
-    var m = {
-      width: Math.max(o.offsetWidth, i >= 0 ? i : Xs),
+    var e = this.element, s = this.options, o = this.container, i = this.cropper, a = Number(s.minContainerWidth), d = Number(s.minContainerHeight);
+    ae(i, he), Te(e, he);
+    var g = {
+      width: Math.max(o.offsetWidth, a >= 0 ? a : Xs),
       height: Math.max(o.offsetHeight, d >= 0 ? d : Zs)
     };
-    this.containerData = m, Re(a, {
-      width: m.width,
-      height: m.height
-    }), ae(e, he), Te(a, he);
+    this.containerData = g, Re(i, {
+      width: g.width,
+      height: g.height
+    }), ae(e, he), Te(i, he);
   },
   // Canvas (image wrapper)
   initCanvas: function() {
-    var e = this.containerData, s = this.imageData, o = this.options.viewMode, a = Math.abs(s.rotate) % 180 === 90, i = a ? s.naturalHeight : s.naturalWidth, d = a ? s.naturalWidth : s.naturalHeight, m = i / d, l = e.width, v = e.height;
-    e.height * m > e.width ? o === 3 ? l = e.height * m : v = e.width / m : o === 3 ? v = e.width / m : l = e.height * m;
+    var e = this.containerData, s = this.imageData, o = this.options.viewMode, i = Math.abs(s.rotate) % 180 === 90, a = i ? s.naturalHeight : s.naturalWidth, d = i ? s.naturalWidth : s.naturalHeight, g = a / d, l = e.width, v = e.height;
+    e.height * g > e.width ? o === 3 ? l = e.height * g : v = e.width / g : o === 3 ? v = e.width / g : l = e.height * g;
     var p = {
-      aspectRatio: m,
-      naturalWidth: i,
+      aspectRatio: g,
+      naturalWidth: a,
       naturalHeight: d,
       width: l,
       height: v
@@ -4798,33 +4799,33 @@ var $u = {
     this.canvasData = p, this.limited = o === 1 || o === 2, this.limitCanvas(!0, !0), p.width = Math.min(Math.max(p.width, p.minWidth), p.maxWidth), p.height = Math.min(Math.max(p.height, p.minHeight), p.maxHeight), p.left = (e.width - p.width) / 2, p.top = (e.height - p.height) / 2, p.oldLeft = p.left, p.oldTop = p.top, this.initialCanvasData = Q({}, p);
   },
   limitCanvas: function(e, s) {
-    var o = this.options, a = this.containerData, i = this.canvasData, d = this.cropBoxData, m = o.viewMode, l = i.aspectRatio, v = this.cropped && d;
+    var o = this.options, i = this.containerData, a = this.canvasData, d = this.cropBoxData, g = o.viewMode, l = a.aspectRatio, v = this.cropped && d;
     if (e) {
       var p = Number(o.minCanvasWidth) || 0, b = Number(o.minCanvasHeight) || 0;
-      m > 1 ? (p = Math.max(p, a.width), b = Math.max(b, a.height), m === 3 && (b * l > p ? p = b * l : b = p / l)) : m > 0 && (p ? p = Math.max(p, v ? d.width : 0) : b ? b = Math.max(b, v ? d.height : 0) : v && (p = d.width, b = d.height, b * l > p ? p = b * l : b = p / l));
+      g > 1 ? (p = Math.max(p, i.width), b = Math.max(b, i.height), g === 3 && (b * l > p ? p = b * l : b = p / l)) : g > 0 && (p ? p = Math.max(p, v ? d.width : 0) : b ? b = Math.max(b, v ? d.height : 0) : v && (p = d.width, b = d.height, b * l > p ? p = b * l : b = p / l));
       var S = Ve({
         aspectRatio: l,
         width: p,
         height: b
       });
-      p = S.width, b = S.height, i.minWidth = p, i.minHeight = b, i.maxWidth = 1 / 0, i.maxHeight = 1 / 0;
+      p = S.width, b = S.height, a.minWidth = p, a.minHeight = b, a.maxWidth = 1 / 0, a.maxHeight = 1 / 0;
     }
     if (s)
-      if (m > (v ? 0 : 1)) {
-        var M = a.width - i.width, $ = a.height - i.height;
-        i.minLeft = Math.min(0, M), i.minTop = Math.min(0, $), i.maxLeft = Math.max(0, M), i.maxTop = Math.max(0, $), v && this.limited && (i.minLeft = Math.min(d.left, d.left + (d.width - i.width)), i.minTop = Math.min(d.top, d.top + (d.height - i.height)), i.maxLeft = d.left, i.maxTop = d.top, m === 2 && (i.width >= a.width && (i.minLeft = Math.min(0, M), i.maxLeft = Math.max(0, M)), i.height >= a.height && (i.minTop = Math.min(0, $), i.maxTop = Math.max(0, $))));
+      if (g > (v ? 0 : 1)) {
+        var M = i.width - a.width, $ = i.height - a.height;
+        a.minLeft = Math.min(0, M), a.minTop = Math.min(0, $), a.maxLeft = Math.max(0, M), a.maxTop = Math.max(0, $), v && this.limited && (a.minLeft = Math.min(d.left, d.left + (d.width - a.width)), a.minTop = Math.min(d.top, d.top + (d.height - a.height)), a.maxLeft = d.left, a.maxTop = d.top, g === 2 && (a.width >= i.width && (a.minLeft = Math.min(0, M), a.maxLeft = Math.max(0, M)), a.height >= i.height && (a.minTop = Math.min(0, $), a.maxTop = Math.max(0, $))));
       } else
-        i.minLeft = -i.width, i.minTop = -i.height, i.maxLeft = a.width, i.maxTop = a.height;
+        a.minLeft = -a.width, a.minTop = -a.height, a.maxLeft = i.width, a.maxTop = i.height;
   },
   renderCanvas: function(e, s) {
-    var o = this.canvasData, a = this.imageData;
+    var o = this.canvasData, i = this.imageData;
     if (s) {
-      var i = wu({
-        width: a.naturalWidth * Math.abs(a.scaleX || 1),
-        height: a.naturalHeight * Math.abs(a.scaleY || 1),
-        degree: a.rotate || 0
-      }), d = i.width, m = i.height, l = o.width * (d / o.naturalWidth), v = o.height * (m / o.naturalHeight);
-      o.left -= (l - o.width) / 2, o.top -= (v - o.height) / 2, o.width = l, o.height = v, o.aspectRatio = d / m, o.naturalWidth = d, o.naturalHeight = m, this.limitCanvas(!0, !1);
+      var a = wu({
+        width: i.naturalWidth * Math.abs(i.scaleX || 1),
+        height: i.naturalHeight * Math.abs(i.scaleY || 1),
+        degree: i.rotate || 0
+      }), d = a.width, g = a.height, l = o.width * (d / o.naturalWidth), v = o.height * (g / o.naturalHeight);
+      o.left -= (l - o.width) / 2, o.top -= (v - o.height) / 2, o.width = l, o.height = v, o.aspectRatio = d / g, o.naturalWidth = d, o.naturalHeight = g, this.limitCanvas(!0, !1);
     }
     (o.width > o.maxWidth || o.width < o.minWidth) && (o.left = o.oldLeft), (o.height > o.maxHeight || o.height < o.minHeight) && (o.top = o.oldTop), o.width = Math.min(Math.max(o.width, o.minWidth), o.maxWidth), o.height = Math.min(Math.max(o.height, o.minHeight), o.maxHeight), this.limitCanvas(!1, !0), o.left = Math.min(Math.max(o.left, o.minLeft), o.maxLeft), o.top = Math.min(Math.max(o.top, o.minTop), o.maxTop), o.oldLeft = o.left, o.oldTop = o.top, Re(this.canvas, Q({
       width: o.width,
@@ -4835,12 +4836,12 @@ var $u = {
     }))), this.renderImage(e), this.cropped && this.limited && this.limitCropBox(!0, !0);
   },
   renderImage: function(e) {
-    var s = this.canvasData, o = this.imageData, a = o.naturalWidth * (s.width / s.naturalWidth), i = o.naturalHeight * (s.height / s.naturalHeight);
+    var s = this.canvasData, o = this.imageData, i = o.naturalWidth * (s.width / s.naturalWidth), a = o.naturalHeight * (s.height / s.naturalHeight);
     Q(o, {
-      width: a,
-      height: i,
-      left: (s.width - a) / 2,
-      top: (s.height - i) / 2
+      width: i,
+      height: a,
+      left: (s.width - i) / 2,
+      top: (s.height - a) / 2
     }), Re(this.image, Q({
       width: o.width,
       height: o.height
@@ -4850,19 +4851,19 @@ var $u = {
     }, o)))), e && this.output();
   },
   initCropBox: function() {
-    var e = this.options, s = this.canvasData, o = e.aspectRatio || e.initialAspectRatio, a = Number(e.autoCropArea) || 0.8, i = {
+    var e = this.options, s = this.canvasData, o = e.aspectRatio || e.initialAspectRatio, i = Number(e.autoCropArea) || 0.8, a = {
       width: s.width,
       height: s.height
     };
-    o && (s.height * o > s.width ? i.height = i.width / o : i.width = i.height * o), this.cropBoxData = i, this.limitCropBox(!0, !0), i.width = Math.min(Math.max(i.width, i.minWidth), i.maxWidth), i.height = Math.min(Math.max(i.height, i.minHeight), i.maxHeight), i.width = Math.max(i.minWidth, i.width * a), i.height = Math.max(i.minHeight, i.height * a), i.left = s.left + (s.width - i.width) / 2, i.top = s.top + (s.height - i.height) / 2, i.oldLeft = i.left, i.oldTop = i.top, this.initialCropBoxData = Q({}, i);
+    o && (s.height * o > s.width ? a.height = a.width / o : a.width = a.height * o), this.cropBoxData = a, this.limitCropBox(!0, !0), a.width = Math.min(Math.max(a.width, a.minWidth), a.maxWidth), a.height = Math.min(Math.max(a.height, a.minHeight), a.maxHeight), a.width = Math.max(a.minWidth, a.width * i), a.height = Math.max(a.minHeight, a.height * i), a.left = s.left + (s.width - a.width) / 2, a.top = s.top + (s.height - a.height) / 2, a.oldLeft = a.left, a.oldTop = a.top, this.initialCropBoxData = Q({}, a);
   },
   limitCropBox: function(e, s) {
-    var o = this.options, a = this.containerData, i = this.canvasData, d = this.cropBoxData, m = this.limited, l = o.aspectRatio;
+    var o = this.options, i = this.containerData, a = this.canvasData, d = this.cropBoxData, g = this.limited, l = o.aspectRatio;
     if (e) {
-      var v = Number(o.minCropBoxWidth) || 0, p = Number(o.minCropBoxHeight) || 0, b = m ? Math.min(a.width, i.width, i.width + i.left, a.width - i.left) : a.width, S = m ? Math.min(a.height, i.height, i.height + i.top, a.height - i.top) : a.height;
-      v = Math.min(v, a.width), p = Math.min(p, a.height), l && (v && p ? p * l > v ? p = v / l : v = p * l : v ? p = v / l : p && (v = p * l), S * l > b ? S = b / l : b = S * l), d.minWidth = Math.min(v, b), d.minHeight = Math.min(p, S), d.maxWidth = b, d.maxHeight = S;
+      var v = Number(o.minCropBoxWidth) || 0, p = Number(o.minCropBoxHeight) || 0, b = g ? Math.min(i.width, a.width, a.width + a.left, i.width - a.left) : i.width, S = g ? Math.min(i.height, a.height, a.height + a.top, i.height - a.top) : i.height;
+      v = Math.min(v, i.width), p = Math.min(p, i.height), l && (v && p ? p * l > v ? p = v / l : v = p * l : v ? p = v / l : p && (v = p * l), S * l > b ? S = b / l : b = S * l), d.minWidth = Math.min(v, b), d.minHeight = Math.min(p, S), d.maxWidth = b, d.maxHeight = S;
     }
-    s && (m ? (d.minLeft = Math.max(0, i.left), d.minTop = Math.max(0, i.top), d.maxLeft = Math.min(a.width, i.left + i.width) - d.width, d.maxTop = Math.min(a.height, i.top + i.height) - d.height) : (d.minLeft = 0, d.minTop = 0, d.maxLeft = a.width - d.width, d.maxTop = a.height - d.height));
+    s && (g ? (d.minLeft = Math.max(0, a.left), d.minTop = Math.max(0, a.top), d.maxLeft = Math.min(i.width, a.left + a.width) - d.width, d.maxTop = Math.min(i.height, a.top + a.height) - d.height) : (d.minLeft = 0, d.minTop = 0, d.maxLeft = i.width - d.width, d.maxTop = i.height - d.height));
   },
   renderCropBox: function() {
     var e = this.options, s = this.containerData, o = this.cropBoxData;
@@ -4879,16 +4880,16 @@ var $u = {
   }
 }, Tu = {
   initPreview: function() {
-    var e = this.element, s = this.crossOrigin, o = this.options.preview, a = s ? this.crossOriginUrl : this.url, i = e.alt || "The image to preview", d = document.createElement("img");
-    if (s && (d.crossOrigin = s), d.src = a, d.alt = i, this.viewBox.appendChild(d), this.viewBoxImage = d, !!o) {
-      var m = o;
-      typeof o == "string" ? m = e.ownerDocument.querySelectorAll(o) : o.querySelector && (m = [o]), this.previews = m, re(m, function(l) {
+    var e = this.element, s = this.crossOrigin, o = this.options.preview, i = s ? this.crossOriginUrl : this.url, a = e.alt || "The image to preview", d = document.createElement("img");
+    if (s && (d.crossOrigin = s), d.src = i, d.alt = a, this.viewBox.appendChild(d), this.viewBoxImage = d, !!o) {
+      var g = o;
+      typeof o == "string" ? g = e.ownerDocument.querySelectorAll(o) : o.querySelector && (g = [o]), this.previews = g, re(g, function(l) {
         var v = document.createElement("img");
         yt(l, It, {
           width: l.offsetWidth,
           height: l.offsetHeight,
           html: l.innerHTML
-        }), s && (v.crossOrigin = s), v.src = a, v.alt = i, v.style.cssText = 'display:block;width:100%;height:auto;min-width:0!important;min-height:0!important;max-width:none!important;max-height:none!important;image-orientation:0deg!important;"', l.innerHTML = "", l.appendChild(v);
+        }), s && (v.crossOrigin = s), v.src = i, v.alt = a, v.style.cssText = 'display:block;width:100%;height:auto;min-width:0!important;min-height:0!important;max-width:none!important;max-height:none!important;image-orientation:0deg!important;"', l.innerHTML = "", l.appendChild(v);
       });
     }
   },
@@ -4902,21 +4903,21 @@ var $u = {
     });
   },
   preview: function() {
-    var e = this.imageData, s = this.canvasData, o = this.cropBoxData, a = o.width, i = o.height, d = e.width, m = e.height, l = o.left - s.left - e.left, v = o.top - s.top - e.top;
+    var e = this.imageData, s = this.canvasData, o = this.cropBoxData, i = o.width, a = o.height, d = e.width, g = e.height, l = o.left - s.left - e.left, v = o.top - s.top - e.top;
     !this.cropped || this.disabled || (Re(this.viewBoxImage, Q({
       width: d,
-      height: m
+      height: g
     }, mt(Q({
       translateX: -l,
       translateY: -v
     }, e)))), re(this.previews, function(p) {
       var b = ur(p, It), S = b.width, M = b.height, $ = S, I = M, T = 1;
-      a && (T = S / a, I = i * T), i && I > M && (T = M / i, $ = a * T, I = M), Re(p, {
+      i && (T = S / i, I = a * T), a && I > M && (T = M / a, $ = i * T, I = M), Re(p, {
         width: $,
         height: I
       }), Re(p.getElementsByTagName("img")[0], Q({
         width: d * T,
-        height: m * T
+        height: g * T
       }, mt(Q({
         translateX: -l * T,
         translateY: -v * T
@@ -4941,11 +4942,11 @@ var $u = {
 }, Au = {
   resize: function() {
     if (!this.disabled) {
-      var e = this.options, s = this.container, o = this.containerData, a = s.offsetWidth / o.width, i = s.offsetHeight / o.height, d = Math.abs(a - 1) > Math.abs(i - 1) ? a : i;
+      var e = this.options, s = this.container, o = this.containerData, i = s.offsetWidth / o.width, a = s.offsetHeight / o.height, d = Math.abs(i - 1) > Math.abs(a - 1) ? i : a;
       if (d !== 1) {
-        var m, l;
-        e.restore && (m = this.getCanvasData(), l = this.getCropBoxData()), this.render(), e.restore && (this.setCanvasData(re(m, function(v, p) {
-          m[p] = v * d;
+        var g, l;
+        e.restore && (g = this.getCanvasData(), l = this.getCropBoxData()), this.render(), e.restore && (this.setCanvasData(re(g, function(v, p) {
+          g[p] = v * d;
         })), this.setCropBoxData(re(l, function(v, p) {
           l[p] = v * d;
         })));
@@ -4956,19 +4957,19 @@ var $u = {
     this.disabled || this.options.dragMode === Ws || this.setDragMode(gu(this.dragBox, sr) ? Ys : Dr);
   },
   wheel: function(e) {
-    var s = this, o = Number(this.options.wheelZoomRatio) || 0.1, a = 1;
+    var s = this, o = Number(this.options.wheelZoomRatio) || 0.1, i = 1;
     this.disabled || (e.preventDefault(), !this.wheeling && (this.wheeling = !0, setTimeout(function() {
       s.wheeling = !1;
-    }, 50), e.deltaY ? a = e.deltaY > 0 ? 1 : -1 : e.wheelDelta ? a = -e.wheelDelta / 120 : e.detail && (a = e.detail > 0 ? 1 : -1), this.zoom(-a * o, e)));
+    }, 50), e.deltaY ? i = e.deltaY > 0 ? 1 : -1 : e.wheelDelta ? i = -e.wheelDelta / 120 : e.detail && (i = e.detail > 0 ? 1 : -1), this.zoom(-i * o, e)));
   },
   cropStart: function(e) {
     var s = e.buttons, o = e.button;
     if (!(this.disabled || (e.type === "mousedown" || e.type === "pointerdown" && e.pointerType === "mouse") && // No primary button (Usually the left button)
     (K(s) && s !== 1 || K(o) && o !== 0 || e.ctrlKey))) {
-      var a = this.options, i = this.pointers, d;
-      e.changedTouches ? re(e.changedTouches, function(m) {
-        i[m.identifier] = At(m);
-      }) : i[e.pointerId || 0] = At(e), Object.keys(i).length > 1 && a.zoomable && a.zoomOnTouch ? d = Ks : d = ur(e.target, bt), nu.test(d) && rt(this.element, lr, {
+      var i = this.options, a = this.pointers, d;
+      e.changedTouches ? re(e.changedTouches, function(g) {
+        a[g.identifier] = At(g);
+      }) : a[e.pointerId || 0] = At(e), Object.keys(a).length > 1 && i.zoomable && i.zoomOnTouch ? d = Ks : d = ur(e.target, bt), nu.test(d) && rt(this.element, lr, {
         originalEvent: e,
         action: d
       }) !== !1 && (e.preventDefault(), this.action = d, this.cropping = !1, d === Hs && (this.cropping = !0, ae(this.dragBox, Nt)));
@@ -4981,16 +4982,16 @@ var $u = {
       e.preventDefault(), rt(this.element, ar, {
         originalEvent: e,
         action: s
-      }) !== !1 && (e.changedTouches ? re(e.changedTouches, function(a) {
-        Q(o[a.identifier] || {}, At(a, !0));
+      }) !== !1 && (e.changedTouches ? re(e.changedTouches, function(i) {
+        Q(o[i.identifier] || {}, At(i, !0));
       }) : Q(o[e.pointerId || 0] || {}, At(e, !0)), this.change(e));
     }
   },
   cropEnd: function(e) {
     if (!this.disabled) {
       var s = this.action, o = this.pointers;
-      e.changedTouches ? re(e.changedTouches, function(a) {
-        delete o[a.identifier];
+      e.changedTouches ? re(e.changedTouches, function(i) {
+        delete o[i.identifier];
       }) : delete o[e.pointerId || 0], s && (e.preventDefault(), Object.keys(o).length || (this.action = ""), this.cropping && (this.cropping = !1, et(this.dragBox, Nt, this.cropped && this.options.modal)), rt(this.element, ir, {
         originalEvent: e,
         action: s
@@ -4999,8 +5000,8 @@ var $u = {
   }
 }, Lu = {
   change: function(e) {
-    var s = this.options, o = this.canvasData, a = this.containerData, i = this.cropBoxData, d = this.pointers, m = this.action, l = s.aspectRatio, v = i.left, p = i.top, b = i.width, S = i.height, M = v + b, $ = p + S, I = 0, T = 0, H = a.width, V = a.height, j = !0, z;
-    !l && e.shiftKey && (l = b && S ? b / S : 1), this.limited && (I = i.minLeft, T = i.minTop, H = I + Math.min(a.width, o.width, o.left + o.width), V = T + Math.min(a.height, o.height, o.top + o.height));
+    var s = this.options, o = this.canvasData, i = this.containerData, a = this.cropBoxData, d = this.pointers, g = this.action, l = s.aspectRatio, v = a.left, p = a.top, b = a.width, S = a.height, M = v + b, $ = p + S, I = 0, T = 0, H = i.width, V = i.height, j = !0, z;
+    !l && e.shiftKey && (l = b && S ? b / S : 1), this.limited && (I = a.minLeft, T = a.minTop, H = I + Math.min(i.width, o.width, o.left + o.width), V = T + Math.min(i.height, o.height, o.top + o.height));
     var X = d[Object.keys(d)[0]], k = {
       x: X.endX - X.startX,
       y: X.endY - X.startY
@@ -5020,7 +5021,7 @@ var $u = {
           break;
       }
     };
-    switch (m) {
+    switch (g) {
       case kr:
         v += k.x, p += k.y;
         break;
@@ -5029,28 +5030,28 @@ var $u = {
           j = !1;
           break;
         }
-        N(Ke), b += k.x, b < 0 && (m = Ye, b = -b, v -= b), l && (S = b / l, p += (i.height - S) / 2);
+        N(Ke), b += k.x, b < 0 && (g = Ye, b = -b, v -= b), l && (S = b / l, p += (a.height - S) / 2);
         break;
       case je:
         if (k.y <= 0 && (p <= T || l && (v <= I || M >= H))) {
           j = !1;
           break;
         }
-        N(je), S -= k.y, p += k.y, S < 0 && (m = Je, S = -S, p -= S), l && (b = S * l, v += (i.width - b) / 2);
+        N(je), S -= k.y, p += k.y, S < 0 && (g = Je, S = -S, p -= S), l && (b = S * l, v += (a.width - b) / 2);
         break;
       case Ye:
         if (k.x <= 0 && (v <= I || l && (p <= T || $ >= V))) {
           j = !1;
           break;
         }
-        N(Ye), b -= k.x, v += k.x, b < 0 && (m = Ke, b = -b, v -= b), l && (S = b / l, p += (i.height - S) / 2);
+        N(Ye), b -= k.x, v += k.x, b < 0 && (g = Ke, b = -b, v -= b), l && (S = b / l, p += (a.height - S) / 2);
         break;
       case Je:
         if (k.y >= 0 && ($ >= V || l && (v <= I || M >= H))) {
           j = !1;
           break;
         }
-        N(Je), S += k.y, S < 0 && (m = je, S = -S, p -= S), l && (b = S * l, v += (i.width - b) / 2);
+        N(Je), S += k.y, S < 0 && (g = je, S = -S, p -= S), l && (b = S * l, v += (a.width - b) / 2);
         break;
       case ht:
         if (l) {
@@ -5061,7 +5062,7 @@ var $u = {
           N(je), S -= k.y, p += k.y, b = S * l;
         } else
           N(je), N(Ke), k.x >= 0 ? M < H ? b += k.x : k.y <= 0 && p <= T && (j = !1) : b += k.x, k.y <= 0 ? p > T && (S -= k.y, p += k.y) : (S -= k.y, p += k.y);
-        b < 0 && S < 0 ? (m = gt, S = -S, b = -b, p -= S, v -= b) : b < 0 ? (m = ft, b = -b, v -= b) : S < 0 && (m = pt, S = -S, p -= S);
+        b < 0 && S < 0 ? (g = gt, S = -S, b = -b, p -= S, v -= b) : b < 0 ? (g = ft, b = -b, v -= b) : S < 0 && (g = pt, S = -S, p -= S);
         break;
       case ft:
         if (l) {
@@ -5069,10 +5070,10 @@ var $u = {
             j = !1;
             break;
           }
-          N(je), S -= k.y, p += k.y, b = S * l, v += i.width - b;
+          N(je), S -= k.y, p += k.y, b = S * l, v += a.width - b;
         } else
           N(je), N(Ye), k.x <= 0 ? v > I ? (b -= k.x, v += k.x) : k.y <= 0 && p <= T && (j = !1) : (b -= k.x, v += k.x), k.y <= 0 ? p > T && (S -= k.y, p += k.y) : (S -= k.y, p += k.y);
-        b < 0 && S < 0 ? (m = pt, S = -S, b = -b, p -= S, v -= b) : b < 0 ? (m = ht, b = -b, v -= b) : S < 0 && (m = gt, S = -S, p -= S);
+        b < 0 && S < 0 ? (g = pt, S = -S, b = -b, p -= S, v -= b) : b < 0 ? (g = ht, b = -b, v -= b) : S < 0 && (g = gt, S = -S, p -= S);
         break;
       case gt:
         if (l) {
@@ -5083,7 +5084,7 @@ var $u = {
           N(Ye), b -= k.x, v += k.x, S = b / l;
         } else
           N(Je), N(Ye), k.x <= 0 ? v > I ? (b -= k.x, v += k.x) : k.y >= 0 && $ >= V && (j = !1) : (b -= k.x, v += k.x), k.y >= 0 ? $ < V && (S += k.y) : S += k.y;
-        b < 0 && S < 0 ? (m = ht, S = -S, b = -b, p -= S, v -= b) : b < 0 ? (m = pt, b = -b, v -= b) : S < 0 && (m = ft, S = -S, p -= S);
+        b < 0 && S < 0 ? (g = ht, S = -S, b = -b, p -= S, v -= b) : b < 0 ? (g = pt, b = -b, v -= b) : S < 0 && (g = ft, S = -S, p -= S);
         break;
       case pt:
         if (l) {
@@ -5094,7 +5095,7 @@ var $u = {
           N(Ke), b += k.x, S = b / l;
         } else
           N(Je), N(Ke), k.x >= 0 ? M < H ? b += k.x : k.y >= 0 && $ >= V && (j = !1) : b += k.x, k.y >= 0 ? $ < V && (S += k.y) : S += k.y;
-        b < 0 && S < 0 ? (m = ft, S = -S, b = -b, p -= S, v -= b) : b < 0 ? (m = gt, b = -b, v -= b) : S < 0 && (m = ht, S = -S, p -= S);
+        b < 0 && S < 0 ? (g = ft, S = -S, b = -b, p -= S, v -= b) : b < 0 ? (g = gt, b = -b, v -= b) : S < 0 && (g = ht, S = -S, p -= S);
         break;
       case Us:
         this.move(k.x, k.y), j = !1;
@@ -5107,10 +5108,10 @@ var $u = {
           j = !1;
           break;
         }
-        z = Js(this.cropper), v = X.startX - z.left, p = X.startY - z.top, b = i.minWidth, S = i.minHeight, k.x > 0 ? m = k.y > 0 ? pt : ht : k.x < 0 && (v -= b, m = k.y > 0 ? gt : ft), k.y < 0 && (p -= S), this.cropped || (Te(this.cropBox, he), this.cropped = !0, this.limited && this.limitCropBox(!0, !0));
+        z = Js(this.cropper), v = X.startX - z.left, p = X.startY - z.top, b = a.minWidth, S = a.minHeight, k.x > 0 ? g = k.y > 0 ? pt : ht : k.x < 0 && (v -= b, g = k.y > 0 ? gt : ft), k.y < 0 && (p -= S), this.cropped || (Te(this.cropBox, he), this.cropped = !0, this.limited && this.limitCropBox(!0, !0));
         break;
     }
-    j && (i.width = b, i.height = S, i.left = v, i.top = p, this.action = m, this.renderCropBox()), re(d, function(G) {
+    j && (a.width = b, a.height = S, a.left = v, a.top = p, this.action = g, this.renderCropBox()), re(d, function(G) {
       G.startX = G.endX, G.startY = G.endY;
     });
   }
@@ -5167,8 +5168,8 @@ var $u = {
    * @returns {Cropper} this
    */
   move: function(e) {
-    var s = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : e, o = this.canvasData, a = o.left, i = o.top;
-    return this.moveTo(Zt(e) ? e : a + Number(e), Zt(s) ? s : i + Number(s));
+    var s = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : e, o = this.canvasData, i = o.left, a = o.top;
+    return this.moveTo(Zt(e) ? e : i + Number(e), Zt(s) ? s : a + Number(s));
   },
   /**
    * Move the canvas to an absolute point
@@ -5177,8 +5178,8 @@ var $u = {
    * @returns {Cropper} this
    */
   moveTo: function(e) {
-    var s = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : e, o = this.canvasData, a = !1;
-    return e = Number(e), s = Number(s), this.ready && !this.disabled && this.options.movable && (K(e) && (o.left = e, a = !0), K(s) && (o.top = s, a = !0), a && this.renderCanvas(!0)), this;
+    var s = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : e, o = this.canvasData, i = !1;
+    return e = Number(e), s = Number(s), this.ready && !this.disabled && this.options.movable && (K(e) && (o.left = e, i = !0), K(s) && (o.top = s, i = !0), i && this.renderCanvas(!0)), this;
   },
   /**
    * Zoom the canvas with a relative ratio
@@ -5198,8 +5199,8 @@ var $u = {
    * @returns {Cropper} this
    */
   zoomTo: function(e, s, o) {
-    var a = this.options, i = this.canvasData, d = i.width, m = i.height, l = i.naturalWidth, v = i.naturalHeight;
-    if (e = Number(e), e >= 0 && this.ready && !this.disabled && a.zoomable) {
+    var i = this.options, a = this.canvasData, d = a.width, g = a.height, l = a.naturalWidth, v = a.naturalHeight;
+    if (e = Number(e), e >= 0 && this.ready && !this.disabled && i.zoomable) {
       var p = l * e, b = v * e;
       if (rt(this.element, cr, {
         ratio: e,
@@ -5212,10 +5213,10 @@ var $u = {
           pageX: o.pageX,
           pageY: o.pageY
         };
-        i.left -= (p - d) * (($.pageX - M.left - i.left) / d), i.top -= (b - m) * (($.pageY - M.top - i.top) / m);
+        a.left -= (p - d) * (($.pageX - M.left - a.left) / d), a.top -= (b - g) * (($.pageY - M.top - a.top) / g);
       } else
-        Qe(s) && K(s.x) && K(s.y) ? (i.left -= (p - d) * ((s.x - i.left) / d), i.top -= (b - m) * ((s.y - i.top) / m)) : (i.left -= (p - d) / 2, i.top -= (b - m) / 2);
-      i.width = p, i.height = b, this.renderCanvas(!0);
+        Qe(s) && K(s.x) && K(s.y) ? (a.left -= (p - d) * ((s.x - a.left) / d), a.top -= (b - g) * ((s.y - a.top) / g)) : (a.left -= (p - d) / 2, a.top -= (b - g) / 2);
+      a.width = p, a.height = b, this.renderCanvas(!0);
     }
     return this;
   },
@@ -5260,8 +5261,8 @@ var $u = {
    * @returns {Cropper} this
    */
   scale: function(e) {
-    var s = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : e, o = this.imageData, a = !1;
-    return e = Number(e), s = Number(s), this.ready && !this.disabled && this.options.scalable && (K(e) && (o.scaleX = e, a = !0), K(s) && (o.scaleY = s, a = !0), a && this.renderCanvas(!0, !0)), this;
+    var s = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : e, o = this.imageData, i = !1;
+    return e = Number(e), s = Number(s), this.ready && !this.disabled && this.options.scalable && (K(e) && (o.scaleX = e, i = !0), K(s) && (o.scaleY = s, i = !0), i && this.renderCanvas(!0, !0)), this;
   },
   /**
    * Get the cropped area position and size data (base on the original image)
@@ -5269,17 +5270,17 @@ var $u = {
    * @returns {Object} The result cropped data.
    */
   getData: function() {
-    var e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : !1, s = this.options, o = this.imageData, a = this.canvasData, i = this.cropBoxData, d;
+    var e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : !1, s = this.options, o = this.imageData, i = this.canvasData, a = this.cropBoxData, d;
     if (this.ready && this.cropped) {
       d = {
-        x: i.left - a.left,
-        y: i.top - a.top,
-        width: i.width,
-        height: i.height
+        x: a.left - i.left,
+        y: a.top - i.top,
+        width: a.width,
+        height: a.height
       };
-      var m = o.width / o.naturalWidth;
+      var g = o.width / o.naturalWidth;
       if (re(d, function(p, b) {
-        d[b] = p / m;
+        d[b] = p / g;
       }), e) {
         var l = Math.round(d.y + d.height), v = Math.round(d.x + d.width);
         d.x = Math.round(d.x), d.y = Math.round(d.y), d.width = v - d.x, d.height = l - d.y;
@@ -5299,12 +5300,12 @@ var $u = {
    * @returns {Cropper} this
    */
   setData: function(e) {
-    var s = this.options, o = this.imageData, a = this.canvasData, i = {};
+    var s = this.options, o = this.imageData, i = this.canvasData, a = {};
     if (this.ready && !this.disabled && Qe(e)) {
       var d = !1;
       s.rotatable && K(e.rotate) && e.rotate !== o.rotate && (o.rotate = e.rotate, d = !0), s.scalable && (K(e.scaleX) && e.scaleX !== o.scaleX && (o.scaleX = e.scaleX, d = !0), K(e.scaleY) && e.scaleY !== o.scaleY && (o.scaleY = e.scaleY, d = !0)), d && this.renderCanvas(!0, !0);
-      var m = o.width / o.naturalWidth;
-      K(e.x) && (i.left = e.x * m + a.left), K(e.y) && (i.top = e.y * m + a.top), K(e.width) && (i.width = e.width * m), K(e.height) && (i.height = e.height * m), this.setCropBoxData(i);
+      var g = o.width / o.naturalWidth;
+      K(e.x) && (a.left = e.x * g + i.left), K(e.y) && (a.top = e.y * g + i.top), K(e.width) && (a.width = e.width * g), K(e.height) && (a.height = e.height * g), this.setCropBoxData(a);
     }
     return this;
   },
@@ -5360,8 +5361,8 @@ var $u = {
    * @returns {Cropper} this
    */
   setCropBoxData: function(e) {
-    var s = this.cropBoxData, o = this.options.aspectRatio, a, i;
-    return this.ready && this.cropped && !this.disabled && Qe(e) && (K(e.left) && (s.left = e.left), K(e.top) && (s.top = e.top), K(e.width) && e.width !== s.width && (a = !0, s.width = e.width), K(e.height) && e.height !== s.height && (i = !0, s.height = e.height), o && (a ? s.height = s.width / o : i && (s.width = s.height * o)), this.renderCropBox()), this;
+    var s = this.cropBoxData, o = this.options.aspectRatio, i, a;
+    return this.ready && this.cropped && !this.disabled && Qe(e) && (K(e.left) && (s.left = e.left), K(e.top) && (s.top = e.top), K(e.width) && e.width !== s.width && (i = !0, s.width = e.width), K(e.height) && e.height !== s.height && (a = !0, s.height = e.height), o && (i ? s.height = s.width / o : a && (s.width = s.height * o)), this.renderCropBox()), this;
   },
   /**
    * Get a canvas drawn the cropped image.
@@ -5375,9 +5376,9 @@ var $u = {
     var s = this.canvasData, o = _u(this.image, this.imageData, s, e);
     if (!this.cropped)
       return o;
-    var a = this.getData(), i = a.x, d = a.y, m = a.width, l = a.height, v = o.width / Math.floor(s.naturalWidth);
-    v !== 1 && (i *= v, d *= v, m *= v, l *= v);
-    var p = m / l, b = Ve({
+    var i = this.getData(), a = i.x, d = i.y, g = i.width, l = i.height, v = o.width / Math.floor(s.naturalWidth);
+    v !== 1 && (a *= v, d *= v, g *= v, l *= v);
+    var p = g / l, b = Ve({
       aspectRatio: p,
       width: e.maxWidth || 1 / 0,
       height: e.maxHeight || 1 / 0
@@ -5387,7 +5388,7 @@ var $u = {
       height: e.minHeight || 0
     }, "cover"), M = Ve({
       aspectRatio: p,
-      width: e.width || (v !== 1 ? o.width : m),
+      width: e.width || (v !== 1 ? o.width : g),
       height: e.height || (v !== 1 ? o.height : l)
     }), $ = M.width, I = M.height;
     $ = Math.min(b.width, Math.max(S.width, $)), I = Math.min(b.height, Math.max(S.height, I));
@@ -5395,11 +5396,11 @@ var $u = {
     T.width = tt($), T.height = tt(I), H.fillStyle = e.fillColor || "transparent", H.fillRect(0, 0, $, I);
     var V = e.imageSmoothingEnabled, j = V === void 0 ? !0 : V, z = e.imageSmoothingQuality;
     H.imageSmoothingEnabled = j, z && (H.imageSmoothingQuality = z);
-    var X = o.width, k = o.height, N = i, G = d, oe, te, ue, ve, pe, ge;
-    N <= -m || N > X ? (N = 0, oe = 0, ue = 0, pe = 0) : N <= 0 ? (ue = -N, N = 0, oe = Math.min(X, m + N), pe = oe) : N <= X && (ue = 0, oe = Math.min(m, X - N), pe = oe), oe <= 0 || G <= -l || G > k ? (G = 0, te = 0, ve = 0, ge = 0) : G <= 0 ? (ve = -G, G = 0, te = Math.min(k, l + G), ge = te) : G <= k && (ve = 0, te = Math.min(l, k - G), ge = te);
+    var X = o.width, k = o.height, N = a, G = d, oe, te, ue, ve, pe, ge;
+    N <= -g || N > X ? (N = 0, oe = 0, ue = 0, pe = 0) : N <= 0 ? (ue = -N, N = 0, oe = Math.min(X, g + N), pe = oe) : N <= X && (ue = 0, oe = Math.min(g, X - N), pe = oe), oe <= 0 || G <= -l || G > k ? (G = 0, te = 0, ve = 0, ge = 0) : G <= 0 ? (ve = -G, G = 0, te = Math.min(k, l + G), ge = te) : G <= k && (ve = 0, te = Math.min(l, k - G), ge = te);
     var A = [N, G, oe, te];
     if (pe > 0 && ge > 0) {
-      var R = $ / m;
+      var R = $ / g;
       A.push(ue * R, ve * R, pe * R, ge * R);
     }
     return H.drawImage.apply(H, [o].concat(zs(A.map(function(O) {
@@ -5421,10 +5422,10 @@ var $u = {
    * @returns {Cropper} this
    */
   setDragMode: function(e) {
-    var s = this.options, o = this.dragBox, a = this.face;
+    var s = this.options, o = this.dragBox, i = this.face;
     if (this.ready && !this.disabled) {
-      var i = e === Dr, d = s.movable && e === Ys;
-      e = i || d ? e : Ws, s.dragMode = e, yt(o, bt, e), et(o, sr, i), et(o, or, d), s.cropBoxMovable || (yt(a, bt, e), et(a, sr, i), et(a, or, d));
+      var a = e === Dr, d = s.movable && e === Ys;
+      e = a || d ? e : Ws, s.dragMode = e, yt(o, bt, e), et(o, sr, a), et(o, or, d), s.cropBoxMovable || (yt(i, bt, e), et(i, sr, a), et(i, or, d));
     }
     return this;
   }
@@ -5438,15 +5439,15 @@ var $u = {
   return Fc(r, [{
     key: "init",
     value: function() {
-      var s = this.element, o = s.tagName.toLowerCase(), a;
+      var s = this.element, o = s.tagName.toLowerCase(), i;
       if (!s[J]) {
         if (s[J] = this, o === "img") {
-          if (this.isImg = !0, a = s.getAttribute("src") || "", this.originalUrl = a, !a)
+          if (this.isImg = !0, i = s.getAttribute("src") || "", this.originalUrl = i, !i)
             return;
-          a = s.src;
+          i = s.src;
         } else
-          o === "canvas" && window.HTMLCanvasElement && (a = s.toDataURL());
-        this.load(a);
+          o === "canvas" && window.HTMLCanvasElement && (i = s.toDataURL());
+        this.load(i);
       }
     }
   }, {
@@ -5455,8 +5456,8 @@ var $u = {
       var o = this;
       if (s) {
         this.url = s, this.imageData = {};
-        var a = this.element, i = this.options;
-        if (!i.rotatable && !i.scalable && (i.checkOrientation = !1), !i.checkOrientation || !window.ArrayBuffer) {
+        var i = this.element, a = this.options;
+        if (!a.rotatable && !a.scalable && (a.checkOrientation = !1), !a.checkOrientation || !window.ArrayBuffer) {
           this.clone();
           return;
         }
@@ -5464,55 +5465,55 @@ var $u = {
           au.test(s) ? this.read(Du(s)) : this.clone();
           return;
         }
-        var d = new XMLHttpRequest(), m = this.clone.bind(this);
-        this.reloading = !0, this.xhr = d, d.onabort = m, d.onerror = m, d.ontimeout = m, d.onprogress = function() {
+        var d = new XMLHttpRequest(), g = this.clone.bind(this);
+        this.reloading = !0, this.xhr = d, d.onabort = g, d.onerror = g, d.ontimeout = g, d.onprogress = function() {
           d.getResponseHeader("content-type") !== ts && d.abort();
         }, d.onload = function() {
           o.read(d.response);
         }, d.onloadend = function() {
           o.reloading = !1, o.xhr = null;
-        }, i.checkCrossOrigin && os(s) && a.crossOrigin && (s = ns(s)), d.open("GET", s, !0), d.responseType = "arraybuffer", d.withCredentials = a.crossOrigin === "use-credentials", d.send();
+        }, a.checkCrossOrigin && os(s) && i.crossOrigin && (s = ns(s)), d.open("GET", s, !0), d.responseType = "arraybuffer", d.withCredentials = i.crossOrigin === "use-credentials", d.send();
       }
     }
   }, {
     key: "read",
     value: function(s) {
-      var o = this.options, a = this.imageData, i = Mu(s), d = 0, m = 1, l = 1;
-      if (i > 1) {
+      var o = this.options, i = this.imageData, a = Mu(s), d = 0, g = 1, l = 1;
+      if (a > 1) {
         this.url = Cu(s, ts);
-        var v = Eu(i);
-        d = v.rotate, m = v.scaleX, l = v.scaleY;
+        var v = Eu(a);
+        d = v.rotate, g = v.scaleX, l = v.scaleY;
       }
-      o.rotatable && (a.rotate = d), o.scalable && (a.scaleX = m, a.scaleY = l), this.clone();
+      o.rotatable && (i.rotate = d), o.scalable && (i.scaleX = g, i.scaleY = l), this.clone();
     }
   }, {
     key: "clone",
     value: function() {
-      var s = this.element, o = this.url, a = s.crossOrigin, i = o;
-      this.options.checkCrossOrigin && os(o) && (a || (a = "anonymous"), i = ns(o)), this.crossOrigin = a, this.crossOriginUrl = i;
+      var s = this.element, o = this.url, i = s.crossOrigin, a = o;
+      this.options.checkCrossOrigin && os(o) && (i || (i = "anonymous"), a = ns(o)), this.crossOrigin = i, this.crossOriginUrl = a;
       var d = document.createElement("img");
-      a && (d.crossOrigin = a), d.src = i || o, d.alt = s.alt || "The image to crop", this.image = d, d.onload = this.start.bind(this), d.onerror = this.stop.bind(this), ae(d, Xr), s.parentNode.insertBefore(d, s.nextSibling);
+      i && (d.crossOrigin = i), d.src = a || o, d.alt = s.alt || "The image to crop", this.image = d, d.onload = this.start.bind(this), d.onerror = this.stop.bind(this), ae(d, Xr), s.parentNode.insertBefore(d, s.nextSibling);
     }
   }, {
     key: "start",
     value: function() {
       var s = this, o = this.image;
       o.onload = null, o.onerror = null, this.sizing = !0;
-      var a = Ie.navigator && /(?:iPad|iPhone|iPod).*?AppleWebKit/i.test(Ie.navigator.userAgent), i = function(v, p) {
+      var i = Ie.navigator && /(?:iPad|iPhone|iPod).*?AppleWebKit/i.test(Ie.navigator.userAgent), a = function(v, p) {
         Q(s.imageData, {
           naturalWidth: v,
           naturalHeight: p,
           aspectRatio: v / p
         }), s.initialImageData = Q({}, s.imageData), s.sizing = !1, s.sized = !0, s.build();
       };
-      if (o.naturalWidth && !a) {
-        i(o.naturalWidth, o.naturalHeight);
+      if (o.naturalWidth && !i) {
+        a(o.naturalWidth, o.naturalHeight);
         return;
       }
-      var d = document.createElement("img"), m = document.body || document.documentElement;
+      var d = document.createElement("img"), g = document.body || document.documentElement;
       this.sizingImage = d, d.onload = function() {
-        i(d.width, d.height), a || m.removeChild(d);
-      }, d.src = o.src, a || (d.style.cssText = "left:0;max-height:none!important;max-width:none!important;min-height:0!important;min-width:0!important;opacity:0;position:absolute;top:0;z-index:-1;", m.appendChild(d));
+        a(d.width, d.height), i || g.removeChild(d);
+      }, d.src = o.src, i || (d.style.cssText = "left:0;max-height:none!important;max-width:none!important;min-height:0!important;min-width:0!important;opacity:0;position:absolute;top:0;z-index:-1;", g.appendChild(d));
     }
   }, {
     key: "stop",
@@ -5524,10 +5525,10 @@ var $u = {
     key: "build",
     value: function() {
       if (!(!this.sized || this.ready)) {
-        var s = this.element, o = this.options, a = this.image, i = s.parentNode, d = document.createElement("div");
+        var s = this.element, o = this.options, i = this.image, a = s.parentNode, d = document.createElement("div");
         d.innerHTML = cu;
-        var m = d.querySelector(".".concat(J, "-container")), l = m.querySelector(".".concat(J, "-canvas")), v = m.querySelector(".".concat(J, "-drag-box")), p = m.querySelector(".".concat(J, "-crop-box")), b = p.querySelector(".".concat(J, "-face"));
-        this.container = i, this.cropper = m, this.canvas = l, this.dragBox = v, this.cropBox = p, this.viewBox = m.querySelector(".".concat(J, "-view-box")), this.face = b, l.appendChild(a), ae(s, he), i.insertBefore(m, s.nextSibling), Te(a, Xr), this.initPreview(), this.bind(), o.initialAspectRatio = Math.max(0, o.initialAspectRatio) || NaN, o.aspectRatio = Math.max(0, o.aspectRatio) || NaN, o.viewMode = Math.max(0, Math.min(3, Math.round(o.viewMode))) || 0, ae(p, he), o.guides || ae(p.getElementsByClassName("".concat(J, "-dashed")), he), o.center || ae(p.getElementsByClassName("".concat(J, "-center")), he), o.background && ae(m, "".concat(J, "-bg")), o.highlight || ae(b, tu), o.cropBoxMovable && (ae(b, or), yt(b, bt, kr)), o.cropBoxResizable || (ae(p.getElementsByClassName("".concat(J, "-line")), he), ae(p.getElementsByClassName("".concat(J, "-point")), he)), this.render(), this.ready = !0, this.setDragMode(o.dragMode), o.autoCrop && this.crop(), this.setData(o.data), de(o.ready) && ye(s, Jr, o.ready, {
+        var g = d.querySelector(".".concat(J, "-container")), l = g.querySelector(".".concat(J, "-canvas")), v = g.querySelector(".".concat(J, "-drag-box")), p = g.querySelector(".".concat(J, "-crop-box")), b = p.querySelector(".".concat(J, "-face"));
+        this.container = a, this.cropper = g, this.canvas = l, this.dragBox = v, this.cropBox = p, this.viewBox = g.querySelector(".".concat(J, "-view-box")), this.face = b, l.appendChild(i), ae(s, he), a.insertBefore(g, s.nextSibling), Te(i, Xr), this.initPreview(), this.bind(), o.initialAspectRatio = Math.max(0, o.initialAspectRatio) || NaN, o.aspectRatio = Math.max(0, o.aspectRatio) || NaN, o.viewMode = Math.max(0, Math.min(3, Math.round(o.viewMode))) || 0, ae(p, he), o.guides || ae(p.getElementsByClassName("".concat(J, "-dashed")), he), o.center || ae(p.getElementsByClassName("".concat(J, "-center")), he), o.background && ae(g, "".concat(J, "-bg")), o.highlight || ae(b, tu), o.cropBoxMovable && (ae(b, or), yt(b, bt, kr)), o.cropBoxResizable || (ae(p.getElementsByClassName("".concat(J, "-line")), he), ae(p.getElementsByClassName("".concat(J, "-point")), he)), this.render(), this.ready = !0, this.setDragMode(o.dragMode), o.autoCrop && this.crop(), this.setData(o.data), de(o.ready) && ye(s, Jr, o.ready, {
           once: !0
         }), rt(s, Jr);
       }
@@ -5574,8 +5575,8 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   },
   emits: ["load"],
   setup(r, { emit: e }) {
-    const s = r, { t: o } = P("i18n"), { apiUrl: a } = Ae(), i = L(null), d = L(null), m = L(!1), l = L(""), v = L(!1), p = () => {
-      m.value = !m.value, m.value ? d.value = new eo(i.value, {
+    const s = r, { t: o } = P("i18n"), { apiUrl: i } = Ae(), a = L(null), d = L(null), g = L(!1), l = L(""), v = L(!1), p = () => {
+      g.value = !g.value, g.value ? d.value = new eo(a.value, {
         crop(M) {
         }
       }) : d.value.destroy();
@@ -5585,7 +5586,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
         height: 341
       }).toBlob(
         (M) => {
-          l.value = "", v.value = !1, Ot(a.value, {
+          l.value = "", v.value = !1, Ot(i.value, {
             method: "POST",
             params: Object.assign(b, {
               q: "upload",
@@ -5596,7 +5597,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
             name: s.selection.item.basename,
             json: !1
           }).then(($) => {
-            l.value = o("Updated."), i.value.src = Qt(s.selection.adapter, s.selection.item.path), p(), e("load");
+            l.value = o("Updated."), a.value.src = Qt(s.selection.adapter, s.selection.item.path), p(), e("load");
           }).catch(($) => {
             l.value = o($.message), v.value = !0;
           });
@@ -5615,7 +5616,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
           role: "tooltip"
         }, E(r.selection.item.basename), 9, ju),
         f("div", Ru, [
-          m.value ? (w(), D("button", {
+          g.value ? (w(), D("button", {
             key: 0,
             onClick: S,
             class: "ml-1 px-2 py-1 rounded border border-transparent shadow-sm bg-blue-700/75 hover:bg-blue-700 dark:bg-gray-700 dark:hover:bg-gray-700/50 text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-sm"
@@ -5623,13 +5624,13 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
           f("button", {
             class: "ml-1 px-2 py-1 text-blue-500",
             onClick: $[0] || ($[0] = (I) => p())
-          }, E(m.value ? x(o)("Cancel") : x(o)("Edit")), 1)
+          }, E(g.value ? x(o)("Cancel") : x(o)("Edit")), 1)
         ])
       ]),
       f("div", Vu, [
         f("img", {
           ref_key: "image",
-          ref: i,
+          ref: a,
           class: "max-w-[50vh] max-h-[50vh]",
           src: x(Qt)(s.selection.adapter, s.selection.item.path),
           alt: ""
@@ -5680,10 +5681,10 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   },
   emits: ["load"],
   setup(r, { emit: e }) {
-    const s = r, { apiUrl: o } = Ae(), a = () => o.value + "?" + Fe({ q: "preview", adapter: s.selection.adapter, path: s.selection.item.path });
+    const s = r, { apiUrl: o } = Ae(), i = () => o.value + "?" + Fe({ q: "preview", adapter: s.selection.adapter, path: s.selection.item.path });
     return Me(() => {
       e("load");
-    }), (i, d) => (w(), D(le, null, [
+    }), (a, d) => (w(), D(le, null, [
       f("h3", {
         class: "mb-2 text-lg leading-6 font-medium text-gray-900 dark:text-gray-400",
         id: "modal-title",
@@ -5694,7 +5695,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
       f("div", null, [
         f("video", Xu, [
           f("source", {
-            src: a(),
+            src: i(),
             type: "video/mp4"
           }, null, 8, Zu),
           se(" Your browser does not support the video tag. ")
@@ -5712,10 +5713,10 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   },
   emits: ["load"],
   setup(r, { emit: e }) {
-    const s = r, { apiUrl: o } = Ae(), a = () => o.value + "?" + Fe({ q: "preview", adapter: s.selection.adapter, path: s.selection.item.path });
+    const s = r, { apiUrl: o } = Ae(), i = () => o.value + "?" + Fe({ q: "preview", adapter: s.selection.adapter, path: s.selection.item.path });
     return Me(() => {
       e("load");
-    }), (i, d) => (w(), D(le, null, [
+    }), (a, d) => (w(), D(le, null, [
       f("h3", {
         class: "mb-2 text-lg leading-6 font-medium text-gray-900 dark:text-gray-400",
         id: "modal-title",
@@ -5726,7 +5727,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
       f("div", null, [
         f("audio", Gu, [
           f("source", {
-            src: a(),
+            src: i(),
             type: "audio/mpeg"
           }, null, 8, Ju),
           se(" Your browser does not support the audio element. ")
@@ -5741,10 +5742,10 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   },
   emits: ["load"],
   setup(r, { emit: e }) {
-    const s = r, { apiUrl: o } = Ae(), a = () => o.value + "?" + Fe({ q: "preview", adapter: s.selection.adapter, path: s.selection.item.path });
+    const s = r, { apiUrl: o } = Ae(), i = () => o.value + "?" + Fe({ q: "preview", adapter: s.selection.adapter, path: s.selection.item.path });
     return Me(() => {
       e("load");
-    }), (i, d) => (w(), D(le, null, [
+    }), (a, d) => (w(), D(le, null, [
       f("h3", {
         class: "mb-2 text-lg leading-6 font-medium text-gray-900 dark:text-gray-400",
         id: "modal-title",
@@ -5755,14 +5756,14 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
       f("div", null, [
         f("object", {
           class: "h-[60vh]",
-          data: a(),
+          data: i(),
           type: "application/pdf",
           width: "100%",
           height: "100%"
         }, [
           f("iframe", {
             class: "border-0",
-            src: a(),
+            src: i(),
             width: "100%",
             height: "100%"
           }, `
@@ -5805,7 +5806,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
     selection: Object
   },
   setup(r) {
-    const e = r, { apiUrl: s } = Ae(), o = P("emitter"), { t: a } = P("i18n"), i = L(!1), d = (v) => i.value = v, m = (v) => (e.selection.item.mime_type ?? "").startsWith(v), l = () => {
+    const e = r, { apiUrl: s } = Ae(), o = P("emitter"), { t: i } = P("i18n"), a = L(!1), d = (v) => a.value = v, g = (v) => (e.selection.item.mime_type ?? "").startsWith(v), l = () => {
       const v = s.value + "?" + Fe({ q: "download", adapter: e.selection.adapter, path: e.selection.item.path });
       o.emit("vf-download", v);
     };
@@ -5815,34 +5816,34 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
           type: "button",
           onClick: p[6] || (p[6] = (b) => x(o).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-gray-400 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Close")), 1),
+        }, E(x(i)("Close")), 1),
         f("button", {
           type: "button",
           onClick: p[7] || (p[7] = (b) => l()),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-gray-400 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Download")), 1)
+        }, E(x(i)("Download")), 1)
       ]),
       default: F(() => [
         f("div", od, [
           f("div", nd, [
             f("div", null, [
-              m("text") ? (w(), q(Xc, {
+              g("text") ? (w(), q(Xc, {
                 key: 0,
                 selection: r.selection,
                 onLoad: p[0] || (p[0] = (b) => d(!0))
-              }, null, 8, ["selection"])) : m("image") ? (w(), q(zu, {
+              }, null, 8, ["selection"])) : g("image") ? (w(), q(zu, {
                 key: 1,
                 selection: r.selection,
                 onLoad: p[1] || (p[1] = (b) => d(!0))
-              }, null, 8, ["selection"])) : m("video") ? (w(), q(Fu, {
+              }, null, 8, ["selection"])) : g("video") ? (w(), q(Fu, {
                 key: 2,
                 selection: r.selection,
                 onLoad: p[2] || (p[2] = (b) => d(!0))
-              }, null, 8, ["selection"])) : m("audio") ? (w(), q(Qu, {
+              }, null, 8, ["selection"])) : g("audio") ? (w(), q(Qu, {
                 key: 3,
                 selection: r.selection,
                 onLoad: p[3] || (p[3] = (b) => d(!0))
-              }, null, 8, ["selection"])) : m("application/pdf") ? (w(), q(sd, {
+              }, null, 8, ["selection"])) : g("application/pdf") ? (w(), q(sd, {
                 key: 4,
                 selection: r.selection,
                 onLoad: p[4] || (p[4] = (b) => d(!0))
@@ -5853,20 +5854,20 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
               }, null, 8, ["selection"]))
             ]),
             f("div", id, [
-              i.value == !1 ? (w(), D("div", ad, [
+              a.value == !1 ? (w(), D("div", ad, [
                 ld,
-                f("span", null, E(x(a)("Loading")), 1)
+                f("span", null, E(x(i)("Loading")), 1)
               ])) : Z("", !0)
             ])
           ])
         ]),
         f("div", cd, [
           f("div", null, [
-            f("span", ud, E(x(a)("File Size")) + ": ", 1),
+            f("span", ud, E(x(i)("File Size")) + ": ", 1),
             se(E(x(us)(r.selection.item.file_size)), 1)
           ]),
           f("div", null, [
-            f("span", dd, E(x(a)("Last Modified")) + ": ", 1),
+            f("span", dd, E(x(i)("Last Modified")) + ": ", 1),
             se(" " + E(x(ds)(r.selection.item.last_modified)), 1)
           ])
         ])
@@ -5930,20 +5931,20 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   setup(r) {
     const e = r, s = P("emitter");
     P("storage");
-    const o = P("adapter"), { t: a } = P("i18n"), i = L(e.selection.items[0]), d = L(e.selection.items[0].basename), m = L(""), l = () => {
+    const o = P("adapter"), { t: i } = P("i18n"), a = L(e.selection.items[0]), d = L(e.selection.items[0].basename), g = L(""), l = () => {
       d.value != "" && s.emit("vf-fetch", {
         params: {
           q: "rename",
           adapter: o.value,
           path: e.current.dirname,
-          item: i.value.path,
+          item: a.value.path,
           name: d.value
         },
         onSuccess: () => {
-          s.emit("vf-toast-push", { label: a("%s is renamed.", d.value) });
+          s.emit("vf-toast-push", { label: i("%s is renamed.", d.value) });
         },
         onError: (v) => {
-          m.value = a(v.message);
+          g.value = i(v.message);
         }
       });
     };
@@ -5953,22 +5954,22 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
           type: "button",
           onClick: l,
           class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 dark:bg-gray-700 dark:hover:bg-gray-600/75 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Rename")), 1),
+        }, E(x(i)("Rename")), 1),
         f("button", {
           type: "button",
           onClick: p[2] || (p[2] = (b) => x(s).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Cancel")), 1)
+        }, E(x(i)("Cancel")), 1)
       ]),
       default: F(() => [
         f("div", pd, [
           gd,
           f("div", md, [
-            f("h3", vd, E(x(a)("Rename")), 1),
+            f("h3", vd, E(x(i)("Rename")), 1),
             f("div", bd, [
               f("p", yd, [
-                i.value.type == "dir" ? (w(), D("svg", Sd, _d)) : (w(), D("svg", xd, Dd)),
-                f("span", Cd, E(i.value.basename), 1)
+                a.value.type == "dir" ? (w(), D("svg", Sd, _d)) : (w(), D("svg", xd, Dd)),
+                f("span", Cd, E(a.value.basename), 1)
               ]),
               Se(f("input", {
                 "onUpdate:modelValue": p[0] || (p[0] = (b) => d.value = b),
@@ -5979,13 +5980,13 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
               }, null, 40, Md), [
                 [nt, d.value]
               ]),
-              m.value.length ? (w(), q(Oe, {
+              g.value.length ? (w(), q(Oe, {
                 key: 0,
-                onHidden: p[1] || (p[1] = (b) => m.value = ""),
+                onHidden: p[1] || (p[1] = (b) => g.value = ""),
                 error: ""
               }, {
                 default: F(() => [
-                  se(E(m.value), 1)
+                  se(E(g.value), 1)
                 ]),
                 _: 1
               })) : Z("", !0)
@@ -6024,15 +6025,15 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
     current: Object
   },
   setup(r) {
-    const e = r, s = P("emitter"), { apiUrl: o } = Ae(), { t: a } = P("i18n"), i = P("maxFileSize"), d = L(null), m = L(null), l = L(null), v = L([]), p = L(""), b = L(!0), S = () => {
+    const e = r, s = P("emitter"), { apiUrl: o } = Ae(), { t: i } = P("i18n"), a = P("maxFileSize"), d = L(null), g = L(null), l = L(null), v = L([]), p = L(""), b = L(!0), S = () => {
       p.value = "", d.value.start();
     }, M = P("postData");
     return Me(() => {
       d.value = new dt.Uploader({
         runtimes: "html5",
         browse_button: l.value,
-        container: m.value,
-        max_file_size: i,
+        container: g.value,
+        max_file_size: a,
         multiple_queues: !0,
         file_data_name: "file",
         url: o.value + "?" + Fe(Object.assign(M, { q: "upload", adapter: e.current.adapter, path: e.current.dirname })),
@@ -6063,7 +6064,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
             b.value = !0, s.emit("vf-fetch", { params: { q: "index", adapter: e.current.adapter, path: e.current.dirname } });
           },
           Error: function($, I) {
-            d.value.stop(), I.code == dt.HTTP_ERROR ? p.value = a(JSON.parse(I.response).message) : I.code == dt.FILE_SIZE_ERROR ? p.value = a("The selected file exceeds the maximum file size. You cannot upload files greater than %s", [i]) : p.value = a(I.message);
+            d.value.stop(), I.code == dt.HTTP_ERROR ? p.value = i(JSON.parse(I.response).message) : I.code == dt.FILE_SIZE_ERROR ? p.value = i("The selected file exceeds the maximum file size. You cannot upload files greater than %s", [a]) : p.value = i(I.message);
           }
         }
       }), d.value.init();
@@ -6074,18 +6075,18 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
           onClick: We(S, ["prevent"]),
           type: "button",
           class: ce([b.value ? "bg-blue-200 hover:bg-blue-200 dark:bg-gray-700/50 dark:hover:bg-gray-700/50 dark:text-gray-500" : "bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:hover:bg-gray-500", "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"])
-        }, E(x(a)("Upload")), 11, Rd),
+        }, E(x(i)("Upload")), 11, Rd),
         f("button", {
           type: "button",
           onClick: I[1] || (I[1] = (T) => x(s).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Cancel")), 1)
+        }, E(x(i)("Cancel")), 1)
       ]),
       default: F(() => [
         f("div", Td, [
           Id,
           f("div", Ad, [
-            f("h3", Ld, E(x(a)("Upload files")), 1),
+            f("h3", Ld, E(x(i)("Upload files")), 1),
             f("div", Od, [
               f("div", Pd, [
                 (w(!0), D(le, null, we(v.value, (T) => (w(), D("div", null, [
@@ -6096,19 +6097,19 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
                     f("b", null, E(T.percent), 1)
                   ], 8, Nd)
                 ]))), 256)),
-                v.value.length ? Z("", !0) : (w(), D("div", jd, E(x(a)("No files selected!")), 1))
+                v.value.length ? Z("", !0) : (w(), D("div", jd, E(x(i)("No files selected!")), 1))
               ]),
               f("div", {
                 class: "text-gray-500",
                 ref_key: "container",
-                ref: m
+                ref: g
               }, [
                 f("button", {
                   ref_key: "pickFiles",
                   ref: l,
                   type: "button",
                   class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                }, E(x(a)("Select Files")), 513)
+                }, E(x(i)("Select Files")), 513)
               ], 512),
               p.value.length ? (w(), q(Oe, {
                 key: 0,
@@ -6183,20 +6184,20 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   setup(r) {
     const e = r, s = P("emitter");
     P("storage");
-    const o = P("adapter"), { t: a } = P("i18n"), i = L(""), d = L(""), m = L(e.selection.items), l = () => {
-      m.value.length && s.emit("vf-fetch", {
+    const o = P("adapter"), { t: i } = P("i18n"), a = L(""), d = L(""), g = L(e.selection.items), l = () => {
+      g.value.length && s.emit("vf-fetch", {
         params: {
           q: "archive",
           adapter: o.value,
           path: e.current.dirname,
-          items: JSON.stringify(m.value.map(({ path: v, type: p }) => ({ path: v, type: p }))),
-          name: i.value
+          items: JSON.stringify(g.value.map(({ path: v, type: p }) => ({ path: v, type: p }))),
+          name: a.value
         },
         onSuccess: () => {
-          s.emit("vf-toast-push", { label: a("The file(s) archived.") });
+          s.emit("vf-toast-push", { label: i("The file(s) archived.") });
         },
         onError: (v) => {
-          d.value = a(v.message);
+          d.value = i(v.message);
         }
       });
     };
@@ -6206,31 +6207,31 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
           type: "button",
           onClick: l,
           class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 dark:bg-gray-700 dark:hover:bg-gray-600/75 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Archive")), 1),
+        }, E(x(i)("Archive")), 1),
         f("button", {
           type: "button",
           onClick: p[2] || (p[2] = (b) => x(s).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Cancel")), 1)
+        }, E(x(i)("Cancel")), 1)
       ]),
       default: F(() => [
         f("div", zd, [
           Hd,
           f("div", Ud, [
-            f("h3", Kd, E(x(a)("Archive the files")), 1),
+            f("h3", Kd, E(x(i)("Archive the files")), 1),
             f("div", Yd, [
-              (w(!0), D(le, null, we(m.value, (b) => (w(), D("p", Wd, [
+              (w(!0), D(le, null, we(g.value, (b) => (w(), D("p", Wd, [
                 b.type == "dir" ? (w(), D("svg", Xd, Fd)) : (w(), D("svg", qd, Jd)),
                 f("span", Qd, E(b.basename), 1)
               ]))), 256)),
               Se(f("input", {
-                "onUpdate:modelValue": p[0] || (p[0] = (b) => i.value = b),
+                "onUpdate:modelValue": p[0] || (p[0] = (b) => a.value = b),
                 onKeyup: ot(l, ["enter"]),
                 class: "my-1 px-2 py-1 border rounded dark:bg-gray-700/25 dark:focus:ring-gray-600 dark:focus:border-gray-600 dark:text-gray-100 w-full",
-                placeholder: x(a)("Archive name. (.zip file will be created)"),
+                placeholder: x(i)("Archive name. (.zip file will be created)"),
                 type: "text"
               }, null, 40, eh), [
-                [nt, i.value]
+                [nt, a.value]
               ]),
               d.value.length ? (w(), q(Oe, {
                 key: 0,
@@ -6305,21 +6306,21 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   setup(r) {
     const e = r, s = P("emitter");
     P("storage");
-    const o = P("adapter"), { t: a } = P("i18n");
+    const o = P("adapter"), { t: i } = P("i18n");
     L("");
-    const i = L(e.selection.items[0]), d = L(""), m = L([]), l = () => {
+    const a = L(e.selection.items[0]), d = L(""), g = L([]), l = () => {
       s.emit("vf-fetch", {
         params: {
           q: "unarchive",
           adapter: o.value,
           path: e.current.dirname,
-          item: i.value.path
+          item: a.value.path
         },
         onSuccess: () => {
-          s.emit("vf-toast-push", { label: a("The file unarchived.") });
+          s.emit("vf-toast-push", { label: i("The file unarchived.") });
         },
         onError: (v) => {
-          d.value = a(v.message);
+          d.value = i(v.message);
         }
       });
     };
@@ -6329,24 +6330,24 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
           type: "button",
           onClick: l,
           class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 dark:bg-gray-700 dark:hover:bg-gray-600/75 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Unarchive")), 1),
+        }, E(x(i)("Unarchive")), 1),
         f("button", {
           type: "button",
           onClick: p[1] || (p[1] = (b) => x(s).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(a)("Cancel")), 1)
+        }, E(x(i)("Cancel")), 1)
       ]),
       default: F(() => [
         f("div", sh, [
           oh,
           f("div", nh, [
-            f("h3", ih, E(x(a)("Unarchive")), 1),
+            f("h3", ih, E(x(i)("Unarchive")), 1),
             f("div", ah, [
-              (w(!0), D(le, null, we(m.value, (b) => (w(), D("p", lh, [
+              (w(!0), D(le, null, we(g.value, (b) => (w(), D("p", lh, [
                 b.type == "dir" ? (w(), D("svg", ch, dh)) : (w(), D("svg", hh, ph)),
                 f("span", gh, E(b.basename), 1)
               ]))), 256)),
-              f("p", mh, E(x(a)("The archive will be unarchived at")) + " (" + E(r.current.dirname) + ")", 1),
+              f("p", mh, E(x(i)("The archive will be unarchived at")) + " (" + E(r.current.dirname) + ")", 1),
               d.value.length ? (w(), q(Oe, {
                 key: 0,
                 onHidden: p[0] || (p[0] = (b) => d.value = ""),
@@ -6434,13 +6435,13 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   setup(r) {
     const e = r, s = P("emitter"), { t: o } = P("i18n");
     P("storage");
-    const a = P("adapter"), i = L(e.selection.items.from), d = L(""), m = () => {
-      i.value.length && s.emit("vf-fetch", {
+    const i = P("adapter"), a = L(e.selection.items.from), d = L(""), g = () => {
+      a.value.length && s.emit("vf-fetch", {
         params: {
           q: "move",
-          adapter: a.value,
+          adapter: i.value,
           path: e.current.dirname,
-          items: JSON.stringify(i.value.map(({ path: l, type: v }) => ({ path: l, type: v }))),
+          items: JSON.stringify(a.value.map(({ path: l, type: v }) => ({ path: l, type: v }))),
           item: e.selection.items.to.path
         },
         onSuccess: () => {
@@ -6455,7 +6456,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
       buttons: F(() => [
         f("button", {
           type: "button",
-          onClick: m,
+          onClick: g,
           class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 dark:bg-gray-700 dark:hover:bg-gray-600/75 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
         }, E(x(o)("Yes, Move!")), 1),
         f("button", {
@@ -6470,7 +6471,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
           f("div", wh, [
             f("h3", _h, E(x(o)("Move files")), 1),
             f("div", xh, [
-              (w(!0), D(le, null, we(i.value, (p) => (w(), D("p", kh, [
+              (w(!0), D(le, null, we(a.value, (p) => (w(), D("p", kh, [
                 p.type == "dir" ? (w(), D("svg", Dh, Mh)) : (w(), D("svg", Eh, Th)),
                 f("span", Ih, E(p.path), 1)
               ]))), 256)),
