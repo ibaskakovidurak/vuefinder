@@ -3,10 +3,9 @@ import de from "plupload";
 var is;
 const jr = (is = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : is.getAttribute("content"), Ro = localStorage.getItem("token"), Oe = (r, { method: t = "get", params: s = {}, json: o = !0, signal: i = null }) => {
   const a = { method: t };
-  if (a.signal = i, t == "get")
+  if (a.signal = i, a.headers = {}, a.headers["Access-Control-Allow-Origin"] = "", a.headers["Access-Control-Allow-Methods"] = "", a.headers["Access-Control-Allow-Headers"] = "*", a.headers.Authorization = `Bearer ${Ro}`, t == "get")
     r += "?" + new URLSearchParams(s);
   else {
-    a.headers = {}, a.headers.Authorization = `Bearer ${Ro}`;
     let d = new FormData();
     for (const [m, l] of Object.entries(s))
       d.append(m, l);

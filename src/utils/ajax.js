@@ -5,17 +5,19 @@ export const token = localStorage.getItem('token')
 export default (url, {method = 'get', params = {}, json = true, signal = null}) => {
     const init = {method: method};
     init.signal = signal;
+    init.headers = {};
+    //init.headers['Content-Type'] = config.isFileUpload ? 'multipart/form-data' : 'application/json';
+    init.headers['Access-Control-Allow-Origin'] = '';
+    init.headers['Access-Control-Allow-Methods'] = '';
+    init.headers['Access-Control-Allow-Headers'] = '*';
+    init.headers['Authorization'] = `Bearer ${token}`;
 
     if (method == 'get') {
         url += '?' + new URLSearchParams(params);
     } else {
-        init.headers = {};
-
         // if (csrf) {
         //     init.headers['X-CSRF-Token'] = csrf;
         // }
-
-        init.headers['Authorization'] = `Bearer ${token}`;
 
         let formData = new FormData();
 
