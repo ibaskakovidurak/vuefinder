@@ -10,6 +10,11 @@ export default (url, {method = 'get', params = {}, json = true, signal = null}) 
     //init.headers['Access-Control-Allow-Origin'] = '';
     //init.headers['Access-Control-Allow-Methods'] = '';
     //init.headers['Access-Control-Allow-Headers'] = '*';
+    init.mode = `cors`;
+    init.headers['Content-Type'] = 'application/json';
+    init.headers['Access-Control-Allow-Origin'] = '';
+    init.headers['Access-Control-Allow-Methods'] = '';
+    init.headers['Access-Control-Allow-Headers'] = '*';
     init.headers['Authorization'] = `Bearer ${token}`;
 
     if (method == 'get') {

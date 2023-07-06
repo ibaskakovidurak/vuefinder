@@ -1,17 +1,17 @@
 import { ref as L, watch as je, inject as P, openBlock as w, createElementBlock as D, createElementVNode as f, unref as x, normalizeClass as ct, createTextVNode as st, toDisplayString as E, createCommentVNode as Z, createVNode as Ct, TransitionGroup as Lo, withCtx as F, Fragment as lt, renderList as wt, reactive as Le, onMounted as Mt, onUpdated as Oo, withDirectives as St, vShow as $e, withModifiers as Wt, nextTick as Re, isRef as as, vModelSelect as Nr, createStaticVNode as Po, customRef as No, withKeys as oe, vModelText as ne, normalizeStyle as ls, provide as Ut, createBlock as q, resolveDynamicComponent as jo, renderSlot as Ge } from "vue";
 import de from "plupload";
 var is;
-const jr = (is = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : is.getAttribute("content"), Ro = localStorage.getItem("token"), Oe = (r, { method: t = "get", params: s = {}, json: o = !0, signal: i = null }) => {
-  const a = { method: t };
-  if (a.signal = i, a.headers = {}, a.headers.Authorization = `Bearer ${Ro}`, t == "get")
+const jr = (is = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : is.getAttribute("content"), Ro = localStorage.getItem("token"), Oe = (r, { method: t = "get", params: s = {}, json: o = !0, signal: a = null }) => {
+  const i = { method: t };
+  if (i.signal = a, i.headers = {}, i.mode = "cors", i.headers["Content-Type"] = "application/json", i.headers["Access-Control-Allow-Origin"] = "", i.headers["Access-Control-Allow-Methods"] = "", i.headers["Access-Control-Allow-Headers"] = "*", i.headers.Authorization = `Bearer ${Ro}`, t == "get")
     r += "?" + new URLSearchParams(s);
   else {
     let d = new FormData();
     for (const [m, l] of Object.entries(s))
       d.append(m, l);
-    a.body = d;
+    i.body = d;
   }
-  return fetch(r, a).then((d) => d.ok ? o ? d.json() : d.text() : d.json().then(Promise.reject.bind(Promise)));
+  return fetch(r, i).then((d) => d.ok ? o ? d.json() : d.text() : d.json().then(Promise.reject.bind(Promise)));
 };
 function Vo(r) {
   return { all: r = r || /* @__PURE__ */ new Map(), on: function(t, s) {
@@ -22,10 +22,10 @@ function Vo(r) {
     o && (s ? o.splice(o.indexOf(s) >>> 0, 1) : r.set(t, []));
   }, emit: function(t, s) {
     var o = r.get(t);
-    o && o.slice().map(function(i) {
-      i(s);
-    }), (o = r.get("*")) && o.slice().map(function(i) {
-      i(t, s);
+    o && o.slice().map(function(a) {
+      a(s);
+    }), (o = r.get("*")) && o.slice().map(function(a) {
+      a(t, s);
     });
   } };
 }
@@ -36,13 +36,13 @@ function Je(r) {
   function o() {
     s.value === null || s.value === "" ? localStorage.removeItem(r + "_storage") : localStorage.setItem(r + "_storage", JSON.stringify(s.value));
   }
-  function i(m, l) {
+  function a(m, l) {
     s.value = Object.assign({ ...s.value }, { [m]: l });
   }
-  function a() {
+  function i() {
     s.value = null;
   }
-  return { getStore: (m, l = null) => s.value === null || s.value === "" ? l : s.value.hasOwnProperty(m) ? s.value[m] : l, setStore: i, clearStore: a };
+  return { getStore: (m, l = null) => s.value === null || s.value === "" ? l : s.value.hasOwnProperty(m) ? s.value[m] : l, setStore: a, clearStore: i };
 }
 const Rr = L("");
 function At() {
@@ -186,7 +186,7 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
     data: Object
   },
   setup(r) {
-    const t = P("emitter"), { getStore: s, setStore: o } = P("storage"), { t: i } = P("i18n"), a = L(s("viewport", "grid")), d = L([]), m = L(s("full-screen", !1)), l = L("");
+    const t = P("emitter"), { getStore: s, setStore: o } = P("storage"), { t: a } = P("i18n"), i = L(s("viewport", "grid")), d = L([]), m = L(s("full-screen", !1)), l = L("");
     t.on("vf-search-query", ({ newQuery: S }) => {
       l.value = S;
     });
@@ -196,32 +196,32 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
     return t.on("vf-nodes-selected", (S) => {
       d.value = S;
     }), t.on("vf-view-toggle", (S) => {
-      o("viewport", S), a.value = S;
+      o("viewport", S), i.value = S;
     }), (S, M) => (w(), D("div", Bo, [
       l.value.length ? (w(), D("div", un, [
         f("div", dn, [
-          st(E(x(i)("Search results for")) + " ", 1),
+          st(E(x(a)("Search results for")) + " ", 1),
           f("span", hn, E(l.value), 1)
         ]),
         p() ? (w(), D("svg", fn, mn)) : Z("", !0)
       ])) : (w(), D("div", zo, [
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(i)("New Folder"),
+          "aria-label": x(a)("New Folder"),
           "data-microtip-position": "bottom-right",
           role: "tooltip",
           onClick: M[0] || (M[0] = ($) => x(t).emit("vf-modal-show", { type: "new-folder", items: d.value }))
         }, Ko, 8, Ho),
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(i)("New File"),
+          "aria-label": x(a)("New File"),
           "data-microtip-position": "bottom",
           role: "tooltip",
           onClick: M[1] || (M[1] = ($) => x(t).emit("vf-modal-show", { type: "new-file", items: d.value }))
         }, Xo, 8, Yo),
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(i)("Rename"),
+          "aria-label": x(a)("Rename"),
           "data-microtip-position": "bottom",
           role: "tooltip",
           onClick: M[2] || (M[2] = ($) => d.value.length != 1 || x(t).emit("vf-modal-show", { type: "rename", items: d.value }))
@@ -237,7 +237,7 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
         ], 8, Zo),
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(i)("Delete"),
+          "aria-label": x(a)("Delete"),
           "data-microtip-position": "bottom",
           role: "tooltip",
           onClick: M[3] || (M[3] = ($) => !d.value.length || x(t).emit("vf-modal-show", { type: "delete", items: d.value }))
@@ -253,7 +253,7 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
         ], 8, Go),
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(i)("Upload"),
+          "aria-label": x(a)("Upload"),
           "data-microtip-position": "bottom",
           role: "tooltip",
           onClick: M[4] || (M[4] = ($) => x(t).emit("vf-modal-show", { type: "upload", items: d.value }))
@@ -261,7 +261,7 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
         d.value.length == 1 && d.value[0].mime_type == "application/zip" ? (w(), D("div", {
           key: 0,
           class: "mx-1.5",
-          "aria-label": x(i)("Unrchive"),
+          "aria-label": x(a)("Unrchive"),
           "data-microtip-position": "bottom",
           role: "tooltip",
           onClick: M[5] || (M[5] = ($) => !d.value.length || x(t).emit("vf-modal-show", { type: "unarchive", items: d.value }))
@@ -277,7 +277,7 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
         ], 8, sn)) : (w(), D("div", {
           key: 1,
           class: "mx-1.5",
-          "aria-label": x(i)("Archive"),
+          "aria-label": x(a)("Archive"),
           "data-microtip-position": "bottom",
           role: "tooltip",
           onClick: M[6] || (M[6] = ($) => !d.value.length || x(t).emit("vf-modal-show", { type: "archive", items: d.value }))
@@ -295,7 +295,7 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
       f("div", vn, [
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(i)("Dark Mode"),
+          "aria-label": x(a)("Dark Mode"),
           "data-microtip-position": "bottom",
           role: "tooltip"
         }, [
@@ -310,7 +310,7 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
         ], 8, bn),
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(i)("Toggle Full Screen"),
+          "aria-label": x(a)("Toggle Full Screen"),
           "data-microtip-position": "bottom-left",
           role: "tooltip",
           onClick: b
@@ -321,10 +321,10 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
         ], 8, wn),
         f("div", {
           class: "mx-1.5",
-          "aria-label": x(i)("Change View"),
+          "aria-label": x(a)("Change View"),
           "data-microtip-position": "bottom-left",
           role: "tooltip",
-          onClick: M[8] || (M[8] = ($) => l.value.length || x(t).emit("vf-view-toggle", a.value == "list" ? "grid" : "list"))
+          onClick: M[8] || (M[8] = ($) => l.value.length || x(t).emit("vf-view-toggle", i.value == "list" ? "grid" : "list"))
         }, [
           (w(), D("svg", {
             xmlns: "http://www.w3.org/2000/svg",
@@ -334,8 +334,8 @@ const Bo = { class: "border-neutral-300 flex justify-between items-center py-1 t
             stroke: "none",
             "stroke-width": "1.5"
           }, [
-            a.value == "grid" ? (w(), D("path", Cn)) : Z("", !0),
-            a.value == "list" ? (w(), D("path", Mn)) : Z("", !0)
+            i.value == "grid" ? (w(), D("path", Cn)) : Z("", !0),
+            i.value == "list" ? (w(), D("path", Mn)) : Z("", !0)
           ], 2))
         ], 8, Dn)
       ])
@@ -387,7 +387,7 @@ var cs = { exports: {} };
       }
       return e;
     }
-    function i(c) {
+    function a(c) {
       for (var u = 1; u < arguments.length; u++) {
         var e = arguments[u] != null ? arguments[u] : {};
         u % 2 ? o(Object(e), !0).forEach(function(g) {
@@ -398,7 +398,7 @@ var cs = { exports: {} };
       }
       return c;
     }
-    function a(c, u) {
+    function i(c, u) {
       if (!(c instanceof u))
         throw new TypeError("Cannot call a class as a function");
     }
@@ -886,7 +886,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         return kt.id;
       })).size !== e.length && console.warn('[DragSelect] UniqueConstraintsIssue: setting "dropZones" contains duplicate ids.'), h ? l({}, u, e) : xt ? l({}, u, n) : {});
     }, ho = function(c, u) {
-      return i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i(i({}, Y("area", c.area, u, document)), Y("selectables", c.selectables, u, null)), Y("autoScrollSpeed", c.autoScrollSpeed, u, 5)), Y("overflowTolerance", c.overflowTolerance, u, {
+      return a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a(a({}, Y("area", c.area, u, document)), Y("selectables", c.selectables, u, null)), Y("autoScrollSpeed", c.autoScrollSpeed, u, 5)), Y("overflowTolerance", c.overflowTolerance, u, {
         x: 25,
         y: 25
       })), Y("zoom", c.zoom, u, 1)), Y("customStyles", c.customStyles, u, !1)), Y("multiSelectMode", c.multiSelectMode, u, !1)), Y("multiSelectToggling", c.multiSelectToggling, u, !0)), Y("multiSelectKeys", c.multiSelectKeys, u, ["Control", "Shift", "Meta"])), Y("selector", c.selector, u, null)), Y("selectionThreshold", c.selectionThreshold, u, 0)), Y("draggability", c.draggability, u, !0)), Y("immediateDrag", c.immediateDrag, u, !0)), Y("keyboardDrag", c.keyboardDrag, u, !0)), Y("dragKeys", c.dragKeys, u, {
@@ -970,7 +970,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
             name: "callback",
             extraData: function() {
               var it = h.getTarget();
-              return i({}, it ? {
+              return a({}, it ? {
                 dropTarget: it.toObject()
               } : {});
             }
@@ -981,7 +981,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
         ["pre", !1].forEach(function(Et) {
           return u(Et ? "".concat(xt, ":").concat(Et) : xt, function(nt) {
             return kt.forEach(function(mt) {
-              return (!mt.condition || mt.condition(nt)) && e(Et ? "".concat(Et).concat(mt.name) : mt.name, i(i({
+              return (!mt.condition || mt.condition(nt)) && e(Et ? "".concat(Et).concat(mt.name) : mt.name, a(a({
                 items: n.elements,
                 isDragging: g.isDragging
               }, nt), mt.extraData ? mt.extraData(nt) : {}));
@@ -997,7 +997,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     }, mo = /* @__PURE__ */ function() {
       function c(u) {
         var e = this, g = u.DS;
-        a(this, c), l(this, "DS", void 0), l(this, "_observers", void 0), l(this, "_node", void 0), l(this, "_parentNodes", void 0), l(this, "_computedStyle", void 0), l(this, "_computedBorder", void 0), l(this, "_rect", void 0), l(this, "setArea", function(n) {
+        i(this, c), l(this, "DS", void 0), l(this, "_observers", void 0), l(this, "_node", void 0), l(this, "_parentNodes", void 0), l(this, "_computedStyle", void 0), l(this, "_computedBorder", void 0), l(this, "_rect", void 0), l(this, "setArea", function(n) {
           e.reset(), e._node = n, Ir({
             computedStyle: e.computedStyle,
             node: e._node
@@ -1086,7 +1086,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     }(), vo = /* @__PURE__ */ function() {
       function c(u) {
         var e = this, g = u.DS;
-        a(this, c), l(this, "_prevCursorPos", void 0), l(this, "_prevScrollPos", void 0), l(this, "_elements", []), l(this, "_dragKeys", void 0), l(this, "_dragKeysFlat", []), l(this, "_selectionRect", void 0), l(this, "assignDragkeys", function() {
+        i(this, c), l(this, "_prevCursorPos", void 0), l(this, "_prevScrollPos", void 0), l(this, "_elements", []), l(this, "_dragKeys", void 0), l(this, "_dragKeysFlat", []), l(this, "_selectionRect", void 0), l(this, "assignDragkeys", function() {
           e._dragKeys = {
             up: e.DS.stores.SettingsStore.s.dragKeys.up.map(function(n) {
               return n.toLowerCase();
@@ -1193,7 +1193,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     }(), bo = /* @__PURE__ */ function() {
       function c(u) {
         var e = this, g = u.DS, n = u.id, h = u.element, y = u.droppables;
-        a(this, c), l(this, "id", void 0), l(this, "element", void 0), l(this, "_droppables", void 0), l(this, "_rect", void 0), l(this, "_observers", void 0), l(this, "_timeout", void 0), l(this, "_itemsDropped", []), l(this, "_itemsInside", void 0), l(this, "setReadyClasses", function(_) {
+        i(this, c), l(this, "id", void 0), l(this, "element", void 0), l(this, "_droppables", void 0), l(this, "_rect", void 0), l(this, "_observers", void 0), l(this, "_timeout", void 0), l(this, "_itemsDropped", []), l(this, "_itemsInside", void 0), l(this, "setReadyClasses", function(_) {
           if (!e.isDestroyed) {
             var C = e.droppables.filter(function(B) {
               return e.DS.SelectedSet.has(B);
@@ -1315,12 +1315,12 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
        */
       function c(u) {
         var e = this, g = u.DS;
-        a(this, c), l(this, "_zoneByElement", /* @__PURE__ */ new Map()), l(this, "_zoneById", /* @__PURE__ */ new Map()), l(this, "_zonesByDroppable", /* @__PURE__ */ new Map()), l(this, "_zones", void 0), l(this, "setDropZones", function(n) {
+        i(this, c), l(this, "_zoneByElement", /* @__PURE__ */ new Map()), l(this, "_zoneById", /* @__PURE__ */ new Map()), l(this, "_zonesByDroppable", /* @__PURE__ */ new Map()), l(this, "_zones", void 0), l(this, "setDropZones", function(n) {
           var h = n.dropZones;
           h && (e._zones && e._zones.forEach(function(y) {
             return y.destroy();
           }), e._zones = h.map(function(y) {
-            return new bo(i({
+            return new bo(a({
               DS: e.DS
             }, y));
           }), e._zones.forEach(function(y) {
@@ -1391,7 +1391,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     ), So = /* @__PURE__ */ function() {
       function c(u) {
         var e = this, g = u.DS;
-        a(this, c), l(this, "isInteracting", void 0), l(this, "isDragging", void 0), l(this, "init", function() {
+        i(this, c), l(this, "isInteracting", void 0), l(this, "isDragging", void 0), l(this, "init", function() {
           return e.DS.publish("Interaction:init:pre", {});
         }), l(this, "_init", function() {
           e.stop(), e.Settings.usePointerEvents ? e.DS.Area.HTMLNode.addEventListener("pointerdown", e.start, {
@@ -1506,7 +1506,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     }(), wo = /* @__PURE__ */ m(
       function c(u) {
         var e = this, g = u.DS;
-        a(this, c), l(this, "subscribers", {}), l(this, "subscribe", function(n, h) {
+        i(this, c), l(this, "subscribers", {}), l(this, "subscribe", function(n, h) {
           return Array.isArray(e.subscribers[n]) || (e.subscribers[n] = []), e.subscribers[n].push(h), e.subscribers[n].length - 1;
         }), l(this, "unsubscribe", function(n, h, y) {
           y >= 0 ? e.subscribers[n].splice(y, 1) : h && (e.subscribers[n] = e.subscribers[n].filter(function(_) {
@@ -1546,7 +1546,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       var u = V(e);
       function e(g) {
         var n, h = g.DS;
-        return a(this, e), n = u.call(this), l(T(n), "_rects", void 0), l(T(n), "_timeout", void 0), l(T(n), "init", function() {
+        return i(this, e), n = u.call(this), l(T(n), "_rects", void 0), l(T(n), "_timeout", void 0), l(T(n), "init", function() {
           return Nt(n.Settings.selectables).forEach(function(y) {
             return n.add(y);
           });
@@ -1649,7 +1649,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
       var u = V(e);
       function e(g) {
         var n, h = g.DS;
-        return a(this, e), n = u.call(this), l(T(n), "clear", function() {
+        return i(this, e), n = u.call(this), l(T(n), "clear", function() {
           return n.forEach(function(y) {
             return n.delete(y);
           });
@@ -1713,7 +1713,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     }(/* @__PURE__ */ I(Set)), ko = /* @__PURE__ */ function() {
       function c(u) {
         var e = this, g = u.DS;
-        a(this, c), l(this, "_prevSelectedSet", void 0), l(this, "start", function(n) {
+        i(this, c), l(this, "_prevSelectedSet", void 0), l(this, "start", function(n) {
           var h = n.event, y = n.isDragging;
           y || (e._storePrevious(h), e._handleInsideSelection(!0, h));
         }), l(this, "update", function(n) {
@@ -1774,7 +1774,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     }(), Do = /* @__PURE__ */ function() {
       function c(u) {
         var e = this, g = u.DS;
-        a(this, c), l(this, "_rect", void 0), l(this, "attachSelector", function() {
+        i(this, c), l(this, "_rect", void 0), l(this, "attachSelector", function() {
           var n, h;
           e.HTMLNode && (n = e.DS.SelectorArea) !== null && n !== void 0 && n.HTMLNode && e.DS.SelectorArea.HTMLNode.removeChild(e.HTMLNode), e.HTMLNode = e.DS.stores.SettingsStore.s.selector || Ke(e.DS.stores.SettingsStore.s.customStyles), e.HTMLNode.classList.add(e.DS.stores.SettingsStore.s.selectorClass), e.HTMLNode && (h = e.DS.SelectorArea) !== null && h !== void 0 && h.HTMLNode && e.DS.SelectorArea.HTMLNode.appendChild(e.HTMLNode);
         }), l(this, "start", function(n) {
@@ -1809,7 +1809,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     }(), Co = /* @__PURE__ */ function() {
       function c(u) {
         var e = this, g = u.DS;
-        a(this, c), l(this, "_scrollInterval", void 0), l(this, "_rect", void 0), l(this, "currentEdges", []), l(this, "start", function() {
+        i(this, c), l(this, "_scrollInterval", void 0), l(this, "_rect", void 0), l(this, "currentEdges", []), l(this, "start", function() {
           e.applyElements("append"), e.updatePos();
         }), l(this, "applyElements", function() {
           var n = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : "append", h = document.body ? "body" : "documentElement", y = "".concat(n, "Child");
@@ -1871,7 +1871,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     }(), Mo = /* @__PURE__ */ function() {
       function c(u) {
         var e = this, g = u.DS;
-        a(this, c), l(this, "_currentValues", /* @__PURE__ */ new Set()), l(this, "_keyMapping", {
+        i(this, c), l(this, "_currentValues", /* @__PURE__ */ new Set()), l(this, "_keyMapping", {
           control: "ctrlKey",
           shift: "shiftKey",
           meta: "metaKey"
@@ -1928,7 +1928,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     }(), Eo = /* @__PURE__ */ function() {
       function c(u) {
         var e = this, g = u.DS;
-        a(this, c), l(this, "_isMouseInteraction", !1), l(this, "_initialValArea", void 0), l(this, "_currentValArea", void 0), l(this, "_lastValArea", void 0), l(this, "_initialVal", void 0), l(this, "_currentVal", void 0), l(this, "_lastVal", void 0), l(this, "_lastTouch", void 0), l(this, "init", function() {
+        i(this, c), l(this, "_isMouseInteraction", !1), l(this, "_initialValArea", void 0), l(this, "_currentValArea", void 0), l(this, "_lastValArea", void 0), l(this, "_initialVal", void 0), l(this, "_currentVal", void 0), l(this, "_lastVal", void 0), l(this, "_lastTouch", void 0), l(this, "init", function() {
           e.Settings.usePointerEvents ? document.addEventListener("pointermove", e.update, {
             // @ts-ignore
             passive: !1
@@ -2052,7 +2052,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     }(), $o = /* @__PURE__ */ function() {
       function c(u) {
         var e = this, g = u.DS;
-        a(this, c), l(this, "_initialVal", void 0), l(this, "_currentVal", void 0), l(this, "_canScroll", void 0), l(this, "init", function() {
+        i(this, c), l(this, "_initialVal", void 0), l(this, "_currentVal", void 0), l(this, "_canScroll", void 0), l(this, "init", function() {
           return e.DS.stores.SettingsStore.s.area.addEventListener("scroll", e.update);
         }), l(this, "start", function() {
           e._currentVal = e._initialVal = Ce(e.DS.stores.SettingsStore.s.area), e.DS.stores.SettingsStore.s.area.addEventListener("scroll", e.update);
@@ -2120,9 +2120,9 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
        */
       function c(u) {
         var e = this, g = u.DS, n = u.settings;
-        a(this, c), l(this, "_settings", {}), l(this, "s", {}), l(this, "update", function(h) {
+        i(this, c), l(this, "_settings", {}), l(this, "s", {}), l(this, "update", function(h) {
           var y = h.settings, _ = h.init;
-          return e.DS.publish("Settings:updated:pre", i({
+          return e.DS.publish("Settings:updated:pre", a({
             settings: y
           }, _ ? {
             init: _
@@ -2155,7 +2155,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     ), Or = /* @__PURE__ */ function() {
       function c(u) {
         var e = this;
-        a(this, c), l(this, "continue", !1), l(this, "start", function() {
+        i(this, c), l(this, "continue", !1), l(this, "start", function() {
           e.stopped = !1, e.Interaction.init();
         }), l(this, "break", function() {
           return e.continue = !0;
@@ -2389,7 +2389,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   });
 })(cs);
 var An = cs.exports;
-const Ln = /* @__PURE__ */ In(An), us = (r, t, s, o, i) => (t = Math, s = t.log, o = 1024, i = s(r) / s(o) | 0, r / t.pow(o, i)).toFixed(0) + " " + (i ? "KMGTPEZY"[--i] + "iB" : "B"), ds = (r, t = null) => new Date(r * 1e3).toLocaleString(t ?? navigator.language ?? "en-US"), On = {
+const Ln = /* @__PURE__ */ In(An), us = (r, t, s, o, a) => (t = Math, s = t.log, o = 1024, a = s(r) / s(o) | 0, r / t.pow(o, a)).toFixed(0) + " " + (a ? "KMGTPEZY"[--a] + "iB" : "B"), ds = (r, t = null) => new Date(r * 1e3).toLocaleString(t ?? navigator.language ?? "en-US"), On = {
   key: 0,
   xmlns: "http://www.w3.org/2000/svg",
   class: "h-5 w-5",
@@ -2427,17 +2427,17 @@ const Ln = /* @__PURE__ */ In(An), us = (r, t, s, o, i) => (t = Math, s = t.log,
   name: "VFToast.vue"
 }, Un = /* @__PURE__ */ Object.assign(Hn, {
   setup(r) {
-    const t = P("emitter"), { getStore: s } = P("storage"), o = L(s("full-screen", !1)), i = (l) => l == "error" ? "text-red-400 border-red-400 dark:text-red-300 dark:border-red-300" : "text-lime-600 border-lime-600 dark:text-lime-300 dark:border-lime-1300", a = L([]), d = (l) => {
-      a.value.splice(l, 1);
+    const t = P("emitter"), { getStore: s } = P("storage"), o = L(s("full-screen", !1)), a = (l) => l == "error" ? "text-red-400 border-red-400 dark:text-red-300 dark:border-red-300" : "text-lime-600 border-lime-600 dark:text-lime-300 dark:border-lime-1300", i = L([]), d = (l) => {
+      i.value.splice(l, 1);
     }, m = (l) => {
-      let v = a.value.findIndex((p) => p.id === l);
+      let v = i.value.findIndex((p) => p.id === l);
       v !== -1 && d(v);
     };
     return t.on("vf-toast-clear", () => {
-      a.value = [];
+      i.value = [];
     }), t.on("vf-toast-push", (l) => {
       let v = (/* @__PURE__ */ new Date()).getTime().toString(36).concat(performance.now().toString(), Math.random().toString()).replace(/\./g, "");
-      l.id = v, a.value.push(l), setTimeout(() => {
+      l.id = v, i.value.push(l), setTimeout(() => {
         m(v);
       }, 5e3);
     }), (l, v) => (w(), D("div", {
@@ -2449,10 +2449,10 @@ const Ln = /* @__PURE__ */ In(An), us = (r, t, s, o, i) => (t = Math, s = t.log,
         "leave-to-class": "opacity-0"
       }, {
         default: F(() => [
-          (w(!0), D(lt, null, wt(a.value, (p, b) => (w(), D("div", {
+          (w(!0), D(lt, null, wt(i.value, (p, b) => (w(), D("div", {
             onClick: (S) => d(b),
             key: p,
-            class: ct([i(p.type), "inline-block mx-auto my-0.5 py-0.5 px-2 min-w-max bg-gray-50 dark:bg-gray-600 border text-xs sm:text-sm rounded cursor-pointer"])
+            class: ct([a(p.type), "inline-block mx-auto my-0.5 py-0.5 px-2 min-w-max bg-gray-50 dark:bg-gray-600 border text-xs sm:text-sm rounded cursor-pointer"])
           }, E(p.label), 11, zn))), 128))
         ]),
         _: 1
@@ -2494,11 +2494,11 @@ const Ln = /* @__PURE__ */ In(An), us = (r, t, s, o, i) => (t = Math, s = t.log,
   restore_on_error: !1
 }, ms = (r) => Object.assign({}, Yn, r), Vr = function(r, t) {
   let s;
-  const o = "LazyLoad::Initialized", i = new r(t);
+  const o = "LazyLoad::Initialized", a = new r(t);
   try {
-    s = new CustomEvent(o, { detail: { instance: i } });
+    s = new CustomEvent(o, { detail: { instance: a } });
   } catch {
-    s = document.createEvent("CustomEvent"), s.initCustomEvent(o, !1, !1, { instance: i });
+    s = document.createEvent("CustomEvent"), s.initCustomEvent(o, !1, !1, { instance: a });
   }
   window.dispatchEvent(s);
 }, Wn = (r, t) => {
@@ -2618,18 +2618,18 @@ const Ln = /* @__PURE__ */ In(An), us = (r, t, s, o, i) => (t = Math, s = t.log,
 }, hi = (r, t) => {
   se(r, $s), Bt(r, bs, ft(r, t.data_src));
 }, fi = (r, t, s) => {
-  const o = ft(r, t.data_bg), i = ft(r, t.data_bg_hidpi), a = gs && i ? i : o;
-  a && (r.style.backgroundImage = `url("${a}")`, ks(r).setAttribute(Pt, a), Ls(r, t, s));
+  const o = ft(r, t.data_bg), a = ft(r, t.data_bg_hidpi), i = gs && a ? a : o;
+  i && (r.style.backgroundImage = `url("${i}")`, ks(r).setAttribute(Pt, i), Ls(r, t, s));
 }, pi = (r, t, s) => {
-  const o = ft(r, t.data_bg_multi), i = ft(r, t.data_bg_multi_hidpi), a = gs && i ? i : o;
-  a && (r.style.backgroundImage = a, As(r, t, s));
+  const o = ft(r, t.data_bg_multi), a = ft(r, t.data_bg_multi_hidpi), i = gs && a ? a : o;
+  i && (r.style.backgroundImage = i, As(r, t, s));
 }, gi = (r, t, s) => {
   const o = ft(r, t.data_bg_set);
   if (!o)
     return;
-  const i = o.split("|");
-  let a = i.map((d) => `image-set(${d})`);
-  r.style.backgroundImage = a.join(), r.style.backgroundImage === "" && (a = i.map((d) => `-webkit-image-set(${d})`), r.style.backgroundImage = a.join()), As(r, t, s);
+  const a = o.split("|");
+  let i = a.map((d) => `image-set(${d})`);
+  r.style.backgroundImage = i.join(), r.style.backgroundImage === "" && (i = a.map((d) => `-webkit-image-set(${d})`), r.style.backgroundImage = i.join()), As(r, t, s);
 }, Os = {
   IMG: ci,
   IFRAME: ui,
@@ -2663,11 +2663,11 @@ const Ln = /* @__PURE__ */ In(An), us = (r, t, s, o, i) => (t = Math, s = t.log,
 }, Ns = (r, t, s) => {
   ti(r), vr(s, -1), si(s), $t(r, t.class_loading), t.unobserve_completed && Be(r, s);
 }, _i = (r, t, s, o) => {
-  const i = mr(t);
-  Ns(t, s, o), ie(t, s.class_loaded), qt(t, ys), Ht(s.callback_loaded, t, o), i || Ps(s, o);
+  const a = mr(t);
+  Ns(t, s, o), ie(t, s.class_loaded), qt(t, ys), Ht(s.callback_loaded, t, o), a || Ps(s, o);
 }, xi = (r, t, s, o) => {
-  const i = mr(t);
-  Ns(t, s, o), ie(t, s.class_error), qt(t, pr), Ht(s.callback_error, t, o), s.restore_on_error && Xt(t, ve), i || Ps(s, o);
+  const a = mr(t);
+  Ns(t, s, o), ie(t, s.class_error), qt(t, pr), Ht(s.callback_error, t, o), s.restore_on_error && Xt(t, ve), a || Ps(s, o);
 }, Sr = (r, t, s) => {
   const o = ks(r) || r;
   if (yr(o))
@@ -2722,8 +2722,8 @@ const Ln = /* @__PURE__ */ In(An), us = (r, t, s, o, i) => (t = Math, s = t.log,
 }, Pi = (r, t, s, o) => {
   s.cancel_on_exit && Fn(r) && r.tagName === "IMG" && (tr(r), Mi(r), js(r), $t(r, s.class_loading), vr(o, -1), Ve(r), Ht(s.callback_cancel, r, t, o));
 }, Ni = (r, t, s, o) => {
-  const i = Jn(r);
-  qt(r, Xn), ie(r, s.class_entered), $t(r, s.class_exited), ri(r, s, o), Ht(s.callback_enter, r, t, o), !i && wr(r, s, o);
+  const a = Jn(r);
+  qt(r, Xn), ie(r, s.class_entered), $t(r, s.class_exited), ri(r, s, o), Ht(s.callback_enter, r, t, o), !a && wr(r, s, o);
 }, ji = (r, t, s, o) => {
   gr(r) || (ie(r, s.class_exited), Pi(r, t, s, o), Ht(s.callback_exit, r, t, o));
 }, Ri = ["IMG", "IFRAME", "VIDEO"], Rs = (r) => r.use_native && "loading" in HTMLImageElement.prototype, Vi = (r, t, s) => {
@@ -2912,7 +2912,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
     search: Object
   },
   setup(r) {
-    const t = r, s = P("emitter"), { setStore: o, getStore: i } = P("storage"), a = P("adapter"), d = (A) => A == null ? void 0 : A.substring(0, 3), m = (A) => A.replace(/((?=([\w\W]{0,14}))([\w\W]{8,})([\w\W]{8,}))/, "$2..$4"), l = L(null), v = L(null), p = L(0), b = L(null), { t: S } = P("i18n"), M = Math.floor(Math.random() * 2 ** 32), $ = L(i("full-screen", !1)), I = new _e();
+    const t = r, s = P("emitter"), { setStore: o, getStore: a } = P("storage"), i = P("adapter"), d = (A) => A == null ? void 0 : A.substring(0, 3), m = (A) => A.replace(/((?=([\w\W]{0,14}))([\w\W]{8,})([\w\W]{8,}))/, "$2..$4"), l = L(null), v = L(null), p = L(0), b = L(null), { t: S } = P("i18n"), M = Math.floor(Math.random() * 2 ** 32), $ = L(a("full-screen", !1)), I = new _e();
     s.on("vf-fullscreen-toggle", () => {
       l.value.style.height = null, $.value = !$.value, o("full-screen", $.value);
     });
@@ -2965,7 +2965,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
     }, vt = (A, R) => {
       A.preventDefault();
       let O = JSON.parse(A.dataTransfer.getData("items"));
-      if (O.find((tt) => tt.storage != a.value)) {
+      if (O.find((tt) => tt.storage != i.value)) {
         alert("Moving items between different storages is not supported yet.");
         return;
       }
@@ -3124,7 +3124,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
               O.type == "dir" ? (w(), D("svg", Ea, Ta)) : (O.mime_type ?? "").startsWith("image") ? (w(), D("img", {
                 key: 1,
                 class: "lazy h-10 md:h-12 m-auto",
-                "data-src": x(Qe)(x(a).value, O.path),
+                "data-src": x(Qe)(x(i).value, O.path),
                 alt: O.basename
               }, null, 8, Ia)) : (w(), D("svg", Aa, Oa)),
               !(O.mime_type ?? "").startsWith("image") && O.type != "dir" ? (w(), D("div", Pa, E(d(O.extension)), 1)) : Z("", !0)
@@ -3176,11 +3176,11 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
     data: Object
   },
   setup(r) {
-    const t = P("emitter"), { getStore: s, setStore: o } = P("storage"), i = L(0), a = P("adapter"), { t: d, changeLocale: m } = P("i18n"), l = L(s("locale", "")), v = () => {
-      t.emit("vf-search-exit"), t.emit("vf-fetch", { params: { q: "index", adapter: a.value } }), o("adapter", a.value);
+    const t = P("emitter"), { getStore: s, setStore: o } = P("storage"), a = L(0), i = P("adapter"), { t: d, changeLocale: m } = P("i18n"), l = L(s("locale", "")), v = () => {
+      t.emit("vf-search-exit"), t.emit("vf-fetch", { params: { q: "index", adapter: i.value } }), o("adapter", i.value);
     };
     t.on("vf-nodes-selected", (b) => {
-      i.value = b.length;
+      a.value = b.length;
     });
     const p = L("");
     return t.on("vf-search-query", ({ newQuery: b }) => {
@@ -3194,17 +3194,17 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
           role: "tooltip"
         }, Ka, 8, Ha),
         St(f("select", {
-          "onUpdate:modelValue": S[0] || (S[0] = (M) => as(a) ? a.value = M : null),
+          "onUpdate:modelValue": S[0] || (S[0] = (M) => as(i) ? i.value = M : null),
           onChange: v,
           class: "py-0.5 text-sm text-slate-500 dark:text-neutral-50 dark:bg-gray-700 rounded pl-2 pr-8"
         }, [
           (w(!0), D(lt, null, wt(r.data.storages, (M) => (w(), D("option", { value: M }, E(M), 9, Ya))), 256))
         ], 544), [
-          [Nr, x(a)]
+          [Nr, x(i)]
         ]),
         f("div", Wa, [
           p.value.length ? (w(), D("span", Xa, E(r.data.files.length) + " items found. ", 1)) : Z("", !0),
-          f("span", Za, E(i.value > 0 ? i.value + " " + x(d)("item(s) selected.") : ""), 1)
+          f("span", Za, E(a.value > 0 ? a.value + " " + x(d)("item(s) selected.") : ""), 1)
         ])
       ]),
       f("div", Fa, [
@@ -3230,16 +3230,16 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
   }
 }), sl = (r, t = 0, s = !1) => {
   let o;
-  return (...i) => {
-    s && !o && r(...i), clearTimeout(o), o = setTimeout(() => {
-      r(...i);
+  return (...a) => {
+    s && !o && r(...a), clearTimeout(o), o = setTimeout(() => {
+      r(...a);
     }, t);
   };
 }, ol = (r, t, s) => {
   const o = L(r);
-  return No((a, d) => ({
+  return No((i, d) => ({
     get() {
-      return a(), o.value;
+      return i(), o.value;
     },
     set: sl(
       (m) => {
@@ -3314,17 +3314,17 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
   setup(r) {
     const t = r, s = P("emitter");
     P("storage");
-    const o = P("adapter"), i = L(null), a = L([]), d = L(!1), m = L(null), { t: l } = P("i18n"), v = P("loadingState");
+    const o = P("adapter"), a = L(null), i = L([]), d = L(!1), m = L(null), { t: l } = P("i18n"), v = P("loadingState");
     s.on("vf-explorer-update", () => {
       let V = [], j = [];
-      i.value = t.data.dirname ?? o.value + "://", i.value.length == 0 && (a.value = []), i.value.replace(o.value + "://", "").split("/").forEach(function(z) {
+      a.value = t.data.dirname ?? o.value + "://", a.value.length == 0 && (i.value = []), a.value.replace(o.value + "://", "").split("/").forEach(function(z) {
         V.push(z), V.join("/") != "" && j.push({
           basename: z,
           name: z,
           path: o.value + "://" + V.join("/"),
           type: "dir"
         });
-      }), j.length > 4 && (j = j.slice(-5), j[0].name = ".."), a.value = j;
+      }), j.length > 4 && (j = j.slice(-5), j[0].name = ".."), i.value = j;
     });
     const p = () => {
       d.value = !1, S.value = "";
@@ -3338,7 +3338,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
     je(S, (V) => {
       s.emit("vf-toast-clear"), s.emit("vf-search-query", { newQuery: V });
     });
-    const $ = () => a.value.length && !d.value, I = (V) => {
+    const $ = () => i.value.length && !d.value, I = (V) => {
       V.preventDefault();
       let j = JSON.parse(V.dataTransfer.getData("items"));
       if (j.find((z) => z.storage != o.value)) {
@@ -3347,7 +3347,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
       }
       s.emit("vf-modal-show", {
         type: "move",
-        items: { from: j, to: a.value[a.value.length - 2] ?? { path: o.value + "://" } }
+        items: { from: j, to: i.value[i.value.length - 2] ?? { path: o.value + "://" } }
       });
     }, T = (V) => {
       V.preventDefault(), $() ? V.dataTransfer.dropEffect = "copy" : (V.dataTransfer.dropEffect = "none", V.dataTransfer.effectAllowed = "none");
@@ -3365,7 +3365,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
           onDrop: j[1] || (j[1] = (z) => I(z)),
           onClick: j[2] || (j[2] = (z) => {
             var X;
-            return !$() || x(s).emit("vf-fetch", { params: { q: "index", adapter: r.data.adapter, path: ((X = a.value[a.value.length - 2]) == null ? void 0 : X.path) ?? x(o) + "://" } });
+            return !$() || x(s).emit("vf-fetch", { params: { q: "index", adapter: r.data.adapter, path: ((X = i.value[i.value.length - 2]) == null ? void 0 : X.path) ?? x(o) + "://" } });
           }),
           class: ct(["h-6 w-6 p-0.5 rounded", $() ? "text-slate-700 hover:bg-neutral-300 dark:text-neutral-200 dark:hover:bg-gray-700 cursor-pointer" : "text-gray-400 dark:text-neutral-500"]),
           xmlns: "http://www.w3.org/2000/svg",
@@ -3441,7 +3441,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
           fill: "currentColor"
         }, vl)),
         f("div", bl, [
-          (w(!0), D(lt, null, wt(a.value, (z, X) => (w(), D("div", { key: X }, [
+          (w(!0), D(lt, null, wt(i.value, (z, X) => (w(), D("div", { key: X }, [
             yl,
             f("span", {
               class: "px-1.5 py-1 text-slate-700 dark:text-slate-200 hover:bg-neutral-100 dark:hover:bg-gray-800 rounded cursor-pointer",
@@ -3461,7 +3461,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
     current: Object
   },
   setup(r) {
-    const t = r, s = P("emitter"), o = L(null), { apiUrl: i } = At(), a = Le({
+    const t = r, s = P("emitter"), o = L(null), { apiUrl: a } = At(), i = Le({
       active: !1,
       items: [],
       positions: {
@@ -3512,7 +3512,7 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
       download: {
         title: () => m("Download"),
         action: () => {
-          const S = i.value + "?" + Ft({ q: "download", adapter: t.current.adapter, path: d.value[0].path });
+          const S = a.value + "?" + Ft({ q: "download", adapter: t.current.adapter, path: d.value[0].path });
           s.emit("vf-download", S);
         }
       },
@@ -3540,34 +3540,34 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
     s.on("vf-search-query", ({ newQuery: S }) => {
       p.value = S;
     }), s.on("vf-contextmenu-show", ({ event: S, area: M, items: $, target: I = null }) => {
-      if (a.items = [], p.value)
+      if (i.items = [], p.value)
         if (I)
-          a.items.push(l.openDir), s.emit("vf-context-selected", [I]);
+          i.items.push(l.openDir), s.emit("vf-context-selected", [I]);
         else
           return;
       else
-        !I && !p.value ? (a.items.push(l.refresh), a.items.push(l.newfolder), s.emit("vf-context-selected", [])) : $.length > 1 && $.some((T) => T.path === I.path) ? (a.items.push(l.refresh), a.items.push(l.archive), a.items.push(l.delete), s.emit("vf-context-selected", $)) : (I.type == "dir" ? a.items.push(l.open) : (a.items.push(l.preview), a.items.push(l.download)), a.items.push(l.rename), I.mime_type == "application/zip" ? a.items.push(l.unarchive) : a.items.push(l.archive), a.items.push(l.delete), s.emit("vf-context-selected", [I]));
+        !I && !p.value ? (i.items.push(l.refresh), i.items.push(l.newfolder), s.emit("vf-context-selected", [])) : $.length > 1 && $.some((T) => T.path === I.path) ? (i.items.push(l.refresh), i.items.push(l.archive), i.items.push(l.delete), s.emit("vf-context-selected", $)) : (I.type == "dir" ? i.items.push(l.open) : (i.items.push(l.preview), i.items.push(l.download)), i.items.push(l.rename), I.mime_type == "application/zip" ? i.items.push(l.unarchive) : i.items.push(l.archive), i.items.push(l.delete), s.emit("vf-context-selected", [I]));
       b(S, M);
     }), s.on("vf-contextmenu-hide", () => {
-      a.active = !1;
+      i.active = !1;
     });
     const b = (S, M) => {
-      a.active = !0, Re(() => {
+      i.active = !0, Re(() => {
         let $ = M.getBoundingClientRect(), I = S.pageX, T = S.pageY, H = o.value.offsetHeight, V = o.value.offsetWidth;
-        I = $.right - S.pageX + window.scrollX < V ? I - V : I, T = $.bottom - S.pageY + window.scrollY < H ? T - H : T, a.positions = {
+        I = $.right - S.pageX + window.scrollX < V ? I - V : I, T = $.bottom - S.pageY + window.scrollY < H ? T - H : T, i.positions = {
           left: I + "px",
           top: T + "px"
         };
       });
     };
-    return (S, M) => a.active ? (w(), D("ul", {
+    return (S, M) => i.active ? (w(), D("ul", {
       key: 0,
       class: "z-30 absolute text-xs bg-neutral-50 dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-neutral-300 dark:border-gray-600 shadow rounded select-none",
       ref_key: "contextmenu",
       ref: o,
-      style: ls(a.positions)
+      style: ls(i.positions)
     }, [
-      (w(!0), D(lt, null, wt(a.items, ($) => (w(), D("li", {
+      (w(!0), D(lt, null, wt(i.items, ($) => (w(), D("li", {
         class: "px-2 py-1.5 cursor-pointer hover:bg-neutral-200 dark:hover:bg-gray-700",
         key: $.title,
         onClick: (I) => v($)
@@ -3579,8 +3579,8 @@ const Ji = { class: "relative flex-auto flex flex-col overflow-hidden" }, Qi = {
   }
 }), jl = (r, t) => {
   const s = r[t];
-  return s ? typeof s == "function" ? s() : Promise.resolve(s) : new Promise((o, i) => {
-    (typeof queueMicrotask == "function" ? queueMicrotask : setTimeout)(i.bind(null, new Error("Unknown variable dynamic import: " + t)));
+  return s ? typeof s == "function" ? s() : Promise.resolve(s) : new Promise((o, a) => {
+    (typeof queueMicrotask == "function" ? queueMicrotask : setTimeout)(a.bind(null, new Error("Unknown variable dynamic import: " + t)));
   });
 };
 async function Rl(r) {
@@ -3588,17 +3588,17 @@ async function Rl(r) {
   return JSON.parse(t.default);
 }
 function Vl(r, t, s) {
-  const { getStore: o, setStore: i } = Je(r), a = L({}), d = (v) => {
+  const { getStore: o, setStore: a } = Je(r), i = L({}), d = (v) => {
     Rl(v).then((p) => {
-      a.value = p, i("locale", v), i("translations", p), s.emit("vf-toast-push", { label: "The language is set to " + v });
+      i.value = p, a("locale", v), a("translations", p), s.emit("vf-toast-push", { label: "The language is set to " + v });
     }).catch((p) => {
       s.emit("vf-toast-push", { label: "The selected locale is not yet supported!", type: "error" }), d("en");
     });
   };
-  o("locale") ? a.value = o("translations") : d(t);
+  o("locale") ? i.value = o("translations") : d(t);
   const m = (v, ...p) => p.length ? m(v = v.replace("%s", p.shift()), ...p) : v;
   function l(v, ...p) {
-    return a.value.hasOwnProperty(v) ? m(a.value[v], ...p) : m(v, ...p);
+    return i.value.hasOwnProperty(v) ? m(i.value[v], ...p) : m(v, ...p);
   }
   return { t: l, changeLocale: d };
 }
@@ -3638,19 +3638,19 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
     }
   },
   setup(r) {
-    const t = r, s = Vo(), { setStore: o, getStore: i } = Je(t.id), a = L(i("adapter"));
-    Ut("emitter", s), Ut("storage", Je(t.id)), Ut("postData", t.postData), Ut("adapter", a), Ut("maxFileSize", t.maxFileSize);
+    const t = r, s = Vo(), { setStore: o, getStore: a } = Je(t.id), i = L(a("adapter"));
+    Ut("emitter", s), Ut("storage", Je(t.id)), Ut("postData", t.postData), Ut("adapter", i), Ut("maxFileSize", t.maxFileSize);
     const d = Vl(t.id, t.locale, s);
     Ut("i18n", d);
     const { apiUrl: m, setApiUrl: l } = At();
     l(t.url);
-    const v = Le({ adapter: a.value, storages: [], dirname: ".", files: [] }), p = L(i("viewport", "grid")), b = L(i("darkMode", t.dark));
+    const v = Le({ adapter: i.value, storages: [], dirname: ".", files: [] }), p = L(a("viewport", "grid")), b = L(a("darkMode", t.dark));
     s.on("vf-darkMode-toggle", () => {
       b.value = !b.value, o("darkMode", b.value);
     });
     const S = L(!1);
     Ut("loadingState", S);
-    const M = L(i("full-screen", !1));
+    const M = L(a("full-screen", !1));
     s.on("vf-fullscreen-toggle", () => {
       M.value = !M.value, o("full-screen", M.value);
     }), s.on("vf-view-toggle", (H) => {
@@ -3676,7 +3676,7 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
       ["index", "search"].includes(H.q) && (T && T.abort(), S.value = !0), T = new AbortController();
       const z = T.signal;
       Oe(m.value, { params: H, signal: z }).then((X) => {
-        a.value = X.adapter, ["index", "search"].includes(H.q) && (S.value = !1), s.emit("vf-modal-close"), I(X), V(X);
+        i.value = X.adapter, ["index", "search"].includes(H.q) && (S.value = !1), s.emit("vf-modal-close"), I(X), V(X);
       }).catch((X) => {
         j && j(X);
       }).finally(() => {
@@ -3684,7 +3684,7 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
     }), s.on("vf-download", (H) => {
       document.getElementById("download_frame").src = H, s.emit("vf-modal-close");
     }), Mt(() => {
-      s.emit("vf-fetch", { params: { q: "index", adapter: a.value } });
+      s.emit("vf-fetch", { params: { q: "index", adapter: i.value } });
     }), (H, V) => (w(), D("div", Bl, [
       f("div", {
         class: ct(b.value ? "dark" : "")
@@ -3725,14 +3725,14 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
       "aria-labelledby": "modal-title",
       role: "dialog",
       "aria-modal": "true",
-      onKeyup: o[1] || (o[1] = oe((i) => x(t).emit("vf-modal-close"), ["esc"])),
+      onKeyup: o[1] || (o[1] = oe((a) => x(t).emit("vf-modal-close"), ["esc"])),
       tabindex: "0"
     }, [
       Kl,
       f("div", Yl, [
         f("div", {
           class: "flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0",
-          onMousedown: o[0] || (o[0] = Wt((i) => x(t).emit("vf-modal-close"), ["self"]))
+          onMousedown: o[0] || (o[0] = Wt((a) => x(t).emit("vf-modal-close"), ["self"]))
         }, [
           f("div", Wl, [
             f("div", Xl, [
@@ -3773,8 +3773,8 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
   emits: ["hidden"],
   setup(r, { emit: t }) {
     var m;
-    const { t: s } = P("i18n"), o = L(!1), i = L(null), a = L((m = i.value) == null ? void 0 : m.strMessage);
-    je(a, () => o.value = !1);
+    const { t: s } = P("i18n"), o = L(!1), a = L(null), i = L((m = a.value) == null ? void 0 : m.strMessage);
+    je(i, () => o.value = !1);
     const d = () => {
       t("hidden"), o.value = !0;
     };
@@ -3782,7 +3782,7 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
       o.value ? Z("", !0) : (w(), D("div", {
         key: 0,
         ref_key: "strMessage",
-        ref: i,
+        ref: a,
         class: ct(["flex mt-1 p-1 px-2 rounded text-sm", r.error ? "bg-red-100 text-red-600" : "bg-emerald-100 text-emerald-600"])
       }, [
         Ge(l.$slots, "default"),
@@ -3852,19 +3852,19 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
   setup(r) {
     const t = r, s = P("emitter");
     P("storage");
-    const o = P("adapter"), { t: i } = P("i18n"), a = L(t.selection.items), d = L(""), m = () => {
-      a.value.length && s.emit("vf-fetch", {
+    const o = P("adapter"), { t: a } = P("i18n"), i = L(t.selection.items), d = L(""), m = () => {
+      i.value.length && s.emit("vf-fetch", {
         params: {
           q: "delete",
           adapter: o.value,
           path: t.current.dirname,
-          items: JSON.stringify(a.value.map(({ path: l, type: v }) => ({ path: l, type: v })))
+          items: JSON.stringify(i.value.map(({ path: l, type: v }) => ({ path: l, type: v })))
         },
         onSuccess: () => {
-          s.emit("vf-toast-push", { label: i("Files deleted.") });
+          s.emit("vf-toast-push", { label: a("Files deleted.") });
         },
         onError: (l) => {
-          d.value = i(l.message);
+          d.value = a(l.message);
         }
       });
     };
@@ -3874,22 +3874,22 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
           type: "button",
           onClick: m,
           class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Yes, Delete!")), 1),
+        }, E(x(a)("Yes, Delete!")), 1),
         f("button", {
           type: "button",
           onClick: v[1] || (v[1] = (p) => x(s).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Cancel")), 1),
-        f("div", fc, E(x(i)("This action cannot be undone.")), 1)
+        }, E(x(a)("Cancel")), 1),
+        f("div", fc, E(x(a)("This action cannot be undone.")), 1)
       ]),
       default: F(() => [
         f("div", Ql, [
           tc,
           f("div", ec, [
-            f("h3", rc, E(x(i)("Delete files")), 1),
+            f("h3", rc, E(x(a)("Delete files")), 1),
             f("div", sc, [
-              f("p", oc, E(x(i)("Are you sure you want to delete these files?")), 1),
-              (w(!0), D(lt, null, wt(a.value, (p) => (w(), D("p", nc, [
+              f("p", oc, E(x(a)("Are you sure you want to delete these files?")), 1),
+              (w(!0), D(lt, null, wt(i.value, (p) => (w(), D("p", nc, [
                 p.type == "dir" ? (w(), D("svg", ic, lc)) : (w(), D("svg", cc, dc)),
                 f("span", hc, E(p.basename), 1)
               ]))), 256)),
@@ -3936,21 +3936,21 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
   },
   setup(r) {
     const t = P("emitter"), { t: s } = P("i18n");
-    return (o, i) => (w(), q(Lt, null, {
+    return (o, a) => (w(), q(Lt, null, {
       buttons: F(() => [
         f("button", {
           type: "button",
-          onClick: i[0] || (i[0] = (a) => x(t).emit("vf-modal-close")),
+          onClick: a[0] || (a[0] = (i) => x(t).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
         }, E(x(s)("Close")), 1)
       ]),
       default: F(() => {
-        var a, d;
+        var i, d;
         return [
           f("div", mc, [
             vc,
             f("div", bc, [
-              f("h3", yc, E(((a = r.selection) == null ? void 0 : a.title) ?? "Title"), 1),
+              f("h3", yc, E(((i = r.selection) == null ? void 0 : i.title) ?? "Title"), 1),
               f("div", Sc, [
                 f("p", wc, E(((d = r.selection) == null ? void 0 : d.message) ?? "Message") + ".", 1)
               ])
@@ -3989,19 +3989,19 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
   setup(r) {
     const t = r, s = P("emitter");
     P("storage");
-    const o = P("adapter"), { t: i } = P("i18n"), a = L(""), d = L(""), m = () => {
-      a.value != "" && s.emit("vf-fetch", {
+    const o = P("adapter"), { t: a } = P("i18n"), i = L(""), d = L(""), m = () => {
+      i.value != "" && s.emit("vf-fetch", {
         params: {
           q: "newfolder",
           adapter: o.value,
           path: t.current.dirname,
-          name: a.value
+          name: i.value
         },
         onSuccess: () => {
-          s.emit("vf-toast-push", { label: i("%s is created.", a.value) });
+          s.emit("vf-toast-push", { label: a("%s is created.", i.value) });
         },
         onError: (l) => {
-          d.value = i(l.message);
+          d.value = a(l.message);
         }
       });
     };
@@ -4011,28 +4011,28 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
           type: "button",
           onClick: m,
           class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 dark:bg-gray-700 dark:hover:bg-gray-600/75 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Create")), 1),
+        }, E(x(a)("Create")), 1),
         f("button", {
           type: "button",
           onClick: v[2] || (v[2] = (p) => x(s).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Cancel")), 1)
+        }, E(x(a)("Cancel")), 1)
       ]),
       default: F(() => [
         f("div", kc, [
           Dc,
           f("div", Cc, [
-            f("h3", Mc, E(x(i)("New Folder")), 1),
+            f("h3", Mc, E(x(a)("New Folder")), 1),
             f("div", Ec, [
-              f("p", $c, E(x(i)("Create a new folder")), 1),
+              f("p", $c, E(x(a)("Create a new folder")), 1),
               St(f("input", {
-                "onUpdate:modelValue": v[0] || (v[0] = (p) => a.value = p),
+                "onUpdate:modelValue": v[0] || (v[0] = (p) => i.value = p),
                 onKeyup: oe(m, ["enter"]),
                 class: "px-2 py-1 border rounded dark:bg-gray-700/25 dark:focus:ring-gray-600 dark:focus:border-gray-600 dark:text-gray-100 w-full",
-                placeholder: x(i)("Folder Name"),
+                placeholder: x(a)("Folder Name"),
                 type: "text"
               }, null, 40, Tc), [
-                [ne, a.value]
+                [ne, i.value]
               ]),
               d.value.length ? (w(), q(Ot, {
                 key: 0,
@@ -4079,19 +4079,19 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
   setup(r) {
     const t = r, s = P("emitter");
     P("storage");
-    const o = P("adapter"), { t: i } = P("i18n"), a = L(""), d = L(""), m = () => {
-      a.value != "" && s.emit("vf-fetch", {
+    const o = P("adapter"), { t: a } = P("i18n"), i = L(""), d = L(""), m = () => {
+      i.value != "" && s.emit("vf-fetch", {
         params: {
           q: "newfile",
           adapter: o.value,
           path: t.current.dirname,
-          name: a.value
+          name: i.value
         },
         onSuccess: () => {
-          s.emit("vf-toast-push", { label: i("%s is created.", a.value) });
+          s.emit("vf-toast-push", { label: a("%s is created.", i.value) });
         },
         onError: (l) => {
-          d.value = i(l.message);
+          d.value = a(l.message);
         }
       });
     };
@@ -4101,28 +4101,28 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
           type: "button",
           onClick: m,
           class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 dark:bg-gray-700 dark:hover:bg-gray-600/75 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Create")), 1),
+        }, E(x(a)("Create")), 1),
         f("button", {
           type: "button",
           onClick: v[2] || (v[2] = (p) => x(s).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Cancel")), 1)
+        }, E(x(a)("Cancel")), 1)
       ]),
       default: F(() => [
         f("div", Lc, [
           Oc,
           f("div", Pc, [
-            f("h3", Nc, E(x(i)("New File")), 1),
+            f("h3", Nc, E(x(a)("New File")), 1),
             f("div", jc, [
-              f("p", Rc, E(x(i)("Create a new file")), 1),
+              f("p", Rc, E(x(a)("Create a new file")), 1),
               St(f("input", {
-                "onUpdate:modelValue": v[0] || (v[0] = (p) => a.value = p),
+                "onUpdate:modelValue": v[0] || (v[0] = (p) => i.value = p),
                 onKeyup: oe(m, ["enter"]),
                 class: "px-2 py-1 border rounded dark:bg-gray-700/25 dark:focus:ring-gray-600 dark:focus:border-gray-600 dark:text-gray-100 w-full",
-                placeholder: x(i)("File Name"),
+                placeholder: x(a)("File Name"),
                 type: "text"
               }, null, 40, Vc), [
-                [ne, a.value]
+                [ne, i.value]
               ]),
               d.value.length ? (w(), q(Ot, {
                 key: 0,
@@ -4151,7 +4151,7 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
   },
   emits: ["load"],
   setup(r, { emit: t }) {
-    const s = r, o = L(""), i = L(""), a = L(null), d = L(!1), { apiUrl: m } = At(), l = L(""), v = L(!1), { t: p } = P("i18n");
+    const s = r, o = L(""), a = L(""), i = L(null), d = L(!1), { apiUrl: m } = At(), l = L(""), v = L(!1), { t: p } = P("i18n");
     Mt(() => {
       Oe(m.value, {
         params: { q: "preview", adapter: s.selection.adapter, path: s.selection.item.path },
@@ -4161,8 +4161,8 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
       });
     });
     const b = () => {
-      d.value = !d.value, i.value = o.value, d.value == !0 && Re(() => {
-        a.value.focus();
+      d.value = !d.value, a.value = o.value, d.value == !0 && Re(() => {
+        i.value.focus();
       });
     }, S = P("postData"), M = () => {
       l.value = "", v.value = !1, Oe(m.value, {
@@ -4171,7 +4171,7 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
           q: "save",
           adapter: s.selection.adapter,
           path: s.selection.item.path,
-          content: i.value
+          content: a.value
         }),
         json: !1
       }).then(($) => {
@@ -4205,15 +4205,15 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
         d.value ? (w(), D("div", Wc, [
           St(f("textarea", {
             ref_key: "editInput",
-            ref: a,
-            "onUpdate:modelValue": I[1] || (I[1] = (T) => i.value = T),
+            ref: i,
+            "onUpdate:modelValue": I[1] || (I[1] = (T) => a.value = T),
             class: "w-full p-2 rounded dark:bg-gray-700 dark:text-gray-200 dark:focus:ring-gray-600 dark:focus:border-gray-600 dark:selection:bg-gray-500 min-h-[200px] max-h-[60vh] text-xs",
             name: "text",
             id: "",
             cols: "30",
             rows: "10"
           }, null, 512), [
-            [ne, i.value]
+            [ne, a.value]
           ])
         ])) : (w(), D("pre", Yc, E(o.value), 1)),
         l.value.length ? (w(), q(Ot, {
@@ -4243,8 +4243,8 @@ function Kr(r, t) {
   var s = Object.keys(r);
   if (Object.getOwnPropertySymbols) {
     var o = Object.getOwnPropertySymbols(r);
-    t && (o = o.filter(function(i) {
-      return Object.getOwnPropertyDescriptor(r, i).enumerable;
+    t && (o = o.filter(function(a) {
+      return Object.getOwnPropertyDescriptor(r, a).enumerable;
     })), s.push.apply(s, o);
   }
   return s;
@@ -4433,11 +4433,11 @@ function rt(r, t) {
   })), r;
 }
 var Q = Object.assign || function(t) {
-  for (var s = arguments.length, o = new Array(s > 1 ? s - 1 : 0), i = 1; i < s; i++)
-    o[i - 1] = arguments[i];
-  return Zt(t) && o.length > 0 && o.forEach(function(a) {
-    Zt(a) && Object.keys(a).forEach(function(d) {
-      t[d] = a[d];
+  for (var s = arguments.length, o = new Array(s > 1 ? s - 1 : 0), a = 1; a < s; a++)
+    o[a - 1] = arguments[a];
+  return Zt(t) && o.length > 0 && o.forEach(function(i) {
+    Zt(i) && Object.keys(i).forEach(function(d) {
+      t[d] = i[d];
     });
   }), t;
 }, fu = /\.\d*(?:0|9){12}\d*$/;
@@ -4448,8 +4448,8 @@ function ee(r) {
 var pu = /^width|height|left|top|marginLeft|marginTop$/;
 function Rt(r, t) {
   var s = r.style;
-  rt(t, function(o, i) {
-    pu.test(i) && K(o) && (o = "".concat(o, "px")), s[i] = o;
+  rt(t, function(o, a) {
+    pu.test(a) && K(o) && (o = "".concat(o, "px")), s[a] = o;
   });
 }
 function gu(r, t) {
@@ -4536,8 +4536,8 @@ var qs = /\s\s*/, Gs = function() {
        * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Getter_only}
        * @param {boolean} value - The value to set
        */
-      set: function(a) {
-        t = a;
+      set: function(i) {
+        t = i;
       }
     });
     It.addEventListener("test", s, o), It.removeEventListener("test", s, o);
@@ -4545,28 +4545,28 @@ var qs = /\s\s*/, Gs = function() {
   return r;
 }();
 function Dt(r, t, s) {
-  var o = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {}, i = s;
-  t.trim().split(qs).forEach(function(a) {
+  var o = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {}, a = s;
+  t.trim().split(qs).forEach(function(i) {
     if (!Gs) {
       var d = r.listeners;
-      d && d[a] && d[a][s] && (i = d[a][s], delete d[a][s], Object.keys(d[a]).length === 0 && delete d[a], Object.keys(d).length === 0 && delete r.listeners);
+      d && d[i] && d[i][s] && (a = d[i][s], delete d[i][s], Object.keys(d[i]).length === 0 && delete d[i], Object.keys(d).length === 0 && delete r.listeners);
     }
-    r.removeEventListener(a, i, o);
+    r.removeEventListener(i, a, o);
   });
 }
 function yt(r, t, s) {
-  var o = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {}, i = s;
-  t.trim().split(qs).forEach(function(a) {
+  var o = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {}, a = s;
+  t.trim().split(qs).forEach(function(i) {
     if (o.once && !Gs) {
       var d = r.listeners, m = d === void 0 ? {} : d;
-      i = function() {
-        delete m[a][s], r.removeEventListener(a, i, o);
+      a = function() {
+        delete m[i][s], r.removeEventListener(i, a, o);
         for (var v = arguments.length, p = new Array(v), b = 0; b < v; b++)
           p[b] = arguments[b];
         s.apply(r, p);
-      }, m[a] || (m[a] = {}), m[a][s] && r.removeEventListener(a, m[a][s], o), m[a][s] = i, r.listeners = m;
+      }, m[i] || (m[i] = {}), m[i][s] && r.removeEventListener(i, m[i][s], o), m[i][s] = a, r.listeners = m;
     }
-    r.addEventListener(a, i, o);
+    r.addEventListener(i, a, o);
   });
 }
 function re(r, t, s) {
@@ -4594,8 +4594,8 @@ function ns(r) {
   return r + (r.indexOf("?") === -1 ? "?" : "&") + t;
 }
 function me(r) {
-  var t = r.rotate, s = r.scaleX, o = r.scaleY, i = r.translateX, a = r.translateY, d = [];
-  K(i) && i !== 0 && d.push("translateX(".concat(i, "px)")), K(a) && a !== 0 && d.push("translateY(".concat(a, "px)")), K(t) && t !== 0 && d.push("rotate(".concat(t, "deg)")), K(s) && s !== 1 && d.push("scaleX(".concat(s, ")")), K(o) && o !== 1 && d.push("scaleY(".concat(o, ")"));
+  var t = r.rotate, s = r.scaleX, o = r.scaleY, a = r.translateX, i = r.translateY, d = [];
+  K(a) && a !== 0 && d.push("translateX(".concat(a, "px)")), K(i) && i !== 0 && d.push("translateY(".concat(i, "px)")), K(t) && t !== 0 && d.push("rotate(".concat(t, "deg)")), K(s) && s !== 1 && d.push("scaleX(".concat(s, ")")), K(o) && o !== 1 && d.push("scaleY(".concat(o, ")"));
   var m = d.length ? d.join(" ") : "none";
   return {
     WebkitTransform: m,
@@ -4605,40 +4605,40 @@ function me(r) {
 }
 function yu(r) {
   var t = Bs({}, r), s = 0;
-  return rt(r, function(o, i) {
-    delete t[i], rt(t, function(a) {
-      var d = Math.abs(o.startX - a.startX), m = Math.abs(o.startY - a.startY), l = Math.abs(o.endX - a.endX), v = Math.abs(o.endY - a.endY), p = Math.sqrt(d * d + m * m), b = Math.sqrt(l * l + v * v), S = (b - p) / p;
+  return rt(r, function(o, a) {
+    delete t[a], rt(t, function(i) {
+      var d = Math.abs(o.startX - i.startX), m = Math.abs(o.startY - i.startY), l = Math.abs(o.endX - i.endX), v = Math.abs(o.endY - i.endY), p = Math.sqrt(d * d + m * m), b = Math.sqrt(l * l + v * v), S = (b - p) / p;
       Math.abs(S) > Math.abs(s) && (s = S);
     });
   }), s;
 }
 function Ae(r, t) {
-  var s = r.pageX, o = r.pageY, i = {
+  var s = r.pageX, o = r.pageY, a = {
     endX: s,
     endY: o
   };
-  return t ? i : Bs({
+  return t ? a : Bs({
     startX: s,
     startY: o
-  }, i);
+  }, a);
 }
 function Su(r) {
   var t = 0, s = 0, o = 0;
-  return rt(r, function(i) {
-    var a = i.startX, d = i.startY;
-    t += a, s += d, o += 1;
+  return rt(r, function(a) {
+    var i = a.startX, d = a.startY;
+    t += i, s += d, o += 1;
   }), t /= o, s /= o, {
     pageX: t,
     pageY: s
   };
 }
 function Vt(r) {
-  var t = r.aspectRatio, s = r.height, o = r.width, i = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "contain", a = ss(o), d = ss(s);
-  if (a && d) {
+  var t = r.aspectRatio, s = r.height, o = r.width, a = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "contain", i = ss(o), d = ss(s);
+  if (i && d) {
     var m = s * t;
-    i === "contain" && m > o || i === "cover" && m < o ? s = o / t : o = s * t;
+    a === "contain" && m > o || a === "cover" && m < o ? s = o / t : o = s * t;
   } else
-    a ? s = o / t : d && (o = s * t);
+    i ? s = o / t : d && (o = s * t);
   return {
     width: o,
     height: s
@@ -4651,7 +4651,7 @@ function wu(r) {
       width: s,
       height: t
     };
-  var i = o % 90 * Math.PI / 180, a = Math.sin(i), d = Math.cos(i), m = t * d + s * a, l = t * a + s * d;
+  var a = o % 90 * Math.PI / 180, i = Math.sin(a), d = Math.cos(a), m = t * d + s * i, l = t * i + s * d;
   return o > 90 ? {
     width: l,
     height: m
@@ -4661,7 +4661,7 @@ function wu(r) {
   };
 }
 function _u(r, t, s, o) {
-  var i = t.aspectRatio, a = t.naturalWidth, d = t.naturalHeight, m = t.rotate, l = m === void 0 ? 0 : m, v = t.scaleX, p = v === void 0 ? 1 : v, b = t.scaleY, S = b === void 0 ? 1 : b, M = s.aspectRatio, $ = s.naturalWidth, I = s.naturalHeight, T = o.fillColor, H = T === void 0 ? "transparent" : T, V = o.imageSmoothingEnabled, j = V === void 0 ? !0 : V, z = o.imageSmoothingQuality, X = z === void 0 ? "low" : z, k = o.maxWidth, N = k === void 0 ? 1 / 0 : k, G = o.maxHeight, ot = G === void 0 ? 1 / 0 : G, et = o.minWidth, ut = et === void 0 ? 0 : et, vt = o.minHeight, pt = vt === void 0 ? 0 : vt, gt = document.createElement("canvas"), A = gt.getContext("2d"), R = Vt({
+  var a = t.aspectRatio, i = t.naturalWidth, d = t.naturalHeight, m = t.rotate, l = m === void 0 ? 0 : m, v = t.scaleX, p = v === void 0 ? 1 : v, b = t.scaleY, S = b === void 0 ? 1 : b, M = s.aspectRatio, $ = s.naturalWidth, I = s.naturalHeight, T = o.fillColor, H = T === void 0 ? "transparent" : T, V = o.imageSmoothingEnabled, j = V === void 0 ? !0 : V, z = o.imageSmoothingQuality, X = z === void 0 ? "low" : z, k = o.maxWidth, N = k === void 0 ? 1 / 0 : k, G = o.maxHeight, ot = G === void 0 ? 1 / 0 : G, et = o.minWidth, ut = et === void 0 ? 0 : et, vt = o.minHeight, pt = vt === void 0 ? 0 : vt, gt = document.createElement("canvas"), A = gt.getContext("2d"), R = Vt({
     aspectRatio: M,
     width: N,
     height: ot
@@ -4670,14 +4670,14 @@ function _u(r, t, s, o) {
     width: ut,
     height: pt
   }, "cover"), tt = Math.min(R.width, Math.max(O.width, $)), U = Math.min(R.height, Math.max(O.height, I)), _t = Vt({
-    aspectRatio: i,
+    aspectRatio: a,
     width: N,
     height: ot
   }), bt = Vt({
-    aspectRatio: i,
+    aspectRatio: a,
     width: ut,
     height: pt
-  }, "cover"), xe = Math.min(_t.width, Math.max(bt.width, a)), ke = Math.min(_t.height, Math.max(bt.height, d)), Ke = [-xe / 2, -ke / 2, xe, ke];
+  }, "cover"), xe = Math.min(_t.width, Math.max(bt.width, i)), ke = Math.min(_t.height, Math.max(bt.height, d)), Ke = [-xe / 2, -ke / 2, xe, ke];
   return gt.width = ee(tt), gt.height = ee(U), A.fillStyle = H, A.fillRect(0, 0, tt, U), A.save(), A.translate(tt / 2, U / 2), A.rotate(l * Math.PI / 180), A.scale(p, S), A.imageSmoothingEnabled = j, A.imageSmoothingQuality = X, A.drawImage.apply(A, [r].concat(zs(Ke.map(function(De) {
     return Math.floor(ee(De));
   })))), A.restore(), gt;
@@ -4686,48 +4686,48 @@ var Qs = String.fromCharCode;
 function xu(r, t, s) {
   var o = "";
   s += t;
-  for (var i = t; i < s; i += 1)
-    o += Qs(r.getUint8(i));
+  for (var a = t; a < s; a += 1)
+    o += Qs(r.getUint8(a));
   return o;
 }
 var ku = /^data:.*,/;
 function Du(r) {
-  var t = r.replace(ku, ""), s = atob(t), o = new ArrayBuffer(s.length), i = new Uint8Array(o);
-  return rt(i, function(a, d) {
-    i[d] = s.charCodeAt(d);
+  var t = r.replace(ku, ""), s = atob(t), o = new ArrayBuffer(s.length), a = new Uint8Array(o);
+  return rt(a, function(i, d) {
+    a[d] = s.charCodeAt(d);
   }), o;
 }
 function Cu(r, t) {
-  for (var s = [], o = 8192, i = new Uint8Array(r); i.length > 0; )
-    s.push(Qs.apply(null, Fs(i.subarray(0, o)))), i = i.subarray(o);
+  for (var s = [], o = 8192, a = new Uint8Array(r); a.length > 0; )
+    s.push(Qs.apply(null, Fs(a.subarray(0, o)))), a = a.subarray(o);
   return "data:".concat(t, ";base64,").concat(btoa(s.join("")));
 }
 function Mu(r) {
   var t = new DataView(r), s;
   try {
-    var o, i, a;
+    var o, a, i;
     if (t.getUint8(0) === 255 && t.getUint8(1) === 216)
       for (var d = t.byteLength, m = 2; m + 1 < d; ) {
         if (t.getUint8(m) === 255 && t.getUint8(m + 1) === 225) {
-          i = m;
+          a = m;
           break;
         }
         m += 1;
       }
-    if (i) {
-      var l = i + 4, v = i + 10;
+    if (a) {
+      var l = a + 4, v = a + 10;
       if (xu(t, l, 4) === "Exif") {
         var p = t.getUint16(v);
         if (o = p === 18761, (o || p === 19789) && t.getUint16(v + 2, o) === 42) {
           var b = t.getUint32(v + 4, o);
-          b >= 8 && (a = v + b);
+          b >= 8 && (i = v + b);
         }
       }
     }
-    if (a) {
-      var S = t.getUint16(a, o), M, $;
+    if (i) {
+      var S = t.getUint16(i, o), M, $;
       for ($ = 0; $ < S; $ += 1)
-        if (M = a + $ * 12 + 2, t.getUint16(M, o) === 274) {
+        if (M = i + $ * 12 + 2, t.getUint16(M, o) === 274) {
           M += 8, s = t.getUint16(M, o), t.setUint16(M, 1, o);
           break;
         }
@@ -4773,24 +4773,24 @@ var $u = {
     this.initContainer(), this.initCanvas(), this.initCropBox(), this.renderCanvas(), this.cropped && this.renderCropBox();
   },
   initContainer: function() {
-    var t = this.element, s = this.options, o = this.container, i = this.cropper, a = Number(s.minContainerWidth), d = Number(s.minContainerHeight);
-    at(i, ht), Tt(t, ht);
+    var t = this.element, s = this.options, o = this.container, a = this.cropper, i = Number(s.minContainerWidth), d = Number(s.minContainerHeight);
+    at(a, ht), Tt(t, ht);
     var m = {
-      width: Math.max(o.offsetWidth, a >= 0 ? a : Xs),
+      width: Math.max(o.offsetWidth, i >= 0 ? i : Xs),
       height: Math.max(o.offsetHeight, d >= 0 ? d : Zs)
     };
-    this.containerData = m, Rt(i, {
+    this.containerData = m, Rt(a, {
       width: m.width,
       height: m.height
-    }), at(t, ht), Tt(i, ht);
+    }), at(t, ht), Tt(a, ht);
   },
   // Canvas (image wrapper)
   initCanvas: function() {
-    var t = this.containerData, s = this.imageData, o = this.options.viewMode, i = Math.abs(s.rotate) % 180 === 90, a = i ? s.naturalHeight : s.naturalWidth, d = i ? s.naturalWidth : s.naturalHeight, m = a / d, l = t.width, v = t.height;
+    var t = this.containerData, s = this.imageData, o = this.options.viewMode, a = Math.abs(s.rotate) % 180 === 90, i = a ? s.naturalHeight : s.naturalWidth, d = a ? s.naturalWidth : s.naturalHeight, m = i / d, l = t.width, v = t.height;
     t.height * m > t.width ? o === 3 ? l = t.height * m : v = t.width / m : o === 3 ? v = t.width / m : l = t.height * m;
     var p = {
       aspectRatio: m,
-      naturalWidth: a,
+      naturalWidth: i,
       naturalHeight: d,
       width: l,
       height: v
@@ -4798,32 +4798,32 @@ var $u = {
     this.canvasData = p, this.limited = o === 1 || o === 2, this.limitCanvas(!0, !0), p.width = Math.min(Math.max(p.width, p.minWidth), p.maxWidth), p.height = Math.min(Math.max(p.height, p.minHeight), p.maxHeight), p.left = (t.width - p.width) / 2, p.top = (t.height - p.height) / 2, p.oldLeft = p.left, p.oldTop = p.top, this.initialCanvasData = Q({}, p);
   },
   limitCanvas: function(t, s) {
-    var o = this.options, i = this.containerData, a = this.canvasData, d = this.cropBoxData, m = o.viewMode, l = a.aspectRatio, v = this.cropped && d;
+    var o = this.options, a = this.containerData, i = this.canvasData, d = this.cropBoxData, m = o.viewMode, l = i.aspectRatio, v = this.cropped && d;
     if (t) {
       var p = Number(o.minCanvasWidth) || 0, b = Number(o.minCanvasHeight) || 0;
-      m > 1 ? (p = Math.max(p, i.width), b = Math.max(b, i.height), m === 3 && (b * l > p ? p = b * l : b = p / l)) : m > 0 && (p ? p = Math.max(p, v ? d.width : 0) : b ? b = Math.max(b, v ? d.height : 0) : v && (p = d.width, b = d.height, b * l > p ? p = b * l : b = p / l));
+      m > 1 ? (p = Math.max(p, a.width), b = Math.max(b, a.height), m === 3 && (b * l > p ? p = b * l : b = p / l)) : m > 0 && (p ? p = Math.max(p, v ? d.width : 0) : b ? b = Math.max(b, v ? d.height : 0) : v && (p = d.width, b = d.height, b * l > p ? p = b * l : b = p / l));
       var S = Vt({
         aspectRatio: l,
         width: p,
         height: b
       });
-      p = S.width, b = S.height, a.minWidth = p, a.minHeight = b, a.maxWidth = 1 / 0, a.maxHeight = 1 / 0;
+      p = S.width, b = S.height, i.minWidth = p, i.minHeight = b, i.maxWidth = 1 / 0, i.maxHeight = 1 / 0;
     }
     if (s)
       if (m > (v ? 0 : 1)) {
-        var M = i.width - a.width, $ = i.height - a.height;
-        a.minLeft = Math.min(0, M), a.minTop = Math.min(0, $), a.maxLeft = Math.max(0, M), a.maxTop = Math.max(0, $), v && this.limited && (a.minLeft = Math.min(d.left, d.left + (d.width - a.width)), a.minTop = Math.min(d.top, d.top + (d.height - a.height)), a.maxLeft = d.left, a.maxTop = d.top, m === 2 && (a.width >= i.width && (a.minLeft = Math.min(0, M), a.maxLeft = Math.max(0, M)), a.height >= i.height && (a.minTop = Math.min(0, $), a.maxTop = Math.max(0, $))));
+        var M = a.width - i.width, $ = a.height - i.height;
+        i.minLeft = Math.min(0, M), i.minTop = Math.min(0, $), i.maxLeft = Math.max(0, M), i.maxTop = Math.max(0, $), v && this.limited && (i.minLeft = Math.min(d.left, d.left + (d.width - i.width)), i.minTop = Math.min(d.top, d.top + (d.height - i.height)), i.maxLeft = d.left, i.maxTop = d.top, m === 2 && (i.width >= a.width && (i.minLeft = Math.min(0, M), i.maxLeft = Math.max(0, M)), i.height >= a.height && (i.minTop = Math.min(0, $), i.maxTop = Math.max(0, $))));
       } else
-        a.minLeft = -a.width, a.minTop = -a.height, a.maxLeft = i.width, a.maxTop = i.height;
+        i.minLeft = -i.width, i.minTop = -i.height, i.maxLeft = a.width, i.maxTop = a.height;
   },
   renderCanvas: function(t, s) {
-    var o = this.canvasData, i = this.imageData;
+    var o = this.canvasData, a = this.imageData;
     if (s) {
-      var a = wu({
-        width: i.naturalWidth * Math.abs(i.scaleX || 1),
-        height: i.naturalHeight * Math.abs(i.scaleY || 1),
-        degree: i.rotate || 0
-      }), d = a.width, m = a.height, l = o.width * (d / o.naturalWidth), v = o.height * (m / o.naturalHeight);
+      var i = wu({
+        width: a.naturalWidth * Math.abs(a.scaleX || 1),
+        height: a.naturalHeight * Math.abs(a.scaleY || 1),
+        degree: a.rotate || 0
+      }), d = i.width, m = i.height, l = o.width * (d / o.naturalWidth), v = o.height * (m / o.naturalHeight);
       o.left -= (l - o.width) / 2, o.top -= (v - o.height) / 2, o.width = l, o.height = v, o.aspectRatio = d / m, o.naturalWidth = d, o.naturalHeight = m, this.limitCanvas(!0, !1);
     }
     (o.width > o.maxWidth || o.width < o.minWidth) && (o.left = o.oldLeft), (o.height > o.maxHeight || o.height < o.minHeight) && (o.top = o.oldTop), o.width = Math.min(Math.max(o.width, o.minWidth), o.maxWidth), o.height = Math.min(Math.max(o.height, o.minHeight), o.maxHeight), this.limitCanvas(!1, !0), o.left = Math.min(Math.max(o.left, o.minLeft), o.maxLeft), o.top = Math.min(Math.max(o.top, o.minTop), o.maxTop), o.oldLeft = o.left, o.oldTop = o.top, Rt(this.canvas, Q({
@@ -4835,12 +4835,12 @@ var $u = {
     }))), this.renderImage(t), this.cropped && this.limited && this.limitCropBox(!0, !0);
   },
   renderImage: function(t) {
-    var s = this.canvasData, o = this.imageData, i = o.naturalWidth * (s.width / s.naturalWidth), a = o.naturalHeight * (s.height / s.naturalHeight);
+    var s = this.canvasData, o = this.imageData, a = o.naturalWidth * (s.width / s.naturalWidth), i = o.naturalHeight * (s.height / s.naturalHeight);
     Q(o, {
-      width: i,
-      height: a,
-      left: (s.width - i) / 2,
-      top: (s.height - a) / 2
+      width: a,
+      height: i,
+      left: (s.width - a) / 2,
+      top: (s.height - i) / 2
     }), Rt(this.image, Q({
       width: o.width,
       height: o.height
@@ -4850,19 +4850,19 @@ var $u = {
     }, o)))), t && this.output();
   },
   initCropBox: function() {
-    var t = this.options, s = this.canvasData, o = t.aspectRatio || t.initialAspectRatio, i = Number(t.autoCropArea) || 0.8, a = {
+    var t = this.options, s = this.canvasData, o = t.aspectRatio || t.initialAspectRatio, a = Number(t.autoCropArea) || 0.8, i = {
       width: s.width,
       height: s.height
     };
-    o && (s.height * o > s.width ? a.height = a.width / o : a.width = a.height * o), this.cropBoxData = a, this.limitCropBox(!0, !0), a.width = Math.min(Math.max(a.width, a.minWidth), a.maxWidth), a.height = Math.min(Math.max(a.height, a.minHeight), a.maxHeight), a.width = Math.max(a.minWidth, a.width * i), a.height = Math.max(a.minHeight, a.height * i), a.left = s.left + (s.width - a.width) / 2, a.top = s.top + (s.height - a.height) / 2, a.oldLeft = a.left, a.oldTop = a.top, this.initialCropBoxData = Q({}, a);
+    o && (s.height * o > s.width ? i.height = i.width / o : i.width = i.height * o), this.cropBoxData = i, this.limitCropBox(!0, !0), i.width = Math.min(Math.max(i.width, i.minWidth), i.maxWidth), i.height = Math.min(Math.max(i.height, i.minHeight), i.maxHeight), i.width = Math.max(i.minWidth, i.width * a), i.height = Math.max(i.minHeight, i.height * a), i.left = s.left + (s.width - i.width) / 2, i.top = s.top + (s.height - i.height) / 2, i.oldLeft = i.left, i.oldTop = i.top, this.initialCropBoxData = Q({}, i);
   },
   limitCropBox: function(t, s) {
-    var o = this.options, i = this.containerData, a = this.canvasData, d = this.cropBoxData, m = this.limited, l = o.aspectRatio;
+    var o = this.options, a = this.containerData, i = this.canvasData, d = this.cropBoxData, m = this.limited, l = o.aspectRatio;
     if (t) {
-      var v = Number(o.minCropBoxWidth) || 0, p = Number(o.minCropBoxHeight) || 0, b = m ? Math.min(i.width, a.width, a.width + a.left, i.width - a.left) : i.width, S = m ? Math.min(i.height, a.height, a.height + a.top, i.height - a.top) : i.height;
-      v = Math.min(v, i.width), p = Math.min(p, i.height), l && (v && p ? p * l > v ? p = v / l : v = p * l : v ? p = v / l : p && (v = p * l), S * l > b ? S = b / l : b = S * l), d.minWidth = Math.min(v, b), d.minHeight = Math.min(p, S), d.maxWidth = b, d.maxHeight = S;
+      var v = Number(o.minCropBoxWidth) || 0, p = Number(o.minCropBoxHeight) || 0, b = m ? Math.min(a.width, i.width, i.width + i.left, a.width - i.left) : a.width, S = m ? Math.min(a.height, i.height, i.height + i.top, a.height - i.top) : a.height;
+      v = Math.min(v, a.width), p = Math.min(p, a.height), l && (v && p ? p * l > v ? p = v / l : v = p * l : v ? p = v / l : p && (v = p * l), S * l > b ? S = b / l : b = S * l), d.minWidth = Math.min(v, b), d.minHeight = Math.min(p, S), d.maxWidth = b, d.maxHeight = S;
     }
-    s && (m ? (d.minLeft = Math.max(0, a.left), d.minTop = Math.max(0, a.top), d.maxLeft = Math.min(i.width, a.left + a.width) - d.width, d.maxTop = Math.min(i.height, a.top + a.height) - d.height) : (d.minLeft = 0, d.minTop = 0, d.maxLeft = i.width - d.width, d.maxTop = i.height - d.height));
+    s && (m ? (d.minLeft = Math.max(0, i.left), d.minTop = Math.max(0, i.top), d.maxLeft = Math.min(a.width, i.left + i.width) - d.width, d.maxTop = Math.min(a.height, i.top + i.height) - d.height) : (d.minLeft = 0, d.minTop = 0, d.maxLeft = a.width - d.width, d.maxTop = a.height - d.height));
   },
   renderCropBox: function() {
     var t = this.options, s = this.containerData, o = this.cropBoxData;
@@ -4879,8 +4879,8 @@ var $u = {
   }
 }, Tu = {
   initPreview: function() {
-    var t = this.element, s = this.crossOrigin, o = this.options.preview, i = s ? this.crossOriginUrl : this.url, a = t.alt || "The image to preview", d = document.createElement("img");
-    if (s && (d.crossOrigin = s), d.src = i, d.alt = a, this.viewBox.appendChild(d), this.viewBoxImage = d, !!o) {
+    var t = this.element, s = this.crossOrigin, o = this.options.preview, a = s ? this.crossOriginUrl : this.url, i = t.alt || "The image to preview", d = document.createElement("img");
+    if (s && (d.crossOrigin = s), d.src = a, d.alt = i, this.viewBox.appendChild(d), this.viewBoxImage = d, !!o) {
       var m = o;
       typeof o == "string" ? m = t.ownerDocument.querySelectorAll(o) : o.querySelector && (m = [o]), this.previews = m, rt(m, function(l) {
         var v = document.createElement("img");
@@ -4888,7 +4888,7 @@ var $u = {
           width: l.offsetWidth,
           height: l.offsetHeight,
           html: l.innerHTML
-        }), s && (v.crossOrigin = s), v.src = i, v.alt = a, v.style.cssText = 'display:block;width:100%;height:auto;min-width:0!important;min-height:0!important;max-width:none!important;max-height:none!important;image-orientation:0deg!important;"', l.innerHTML = "", l.appendChild(v);
+        }), s && (v.crossOrigin = s), v.src = a, v.alt = i, v.style.cssText = 'display:block;width:100%;height:auto;min-width:0!important;min-height:0!important;max-width:none!important;max-height:none!important;image-orientation:0deg!important;"', l.innerHTML = "", l.appendChild(v);
       });
     }
   },
@@ -4902,7 +4902,7 @@ var $u = {
     });
   },
   preview: function() {
-    var t = this.imageData, s = this.canvasData, o = this.cropBoxData, i = o.width, a = o.height, d = t.width, m = t.height, l = o.left - s.left - t.left, v = o.top - s.top - t.top;
+    var t = this.imageData, s = this.canvasData, o = this.cropBoxData, a = o.width, i = o.height, d = t.width, m = t.height, l = o.left - s.left - t.left, v = o.top - s.top - t.top;
     !this.cropped || this.disabled || (Rt(this.viewBoxImage, Q({
       width: d,
       height: m
@@ -4911,7 +4911,7 @@ var $u = {
       translateY: -v
     }, t)))), rt(this.previews, function(p) {
       var b = ur(p, Ie), S = b.width, M = b.height, $ = S, I = M, T = 1;
-      i && (T = S / i, I = a * T), a && I > M && (T = M / a, $ = i * T, I = M), Rt(p, {
+      a && (T = S / a, I = i * T), i && I > M && (T = M / i, $ = a * T, I = M), Rt(p, {
         width: $,
         height: I
       }), Rt(p.getElementsByTagName("img")[0], Q({
@@ -4941,7 +4941,7 @@ var $u = {
 }, Au = {
   resize: function() {
     if (!this.disabled) {
-      var t = this.options, s = this.container, o = this.containerData, i = s.offsetWidth / o.width, a = s.offsetHeight / o.height, d = Math.abs(i - 1) > Math.abs(a - 1) ? i : a;
+      var t = this.options, s = this.container, o = this.containerData, a = s.offsetWidth / o.width, i = s.offsetHeight / o.height, d = Math.abs(a - 1) > Math.abs(i - 1) ? a : i;
       if (d !== 1) {
         var m, l;
         t.restore && (m = this.getCanvasData(), l = this.getCropBoxData()), this.render(), t.restore && (this.setCanvasData(rt(m, function(v, p) {
@@ -4956,19 +4956,19 @@ var $u = {
     this.disabled || this.options.dragMode === Ws || this.setDragMode(gu(this.dragBox, sr) ? Ys : Dr);
   },
   wheel: function(t) {
-    var s = this, o = Number(this.options.wheelZoomRatio) || 0.1, i = 1;
+    var s = this, o = Number(this.options.wheelZoomRatio) || 0.1, a = 1;
     this.disabled || (t.preventDefault(), !this.wheeling && (this.wheeling = !0, setTimeout(function() {
       s.wheeling = !1;
-    }, 50), t.deltaY ? i = t.deltaY > 0 ? 1 : -1 : t.wheelDelta ? i = -t.wheelDelta / 120 : t.detail && (i = t.detail > 0 ? 1 : -1), this.zoom(-i * o, t)));
+    }, 50), t.deltaY ? a = t.deltaY > 0 ? 1 : -1 : t.wheelDelta ? a = -t.wheelDelta / 120 : t.detail && (a = t.detail > 0 ? 1 : -1), this.zoom(-a * o, t)));
   },
   cropStart: function(t) {
     var s = t.buttons, o = t.button;
     if (!(this.disabled || (t.type === "mousedown" || t.type === "pointerdown" && t.pointerType === "mouse") && // No primary button (Usually the left button)
     (K(s) && s !== 1 || K(o) && o !== 0 || t.ctrlKey))) {
-      var i = this.options, a = this.pointers, d;
+      var a = this.options, i = this.pointers, d;
       t.changedTouches ? rt(t.changedTouches, function(m) {
-        a[m.identifier] = Ae(m);
-      }) : a[t.pointerId || 0] = Ae(t), Object.keys(a).length > 1 && i.zoomable && i.zoomOnTouch ? d = Ks : d = ur(t.target, be), nu.test(d) && re(this.element, lr, {
+        i[m.identifier] = Ae(m);
+      }) : i[t.pointerId || 0] = Ae(t), Object.keys(i).length > 1 && a.zoomable && a.zoomOnTouch ? d = Ks : d = ur(t.target, be), nu.test(d) && re(this.element, lr, {
         originalEvent: t,
         action: d
       }) !== !1 && (t.preventDefault(), this.action = d, this.cropping = !1, d === Hs && (this.cropping = !0, at(this.dragBox, Ne)));
@@ -4981,16 +4981,16 @@ var $u = {
       t.preventDefault(), re(this.element, ar, {
         originalEvent: t,
         action: s
-      }) !== !1 && (t.changedTouches ? rt(t.changedTouches, function(i) {
-        Q(o[i.identifier] || {}, Ae(i, !0));
+      }) !== !1 && (t.changedTouches ? rt(t.changedTouches, function(a) {
+        Q(o[a.identifier] || {}, Ae(a, !0));
       }) : Q(o[t.pointerId || 0] || {}, Ae(t, !0)), this.change(t));
     }
   },
   cropEnd: function(t) {
     if (!this.disabled) {
       var s = this.action, o = this.pointers;
-      t.changedTouches ? rt(t.changedTouches, function(i) {
-        delete o[i.identifier];
+      t.changedTouches ? rt(t.changedTouches, function(a) {
+        delete o[a.identifier];
       }) : delete o[t.pointerId || 0], s && (t.preventDefault(), Object.keys(o).length || (this.action = ""), this.cropping && (this.cropping = !1, te(this.dragBox, Ne, this.cropped && this.options.modal)), re(this.element, ir, {
         originalEvent: t,
         action: s
@@ -4999,8 +4999,8 @@ var $u = {
   }
 }, Lu = {
   change: function(t) {
-    var s = this.options, o = this.canvasData, i = this.containerData, a = this.cropBoxData, d = this.pointers, m = this.action, l = s.aspectRatio, v = a.left, p = a.top, b = a.width, S = a.height, M = v + b, $ = p + S, I = 0, T = 0, H = i.width, V = i.height, j = !0, z;
-    !l && t.shiftKey && (l = b && S ? b / S : 1), this.limited && (I = a.minLeft, T = a.minTop, H = I + Math.min(i.width, o.width, o.left + o.width), V = T + Math.min(i.height, o.height, o.top + o.height));
+    var s = this.options, o = this.canvasData, a = this.containerData, i = this.cropBoxData, d = this.pointers, m = this.action, l = s.aspectRatio, v = i.left, p = i.top, b = i.width, S = i.height, M = v + b, $ = p + S, I = 0, T = 0, H = a.width, V = a.height, j = !0, z;
+    !l && t.shiftKey && (l = b && S ? b / S : 1), this.limited && (I = i.minLeft, T = i.minTop, H = I + Math.min(a.width, o.width, o.left + o.width), V = T + Math.min(a.height, o.height, o.top + o.height));
     var X = d[Object.keys(d)[0]], k = {
       x: X.endX - X.startX,
       y: X.endY - X.startY
@@ -5029,28 +5029,28 @@ var $u = {
           j = !1;
           break;
         }
-        N(Kt), b += k.x, b < 0 && (m = Yt, b = -b, v -= b), l && (S = b / l, p += (a.height - S) / 2);
+        N(Kt), b += k.x, b < 0 && (m = Yt, b = -b, v -= b), l && (S = b / l, p += (i.height - S) / 2);
         break;
       case jt:
         if (k.y <= 0 && (p <= T || l && (v <= I || M >= H))) {
           j = !1;
           break;
         }
-        N(jt), S -= k.y, p += k.y, S < 0 && (m = Jt, S = -S, p -= S), l && (b = S * l, v += (a.width - b) / 2);
+        N(jt), S -= k.y, p += k.y, S < 0 && (m = Jt, S = -S, p -= S), l && (b = S * l, v += (i.width - b) / 2);
         break;
       case Yt:
         if (k.x <= 0 && (v <= I || l && (p <= T || $ >= V))) {
           j = !1;
           break;
         }
-        N(Yt), b -= k.x, v += k.x, b < 0 && (m = Kt, b = -b, v -= b), l && (S = b / l, p += (a.height - S) / 2);
+        N(Yt), b -= k.x, v += k.x, b < 0 && (m = Kt, b = -b, v -= b), l && (S = b / l, p += (i.height - S) / 2);
         break;
       case Jt:
         if (k.y >= 0 && ($ >= V || l && (v <= I || M >= H))) {
           j = !1;
           break;
         }
-        N(Jt), S += k.y, S < 0 && (m = jt, S = -S, p -= S), l && (b = S * l, v += (a.width - b) / 2);
+        N(Jt), S += k.y, S < 0 && (m = jt, S = -S, p -= S), l && (b = S * l, v += (i.width - b) / 2);
         break;
       case he:
         if (l) {
@@ -5069,7 +5069,7 @@ var $u = {
             j = !1;
             break;
           }
-          N(jt), S -= k.y, p += k.y, b = S * l, v += a.width - b;
+          N(jt), S -= k.y, p += k.y, b = S * l, v += i.width - b;
         } else
           N(jt), N(Yt), k.x <= 0 ? v > I ? (b -= k.x, v += k.x) : k.y <= 0 && p <= T && (j = !1) : (b -= k.x, v += k.x), k.y <= 0 ? p > T && (S -= k.y, p += k.y) : (S -= k.y, p += k.y);
         b < 0 && S < 0 ? (m = pe, S = -S, b = -b, p -= S, v -= b) : b < 0 ? (m = he, b = -b, v -= b) : S < 0 && (m = ge, S = -S, p -= S);
@@ -5107,10 +5107,10 @@ var $u = {
           j = !1;
           break;
         }
-        z = Js(this.cropper), v = X.startX - z.left, p = X.startY - z.top, b = a.minWidth, S = a.minHeight, k.x > 0 ? m = k.y > 0 ? pe : he : k.x < 0 && (v -= b, m = k.y > 0 ? ge : fe), k.y < 0 && (p -= S), this.cropped || (Tt(this.cropBox, ht), this.cropped = !0, this.limited && this.limitCropBox(!0, !0));
+        z = Js(this.cropper), v = X.startX - z.left, p = X.startY - z.top, b = i.minWidth, S = i.minHeight, k.x > 0 ? m = k.y > 0 ? pe : he : k.x < 0 && (v -= b, m = k.y > 0 ? ge : fe), k.y < 0 && (p -= S), this.cropped || (Tt(this.cropBox, ht), this.cropped = !0, this.limited && this.limitCropBox(!0, !0));
         break;
     }
-    j && (a.width = b, a.height = S, a.left = v, a.top = p, this.action = m, this.renderCropBox()), rt(d, function(G) {
+    j && (i.width = b, i.height = S, i.left = v, i.top = p, this.action = m, this.renderCropBox()), rt(d, function(G) {
       G.startX = G.endX, G.startY = G.endY;
     });
   }
@@ -5167,8 +5167,8 @@ var $u = {
    * @returns {Cropper} this
    */
   move: function(t) {
-    var s = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : t, o = this.canvasData, i = o.left, a = o.top;
-    return this.moveTo(Ze(t) ? t : i + Number(t), Ze(s) ? s : a + Number(s));
+    var s = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : t, o = this.canvasData, a = o.left, i = o.top;
+    return this.moveTo(Ze(t) ? t : a + Number(t), Ze(s) ? s : i + Number(s));
   },
   /**
    * Move the canvas to an absolute point
@@ -5177,8 +5177,8 @@ var $u = {
    * @returns {Cropper} this
    */
   moveTo: function(t) {
-    var s = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : t, o = this.canvasData, i = !1;
-    return t = Number(t), s = Number(s), this.ready && !this.disabled && this.options.movable && (K(t) && (o.left = t, i = !0), K(s) && (o.top = s, i = !0), i && this.renderCanvas(!0)), this;
+    var s = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : t, o = this.canvasData, a = !1;
+    return t = Number(t), s = Number(s), this.ready && !this.disabled && this.options.movable && (K(t) && (o.left = t, a = !0), K(s) && (o.top = s, a = !0), a && this.renderCanvas(!0)), this;
   },
   /**
    * Zoom the canvas with a relative ratio
@@ -5198,8 +5198,8 @@ var $u = {
    * @returns {Cropper} this
    */
   zoomTo: function(t, s, o) {
-    var i = this.options, a = this.canvasData, d = a.width, m = a.height, l = a.naturalWidth, v = a.naturalHeight;
-    if (t = Number(t), t >= 0 && this.ready && !this.disabled && i.zoomable) {
+    var a = this.options, i = this.canvasData, d = i.width, m = i.height, l = i.naturalWidth, v = i.naturalHeight;
+    if (t = Number(t), t >= 0 && this.ready && !this.disabled && a.zoomable) {
       var p = l * t, b = v * t;
       if (re(this.element, cr, {
         ratio: t,
@@ -5212,10 +5212,10 @@ var $u = {
           pageX: o.pageX,
           pageY: o.pageY
         };
-        a.left -= (p - d) * (($.pageX - M.left - a.left) / d), a.top -= (b - m) * (($.pageY - M.top - a.top) / m);
+        i.left -= (p - d) * (($.pageX - M.left - i.left) / d), i.top -= (b - m) * (($.pageY - M.top - i.top) / m);
       } else
-        Qt(s) && K(s.x) && K(s.y) ? (a.left -= (p - d) * ((s.x - a.left) / d), a.top -= (b - m) * ((s.y - a.top) / m)) : (a.left -= (p - d) / 2, a.top -= (b - m) / 2);
-      a.width = p, a.height = b, this.renderCanvas(!0);
+        Qt(s) && K(s.x) && K(s.y) ? (i.left -= (p - d) * ((s.x - i.left) / d), i.top -= (b - m) * ((s.y - i.top) / m)) : (i.left -= (p - d) / 2, i.top -= (b - m) / 2);
+      i.width = p, i.height = b, this.renderCanvas(!0);
     }
     return this;
   },
@@ -5260,8 +5260,8 @@ var $u = {
    * @returns {Cropper} this
    */
   scale: function(t) {
-    var s = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : t, o = this.imageData, i = !1;
-    return t = Number(t), s = Number(s), this.ready && !this.disabled && this.options.scalable && (K(t) && (o.scaleX = t, i = !0), K(s) && (o.scaleY = s, i = !0), i && this.renderCanvas(!0, !0)), this;
+    var s = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : t, o = this.imageData, a = !1;
+    return t = Number(t), s = Number(s), this.ready && !this.disabled && this.options.scalable && (K(t) && (o.scaleX = t, a = !0), K(s) && (o.scaleY = s, a = !0), a && this.renderCanvas(!0, !0)), this;
   },
   /**
    * Get the cropped area position and size data (base on the original image)
@@ -5269,13 +5269,13 @@ var $u = {
    * @returns {Object} The result cropped data.
    */
   getData: function() {
-    var t = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : !1, s = this.options, o = this.imageData, i = this.canvasData, a = this.cropBoxData, d;
+    var t = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : !1, s = this.options, o = this.imageData, a = this.canvasData, i = this.cropBoxData, d;
     if (this.ready && this.cropped) {
       d = {
-        x: a.left - i.left,
-        y: a.top - i.top,
-        width: a.width,
-        height: a.height
+        x: i.left - a.left,
+        y: i.top - a.top,
+        width: i.width,
+        height: i.height
       };
       var m = o.width / o.naturalWidth;
       if (rt(d, function(p, b) {
@@ -5299,12 +5299,12 @@ var $u = {
    * @returns {Cropper} this
    */
   setData: function(t) {
-    var s = this.options, o = this.imageData, i = this.canvasData, a = {};
+    var s = this.options, o = this.imageData, a = this.canvasData, i = {};
     if (this.ready && !this.disabled && Qt(t)) {
       var d = !1;
       s.rotatable && K(t.rotate) && t.rotate !== o.rotate && (o.rotate = t.rotate, d = !0), s.scalable && (K(t.scaleX) && t.scaleX !== o.scaleX && (o.scaleX = t.scaleX, d = !0), K(t.scaleY) && t.scaleY !== o.scaleY && (o.scaleY = t.scaleY, d = !0)), d && this.renderCanvas(!0, !0);
       var m = o.width / o.naturalWidth;
-      K(t.x) && (a.left = t.x * m + i.left), K(t.y) && (a.top = t.y * m + i.top), K(t.width) && (a.width = t.width * m), K(t.height) && (a.height = t.height * m), this.setCropBoxData(a);
+      K(t.x) && (i.left = t.x * m + a.left), K(t.y) && (i.top = t.y * m + a.top), K(t.width) && (i.width = t.width * m), K(t.height) && (i.height = t.height * m), this.setCropBoxData(i);
     }
     return this;
   },
@@ -5360,8 +5360,8 @@ var $u = {
    * @returns {Cropper} this
    */
   setCropBoxData: function(t) {
-    var s = this.cropBoxData, o = this.options.aspectRatio, i, a;
-    return this.ready && this.cropped && !this.disabled && Qt(t) && (K(t.left) && (s.left = t.left), K(t.top) && (s.top = t.top), K(t.width) && t.width !== s.width && (i = !0, s.width = t.width), K(t.height) && t.height !== s.height && (a = !0, s.height = t.height), o && (i ? s.height = s.width / o : a && (s.width = s.height * o)), this.renderCropBox()), this;
+    var s = this.cropBoxData, o = this.options.aspectRatio, a, i;
+    return this.ready && this.cropped && !this.disabled && Qt(t) && (K(t.left) && (s.left = t.left), K(t.top) && (s.top = t.top), K(t.width) && t.width !== s.width && (a = !0, s.width = t.width), K(t.height) && t.height !== s.height && (i = !0, s.height = t.height), o && (a ? s.height = s.width / o : i && (s.width = s.height * o)), this.renderCropBox()), this;
   },
   /**
    * Get a canvas drawn the cropped image.
@@ -5375,8 +5375,8 @@ var $u = {
     var s = this.canvasData, o = _u(this.image, this.imageData, s, t);
     if (!this.cropped)
       return o;
-    var i = this.getData(), a = i.x, d = i.y, m = i.width, l = i.height, v = o.width / Math.floor(s.naturalWidth);
-    v !== 1 && (a *= v, d *= v, m *= v, l *= v);
+    var a = this.getData(), i = a.x, d = a.y, m = a.width, l = a.height, v = o.width / Math.floor(s.naturalWidth);
+    v !== 1 && (i *= v, d *= v, m *= v, l *= v);
     var p = m / l, b = Vt({
       aspectRatio: p,
       width: t.maxWidth || 1 / 0,
@@ -5395,7 +5395,7 @@ var $u = {
     T.width = ee($), T.height = ee(I), H.fillStyle = t.fillColor || "transparent", H.fillRect(0, 0, $, I);
     var V = t.imageSmoothingEnabled, j = V === void 0 ? !0 : V, z = t.imageSmoothingQuality;
     H.imageSmoothingEnabled = j, z && (H.imageSmoothingQuality = z);
-    var X = o.width, k = o.height, N = a, G = d, ot, et, ut, vt, pt, gt;
+    var X = o.width, k = o.height, N = i, G = d, ot, et, ut, vt, pt, gt;
     N <= -m || N > X ? (N = 0, ot = 0, ut = 0, pt = 0) : N <= 0 ? (ut = -N, N = 0, ot = Math.min(X, m + N), pt = ot) : N <= X && (ut = 0, ot = Math.min(m, X - N), pt = ot), ot <= 0 || G <= -l || G > k ? (G = 0, et = 0, vt = 0, gt = 0) : G <= 0 ? (vt = -G, G = 0, et = Math.min(k, l + G), gt = et) : G <= k && (vt = 0, et = Math.min(l, k - G), gt = et);
     var A = [N, G, ot, et];
     if (pt > 0 && gt > 0) {
@@ -5421,10 +5421,10 @@ var $u = {
    * @returns {Cropper} this
    */
   setDragMode: function(t) {
-    var s = this.options, o = this.dragBox, i = this.face;
+    var s = this.options, o = this.dragBox, a = this.face;
     if (this.ready && !this.disabled) {
-      var a = t === Dr, d = s.movable && t === Ys;
-      t = a || d ? t : Ws, s.dragMode = t, ye(o, be, t), te(o, sr, a), te(o, or, d), s.cropBoxMovable || (ye(i, be, t), te(i, sr, a), te(i, or, d));
+      var i = t === Dr, d = s.movable && t === Ys;
+      t = i || d ? t : Ws, s.dragMode = t, ye(o, be, t), te(o, sr, i), te(o, or, d), s.cropBoxMovable || (ye(a, be, t), te(a, sr, i), te(a, or, d));
     }
     return this;
   }
@@ -5438,15 +5438,15 @@ var $u = {
   return Fc(r, [{
     key: "init",
     value: function() {
-      var s = this.element, o = s.tagName.toLowerCase(), i;
+      var s = this.element, o = s.tagName.toLowerCase(), a;
       if (!s[J]) {
         if (s[J] = this, o === "img") {
-          if (this.isImg = !0, i = s.getAttribute("src") || "", this.originalUrl = i, !i)
+          if (this.isImg = !0, a = s.getAttribute("src") || "", this.originalUrl = a, !a)
             return;
-          i = s.src;
+          a = s.src;
         } else
-          o === "canvas" && window.HTMLCanvasElement && (i = s.toDataURL());
-        this.load(i);
+          o === "canvas" && window.HTMLCanvasElement && (a = s.toDataURL());
+        this.load(a);
       }
     }
   }, {
@@ -5455,8 +5455,8 @@ var $u = {
       var o = this;
       if (s) {
         this.url = s, this.imageData = {};
-        var i = this.element, a = this.options;
-        if (!a.rotatable && !a.scalable && (a.checkOrientation = !1), !a.checkOrientation || !window.ArrayBuffer) {
+        var a = this.element, i = this.options;
+        if (!i.rotatable && !i.scalable && (i.checkOrientation = !1), !i.checkOrientation || !window.ArrayBuffer) {
           this.clone();
           return;
         }
@@ -5471,48 +5471,48 @@ var $u = {
           o.read(d.response);
         }, d.onloadend = function() {
           o.reloading = !1, o.xhr = null;
-        }, a.checkCrossOrigin && os(s) && i.crossOrigin && (s = ns(s)), d.open("GET", s, !0), d.responseType = "arraybuffer", d.withCredentials = i.crossOrigin === "use-credentials", d.send();
+        }, i.checkCrossOrigin && os(s) && a.crossOrigin && (s = ns(s)), d.open("GET", s, !0), d.responseType = "arraybuffer", d.withCredentials = a.crossOrigin === "use-credentials", d.send();
       }
     }
   }, {
     key: "read",
     value: function(s) {
-      var o = this.options, i = this.imageData, a = Mu(s), d = 0, m = 1, l = 1;
-      if (a > 1) {
+      var o = this.options, a = this.imageData, i = Mu(s), d = 0, m = 1, l = 1;
+      if (i > 1) {
         this.url = Cu(s, es);
-        var v = Eu(a);
+        var v = Eu(i);
         d = v.rotate, m = v.scaleX, l = v.scaleY;
       }
-      o.rotatable && (i.rotate = d), o.scalable && (i.scaleX = m, i.scaleY = l), this.clone();
+      o.rotatable && (a.rotate = d), o.scalable && (a.scaleX = m, a.scaleY = l), this.clone();
     }
   }, {
     key: "clone",
     value: function() {
-      var s = this.element, o = this.url, i = s.crossOrigin, a = o;
-      this.options.checkCrossOrigin && os(o) && (i || (i = "anonymous"), a = ns(o)), this.crossOrigin = i, this.crossOriginUrl = a;
+      var s = this.element, o = this.url, a = s.crossOrigin, i = o;
+      this.options.checkCrossOrigin && os(o) && (a || (a = "anonymous"), i = ns(o)), this.crossOrigin = a, this.crossOriginUrl = i;
       var d = document.createElement("img");
-      i && (d.crossOrigin = i), d.src = a || o, d.alt = s.alt || "The image to crop", this.image = d, d.onload = this.start.bind(this), d.onerror = this.stop.bind(this), at(d, Xr), s.parentNode.insertBefore(d, s.nextSibling);
+      a && (d.crossOrigin = a), d.src = i || o, d.alt = s.alt || "The image to crop", this.image = d, d.onload = this.start.bind(this), d.onerror = this.stop.bind(this), at(d, Xr), s.parentNode.insertBefore(d, s.nextSibling);
     }
   }, {
     key: "start",
     value: function() {
       var s = this, o = this.image;
       o.onload = null, o.onerror = null, this.sizing = !0;
-      var i = It.navigator && /(?:iPad|iPhone|iPod).*?AppleWebKit/i.test(It.navigator.userAgent), a = function(v, p) {
+      var a = It.navigator && /(?:iPad|iPhone|iPod).*?AppleWebKit/i.test(It.navigator.userAgent), i = function(v, p) {
         Q(s.imageData, {
           naturalWidth: v,
           naturalHeight: p,
           aspectRatio: v / p
         }), s.initialImageData = Q({}, s.imageData), s.sizing = !1, s.sized = !0, s.build();
       };
-      if (o.naturalWidth && !i) {
-        a(o.naturalWidth, o.naturalHeight);
+      if (o.naturalWidth && !a) {
+        i(o.naturalWidth, o.naturalHeight);
         return;
       }
       var d = document.createElement("img"), m = document.body || document.documentElement;
       this.sizingImage = d, d.onload = function() {
-        a(d.width, d.height), i || m.removeChild(d);
-      }, d.src = o.src, i || (d.style.cssText = "left:0;max-height:none!important;max-width:none!important;min-height:0!important;min-width:0!important;opacity:0;position:absolute;top:0;z-index:-1;", m.appendChild(d));
+        i(d.width, d.height), a || m.removeChild(d);
+      }, d.src = o.src, a || (d.style.cssText = "left:0;max-height:none!important;max-width:none!important;min-height:0!important;min-width:0!important;opacity:0;position:absolute;top:0;z-index:-1;", m.appendChild(d));
     }
   }, {
     key: "stop",
@@ -5524,10 +5524,10 @@ var $u = {
     key: "build",
     value: function() {
       if (!(!this.sized || this.ready)) {
-        var s = this.element, o = this.options, i = this.image, a = s.parentNode, d = document.createElement("div");
+        var s = this.element, o = this.options, a = this.image, i = s.parentNode, d = document.createElement("div");
         d.innerHTML = cu;
         var m = d.querySelector(".".concat(J, "-container")), l = m.querySelector(".".concat(J, "-canvas")), v = m.querySelector(".".concat(J, "-drag-box")), p = m.querySelector(".".concat(J, "-crop-box")), b = p.querySelector(".".concat(J, "-face"));
-        this.container = a, this.cropper = m, this.canvas = l, this.dragBox = v, this.cropBox = p, this.viewBox = m.querySelector(".".concat(J, "-view-box")), this.face = b, l.appendChild(i), at(s, ht), a.insertBefore(m, s.nextSibling), Tt(i, Xr), this.initPreview(), this.bind(), o.initialAspectRatio = Math.max(0, o.initialAspectRatio) || NaN, o.aspectRatio = Math.max(0, o.aspectRatio) || NaN, o.viewMode = Math.max(0, Math.min(3, Math.round(o.viewMode))) || 0, at(p, ht), o.guides || at(p.getElementsByClassName("".concat(J, "-dashed")), ht), o.center || at(p.getElementsByClassName("".concat(J, "-center")), ht), o.background && at(m, "".concat(J, "-bg")), o.highlight || at(b, eu), o.cropBoxMovable && (at(b, or), ye(b, be, kr)), o.cropBoxResizable || (at(p.getElementsByClassName("".concat(J, "-line")), ht), at(p.getElementsByClassName("".concat(J, "-point")), ht)), this.render(), this.ready = !0, this.setDragMode(o.dragMode), o.autoCrop && this.crop(), this.setData(o.data), dt(o.ready) && yt(s, Jr, o.ready, {
+        this.container = i, this.cropper = m, this.canvas = l, this.dragBox = v, this.cropBox = p, this.viewBox = m.querySelector(".".concat(J, "-view-box")), this.face = b, l.appendChild(a), at(s, ht), i.insertBefore(m, s.nextSibling), Tt(a, Xr), this.initPreview(), this.bind(), o.initialAspectRatio = Math.max(0, o.initialAspectRatio) || NaN, o.aspectRatio = Math.max(0, o.aspectRatio) || NaN, o.viewMode = Math.max(0, Math.min(3, Math.round(o.viewMode))) || 0, at(p, ht), o.guides || at(p.getElementsByClassName("".concat(J, "-dashed")), ht), o.center || at(p.getElementsByClassName("".concat(J, "-center")), ht), o.background && at(m, "".concat(J, "-bg")), o.highlight || at(b, eu), o.cropBoxMovable && (at(b, or), ye(b, be, kr)), o.cropBoxResizable || (at(p.getElementsByClassName("".concat(J, "-line")), ht), at(p.getElementsByClassName("".concat(J, "-point")), ht)), this.render(), this.ready = !0, this.setDragMode(o.dragMode), o.autoCrop && this.crop(), this.setData(o.data), dt(o.ready) && yt(s, Jr, o.ready, {
           once: !0
         }), re(s, Jr);
       }
@@ -5574,8 +5574,8 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   },
   emits: ["load"],
   setup(r, { emit: t }) {
-    const s = r, { t: o } = P("i18n"), { apiUrl: i } = At(), a = L(null), d = L(null), m = L(!1), l = L(""), v = L(!1), p = () => {
-      m.value = !m.value, m.value ? d.value = new to(a.value, {
+    const s = r, { t: o } = P("i18n"), { apiUrl: a } = At(), i = L(null), d = L(null), m = L(!1), l = L(""), v = L(!1), p = () => {
+      m.value = !m.value, m.value ? d.value = new to(i.value, {
         crop(M) {
         }
       }) : d.value.destroy();
@@ -5585,7 +5585,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
         height: 341
       }).toBlob(
         (M) => {
-          l.value = "", v.value = !1, Oe(i.value, {
+          l.value = "", v.value = !1, Oe(a.value, {
             method: "POST",
             params: Object.assign(b, {
               q: "upload",
@@ -5596,7 +5596,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
             name: s.selection.item.basename,
             json: !1
           }).then(($) => {
-            l.value = o("Updated."), a.value.src = Qe(s.selection.adapter, s.selection.item.path), p(), t("load");
+            l.value = o("Updated."), i.value.src = Qe(s.selection.adapter, s.selection.item.path), p(), t("load");
           }).catch(($) => {
             l.value = o($.message), v.value = !0;
           });
@@ -5629,7 +5629,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
       f("div", Vu, [
         f("img", {
           ref_key: "image",
-          ref: a,
+          ref: i,
           class: "max-w-[50vh] max-h-[50vh]",
           src: x(Qe)(s.selection.adapter, s.selection.item.path),
           alt: ""
@@ -5680,10 +5680,10 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   },
   emits: ["load"],
   setup(r, { emit: t }) {
-    const s = r, { apiUrl: o } = At(), i = () => o.value + "?" + Ft({ q: "preview", adapter: s.selection.adapter, path: s.selection.item.path });
+    const s = r, { apiUrl: o } = At(), a = () => o.value + "?" + Ft({ q: "preview", adapter: s.selection.adapter, path: s.selection.item.path });
     return Mt(() => {
       t("load");
-    }), (a, d) => (w(), D(lt, null, [
+    }), (i, d) => (w(), D(lt, null, [
       f("h3", {
         class: "mb-2 text-lg leading-6 font-medium text-gray-900 dark:text-gray-400",
         id: "modal-title",
@@ -5694,7 +5694,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
       f("div", null, [
         f("video", Xu, [
           f("source", {
-            src: i(),
+            src: a(),
             type: "video/mp4"
           }, null, 8, Zu),
           st(" Your browser does not support the video tag. ")
@@ -5712,10 +5712,10 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   },
   emits: ["load"],
   setup(r, { emit: t }) {
-    const s = r, { apiUrl: o } = At(), i = () => o.value + "?" + Ft({ q: "preview", adapter: s.selection.adapter, path: s.selection.item.path });
+    const s = r, { apiUrl: o } = At(), a = () => o.value + "?" + Ft({ q: "preview", adapter: s.selection.adapter, path: s.selection.item.path });
     return Mt(() => {
       t("load");
-    }), (a, d) => (w(), D(lt, null, [
+    }), (i, d) => (w(), D(lt, null, [
       f("h3", {
         class: "mb-2 text-lg leading-6 font-medium text-gray-900 dark:text-gray-400",
         id: "modal-title",
@@ -5726,7 +5726,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
       f("div", null, [
         f("audio", Gu, [
           f("source", {
-            src: i(),
+            src: a(),
             type: "audio/mpeg"
           }, null, 8, Ju),
           st(" Your browser does not support the audio element. ")
@@ -5741,10 +5741,10 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   },
   emits: ["load"],
   setup(r, { emit: t }) {
-    const s = r, { apiUrl: o } = At(), i = () => o.value + "?" + Ft({ q: "preview", adapter: s.selection.adapter, path: s.selection.item.path });
+    const s = r, { apiUrl: o } = At(), a = () => o.value + "?" + Ft({ q: "preview", adapter: s.selection.adapter, path: s.selection.item.path });
     return Mt(() => {
       t("load");
-    }), (a, d) => (w(), D(lt, null, [
+    }), (i, d) => (w(), D(lt, null, [
       f("h3", {
         class: "mb-2 text-lg leading-6 font-medium text-gray-900 dark:text-gray-400",
         id: "modal-title",
@@ -5755,14 +5755,14 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
       f("div", null, [
         f("object", {
           class: "h-[60vh]",
-          data: i(),
+          data: a(),
           type: "application/pdf",
           width: "100%",
           height: "100%"
         }, [
           f("iframe", {
             class: "border-0",
-            src: i(),
+            src: a(),
             width: "100%",
             height: "100%"
           }, `
@@ -5805,7 +5805,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
     selection: Object
   },
   setup(r) {
-    const t = r, { apiUrl: s } = At(), o = P("emitter"), { t: i } = P("i18n"), a = L(!1), d = (v) => a.value = v, m = (v) => (t.selection.item.mime_type ?? "").startsWith(v), l = () => {
+    const t = r, { apiUrl: s } = At(), o = P("emitter"), { t: a } = P("i18n"), i = L(!1), d = (v) => i.value = v, m = (v) => (t.selection.item.mime_type ?? "").startsWith(v), l = () => {
       const v = s.value + "?" + Ft({ q: "download", adapter: t.selection.adapter, path: t.selection.item.path });
       o.emit("vf-download", v);
     };
@@ -5815,12 +5815,12 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
           type: "button",
           onClick: p[6] || (p[6] = (b) => x(o).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-gray-400 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Close")), 1),
+        }, E(x(a)("Close")), 1),
         f("button", {
           type: "button",
           onClick: p[7] || (p[7] = (b) => l()),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-gray-400 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Download")), 1)
+        }, E(x(a)("Download")), 1)
       ]),
       default: F(() => [
         f("div", od, [
@@ -5853,20 +5853,20 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
               }, null, 8, ["selection"]))
             ]),
             f("div", id, [
-              a.value == !1 ? (w(), D("div", ad, [
+              i.value == !1 ? (w(), D("div", ad, [
                 ld,
-                f("span", null, E(x(i)("Loading")), 1)
+                f("span", null, E(x(a)("Loading")), 1)
               ])) : Z("", !0)
             ])
           ])
         ]),
         f("div", cd, [
           f("div", null, [
-            f("span", ud, E(x(i)("File Size")) + ": ", 1),
+            f("span", ud, E(x(a)("File Size")) + ": ", 1),
             st(E(x(us)(r.selection.item.file_size)), 1)
           ]),
           f("div", null, [
-            f("span", dd, E(x(i)("Last Modified")) + ": ", 1),
+            f("span", dd, E(x(a)("Last Modified")) + ": ", 1),
             st(" " + E(x(ds)(r.selection.item.last_modified)), 1)
           ])
         ])
@@ -5930,20 +5930,20 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   setup(r) {
     const t = r, s = P("emitter");
     P("storage");
-    const o = P("adapter"), { t: i } = P("i18n"), a = L(t.selection.items[0]), d = L(t.selection.items[0].basename), m = L(""), l = () => {
+    const o = P("adapter"), { t: a } = P("i18n"), i = L(t.selection.items[0]), d = L(t.selection.items[0].basename), m = L(""), l = () => {
       d.value != "" && s.emit("vf-fetch", {
         params: {
           q: "rename",
           adapter: o.value,
           path: t.current.dirname,
-          item: a.value.path,
+          item: i.value.path,
           name: d.value
         },
         onSuccess: () => {
-          s.emit("vf-toast-push", { label: i("%s is renamed.", d.value) });
+          s.emit("vf-toast-push", { label: a("%s is renamed.", d.value) });
         },
         onError: (v) => {
-          m.value = i(v.message);
+          m.value = a(v.message);
         }
       });
     };
@@ -5953,22 +5953,22 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
           type: "button",
           onClick: l,
           class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 dark:bg-gray-700 dark:hover:bg-gray-600/75 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Rename")), 1),
+        }, E(x(a)("Rename")), 1),
         f("button", {
           type: "button",
           onClick: p[2] || (p[2] = (b) => x(s).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Cancel")), 1)
+        }, E(x(a)("Cancel")), 1)
       ]),
       default: F(() => [
         f("div", pd, [
           gd,
           f("div", md, [
-            f("h3", vd, E(x(i)("Rename")), 1),
+            f("h3", vd, E(x(a)("Rename")), 1),
             f("div", bd, [
               f("p", yd, [
-                a.value.type == "dir" ? (w(), D("svg", Sd, _d)) : (w(), D("svg", xd, Dd)),
-                f("span", Cd, E(a.value.basename), 1)
+                i.value.type == "dir" ? (w(), D("svg", Sd, _d)) : (w(), D("svg", xd, Dd)),
+                f("span", Cd, E(i.value.basename), 1)
               ]),
               St(f("input", {
                 "onUpdate:modelValue": p[0] || (p[0] = (b) => d.value = b),
@@ -6024,7 +6024,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
     current: Object
   },
   setup(r) {
-    const t = r, s = P("emitter"), { apiUrl: o } = At(), { t: i } = P("i18n"), a = P("maxFileSize"), d = L(null), m = L(null), l = L(null), v = L([]), p = L(""), b = L(!0), S = () => {
+    const t = r, s = P("emitter"), { apiUrl: o } = At(), { t: a } = P("i18n"), i = P("maxFileSize"), d = L(null), m = L(null), l = L(null), v = L([]), p = L(""), b = L(!0), S = () => {
       p.value = "", d.value.start();
     }, M = P("postData");
     return Mt(() => {
@@ -6032,7 +6032,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
         runtimes: "html5",
         browse_button: l.value,
         container: m.value,
-        max_file_size: a,
+        max_file_size: i,
         multiple_queues: !0,
         file_data_name: "file",
         url: o.value + "?" + Ft(Object.assign(M, { q: "upload", adapter: t.current.adapter, path: t.current.dirname })),
@@ -6063,7 +6063,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
             b.value = !0, s.emit("vf-fetch", { params: { q: "index", adapter: t.current.adapter, path: t.current.dirname } });
           },
           Error: function($, I) {
-            d.value.stop(), I.code == de.HTTP_ERROR ? p.value = i(JSON.parse(I.response).message) : I.code == de.FILE_SIZE_ERROR ? p.value = i("The selected file exceeds the maximum file size. You cannot upload files greater than %s", [a]) : p.value = i(I.message);
+            d.value.stop(), I.code == de.HTTP_ERROR ? p.value = a(JSON.parse(I.response).message) : I.code == de.FILE_SIZE_ERROR ? p.value = a("The selected file exceeds the maximum file size. You cannot upload files greater than %s", [i]) : p.value = a(I.message);
           }
         }
       }), d.value.init();
@@ -6074,18 +6074,18 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
           onClick: Wt(S, ["prevent"]),
           type: "button",
           class: ct([b.value ? "bg-blue-200 hover:bg-blue-200 dark:bg-gray-700/50 dark:hover:bg-gray-700/50 dark:text-gray-500" : "bg-blue-600 hover:bg-blue-700 dark:bg-gray-700 dark:hover:bg-gray-500", "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 text-base font-medium text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"])
-        }, E(x(i)("Upload")), 11, Rd),
+        }, E(x(a)("Upload")), 11, Rd),
         f("button", {
           type: "button",
           onClick: I[1] || (I[1] = (T) => x(s).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Cancel")), 1)
+        }, E(x(a)("Cancel")), 1)
       ]),
       default: F(() => [
         f("div", Td, [
           Id,
           f("div", Ad, [
-            f("h3", Ld, E(x(i)("Upload files")), 1),
+            f("h3", Ld, E(x(a)("Upload files")), 1),
             f("div", Od, [
               f("div", Pd, [
                 (w(!0), D(lt, null, wt(v.value, (T) => (w(), D("div", null, [
@@ -6096,7 +6096,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
                     f("b", null, E(T.percent), 1)
                   ], 8, Nd)
                 ]))), 256)),
-                v.value.length ? Z("", !0) : (w(), D("div", jd, E(x(i)("No files selected!")), 1))
+                v.value.length ? Z("", !0) : (w(), D("div", jd, E(x(a)("No files selected!")), 1))
               ]),
               f("div", {
                 class: "text-gray-500",
@@ -6108,7 +6108,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
                   ref: l,
                   type: "button",
                   class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-                }, E(x(i)("Select Files")), 513)
+                }, E(x(a)("Select Files")), 513)
               ], 512),
               p.value.length ? (w(), q(Ot, {
                 key: 0,
@@ -6183,20 +6183,20 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   setup(r) {
     const t = r, s = P("emitter");
     P("storage");
-    const o = P("adapter"), { t: i } = P("i18n"), a = L(""), d = L(""), m = L(t.selection.items), l = () => {
+    const o = P("adapter"), { t: a } = P("i18n"), i = L(""), d = L(""), m = L(t.selection.items), l = () => {
       m.value.length && s.emit("vf-fetch", {
         params: {
           q: "archive",
           adapter: o.value,
           path: t.current.dirname,
           items: JSON.stringify(m.value.map(({ path: v, type: p }) => ({ path: v, type: p }))),
-          name: a.value
+          name: i.value
         },
         onSuccess: () => {
-          s.emit("vf-toast-push", { label: i("The file(s) archived.") });
+          s.emit("vf-toast-push", { label: a("The file(s) archived.") });
         },
         onError: (v) => {
-          d.value = i(v.message);
+          d.value = a(v.message);
         }
       });
     };
@@ -6206,31 +6206,31 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
           type: "button",
           onClick: l,
           class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 dark:bg-gray-700 dark:hover:bg-gray-600/75 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Archive")), 1),
+        }, E(x(a)("Archive")), 1),
         f("button", {
           type: "button",
           onClick: p[2] || (p[2] = (b) => x(s).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Cancel")), 1)
+        }, E(x(a)("Cancel")), 1)
       ]),
       default: F(() => [
         f("div", zd, [
           Hd,
           f("div", Ud, [
-            f("h3", Kd, E(x(i)("Archive the files")), 1),
+            f("h3", Kd, E(x(a)("Archive the files")), 1),
             f("div", Yd, [
               (w(!0), D(lt, null, wt(m.value, (b) => (w(), D("p", Wd, [
                 b.type == "dir" ? (w(), D("svg", Xd, Fd)) : (w(), D("svg", qd, Jd)),
                 f("span", Qd, E(b.basename), 1)
               ]))), 256)),
               St(f("input", {
-                "onUpdate:modelValue": p[0] || (p[0] = (b) => a.value = b),
+                "onUpdate:modelValue": p[0] || (p[0] = (b) => i.value = b),
                 onKeyup: oe(l, ["enter"]),
                 class: "my-1 px-2 py-1 border rounded dark:bg-gray-700/25 dark:focus:ring-gray-600 dark:focus:border-gray-600 dark:text-gray-100 w-full",
-                placeholder: x(i)("Archive name. (.zip file will be created)"),
+                placeholder: x(a)("Archive name. (.zip file will be created)"),
                 type: "text"
               }, null, 40, th), [
-                [ne, a.value]
+                [ne, i.value]
               ]),
               d.value.length ? (w(), q(Ot, {
                 key: 0,
@@ -6305,21 +6305,21 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   setup(r) {
     const t = r, s = P("emitter");
     P("storage");
-    const o = P("adapter"), { t: i } = P("i18n");
+    const o = P("adapter"), { t: a } = P("i18n");
     L("");
-    const a = L(t.selection.items[0]), d = L(""), m = L([]), l = () => {
+    const i = L(t.selection.items[0]), d = L(""), m = L([]), l = () => {
       s.emit("vf-fetch", {
         params: {
           q: "unarchive",
           adapter: o.value,
           path: t.current.dirname,
-          item: a.value.path
+          item: i.value.path
         },
         onSuccess: () => {
-          s.emit("vf-toast-push", { label: i("The file unarchived.") });
+          s.emit("vf-toast-push", { label: a("The file unarchived.") });
         },
         onError: (v) => {
-          d.value = i(v.message);
+          d.value = a(v.message);
         }
       });
     };
@@ -6329,24 +6329,24 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
           type: "button",
           onClick: l,
           class: "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-blue-600 dark:bg-gray-700 dark:hover:bg-gray-600/75 text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Unarchive")), 1),
+        }, E(x(a)("Unarchive")), 1),
         f("button", {
           type: "button",
           onClick: p[1] || (p[1] = (b) => x(s).emit("vf-modal-close")),
           class: "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
-        }, E(x(i)("Cancel")), 1)
+        }, E(x(a)("Cancel")), 1)
       ]),
       default: F(() => [
         f("div", sh, [
           oh,
           f("div", nh, [
-            f("h3", ih, E(x(i)("Unarchive")), 1),
+            f("h3", ih, E(x(a)("Unarchive")), 1),
             f("div", ah, [
               (w(!0), D(lt, null, wt(m.value, (b) => (w(), D("p", lh, [
                 b.type == "dir" ? (w(), D("svg", ch, dh)) : (w(), D("svg", hh, ph)),
                 f("span", gh, E(b.basename), 1)
               ]))), 256)),
-              f("p", mh, E(x(i)("The archive will be unarchived at")) + " (" + E(r.current.dirname) + ")", 1),
+              f("p", mh, E(x(a)("The archive will be unarchived at")) + " (" + E(r.current.dirname) + ")", 1),
               d.value.length ? (w(), q(Ot, {
                 key: 0,
                 onHidden: p[0] || (p[0] = (b) => d.value = ""),
@@ -6434,13 +6434,13 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   setup(r) {
     const t = r, s = P("emitter"), { t: o } = P("i18n");
     P("storage");
-    const i = P("adapter"), a = L(t.selection.items.from), d = L(""), m = () => {
-      a.value.length && s.emit("vf-fetch", {
+    const a = P("adapter"), i = L(t.selection.items.from), d = L(""), m = () => {
+      i.value.length && s.emit("vf-fetch", {
         params: {
           q: "move",
-          adapter: i.value,
+          adapter: a.value,
           path: t.current.dirname,
-          items: JSON.stringify(a.value.map(({ path: l, type: v }) => ({ path: l, type: v }))),
+          items: JSON.stringify(i.value.map(({ path: l, type: v }) => ({ path: l, type: v }))),
           item: t.selection.items.to.path
         },
         onSuccess: () => {
@@ -6470,7 +6470,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
           f("div", wh, [
             f("h3", _h, E(x(o)("Move files")), 1),
             f("div", xh, [
-              (w(!0), D(lt, null, wt(a.value, (p) => (w(), D("p", kh, [
+              (w(!0), D(lt, null, wt(i.value, (p) => (w(), D("p", kh, [
                 p.type == "dir" ? (w(), D("svg", Dh, Mh)) : (w(), D("svg", Eh, Th)),
                 f("span", Ih, E(p.path), 1)
               ]))), 256)),
