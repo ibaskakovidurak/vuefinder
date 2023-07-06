@@ -3647,7 +3647,7 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
     Ut("i18n", d);
     const { apiUrl: m, setApiUrl: l } = At();
     l(t.url);
-    const v = Le({ adapter: a.value, storages: [], dirname: ".", files: [] }), p = L(i("viewport", "grid")), b = L(i("darkMode", t.dark));
+    const v = Le({ adapter: a.value, storages: [], dirname: "local://", files: [] }), p = L(i("viewport", "grid")), b = L(i("darkMode", t.dark));
     s.on("vf-darkMode-toggle", () => {
       b.value = !b.value, o("darkMode", b.value);
     });

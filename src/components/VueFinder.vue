@@ -88,7 +88,7 @@ provide('i18n', i18n);
 const {apiUrl, setApiUrl} = useApiUrl();
 setApiUrl(props.url);
 
-const fetchData = reactive({adapter: adapter.value, storages: [], dirname: '.', files: []});
+const fetchData = reactive({adapter: adapter.value, storages: [], dirname: 'local://', files: []});
 
 // View Management
 const view = ref(getStore('viewport', 'grid'));
