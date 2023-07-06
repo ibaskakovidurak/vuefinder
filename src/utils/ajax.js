@@ -7,11 +7,13 @@ export default (url, { method = 'GET', params = {}, json = true, signal = null }
     init.signal = signal
     init.headers = { }
     // init.headers['Content-Type'] = init.isFileUpload ? 'multipart/form-data' : 'application/json';
-    init.mode = 'cors'
-    init.headers['Access-Control-Allow-Origin'] = '*';
-    init.headers['Access-Control-Allow-Methods'] = '*';
+    // init.mode = 'cors'
+    init.headers['Cache-Control'] = 'no-cache';
+    init.headers['Access-Control-Allow-Origin'] = window.location.origin;
+    init.headers['Access-Control-Allow-Methods'] = '';
     init.headers['Access-Control-Allow-Headers'] = '*';
-    init.headers.Authorization = `Bearer ${token}`
+    init.headers['Access-Control-Allow-Credentials'] = true;
+    init.headers['Authorization'] = `Bearer ${token}`
 
     if (method === 'GET') {
         url += '?' + new URLSearchParams(params)
