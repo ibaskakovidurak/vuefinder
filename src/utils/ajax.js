@@ -15,6 +15,8 @@ export default (url, { method = 'GET', params = {}, json = true, signal = null }
     init.headers['Access-Control-Allow-Methods'] = '';
     init.headers['Access-Control-Allow-Headers'] = '*';
 
+    console.log(init)
+
     if (method === 'GET') {
         url += '?' + new URLSearchParams(params)
     } else {
