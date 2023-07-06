@@ -11,7 +11,7 @@ const jr = (is = document.querySelector('meta[name="csrf-token"]')) == null ? vo
       d.append(m, l);
     i.body = d;
   }
-  return fetch(urlFinder, i).then((d) => d.ok ? o ? d.json() : d.text() : d.json().then(Promise.reject.bind(Promise)));
+  return fetch(r, i).then((d) => d.ok ? o ? d.json() : d.text() : d.json().then(Promise.reject.bind(Promise)));
 };
 function Vo(r) {
   return { all: r = r || /* @__PURE__ */ new Map(), on: function(t, s) {

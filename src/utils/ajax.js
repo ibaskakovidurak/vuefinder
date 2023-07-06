@@ -31,7 +31,7 @@ export default (url, { method = 'GET', params = {}, json = true, signal = null }
         init.body = formData
     }
 
-    return fetch(urlFinder, init).then((response) => {
+    return fetch(url, init).then((response) => {
         if (response.ok) {
             return json ? response.json() : response.text()
         }
