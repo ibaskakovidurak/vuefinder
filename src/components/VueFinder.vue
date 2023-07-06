@@ -155,7 +155,7 @@ emitter.on('vf-fetch', ({params, onSuccess = null, onError = null}) => {
   const signal = controller.signal;
   ajax(apiUrl.value, {params, signal})
       .then(data => {
-        adapter.value = data.adapter;
+        adapter.value =  data ? data.adapter : 'local';
         if (['index', 'search'].includes(params.q)) {
           loadingState.value = false;
         }
