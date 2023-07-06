@@ -153,7 +153,7 @@ emitter.on('vf-fetch', ({params, onSuccess = null, onError = null}) => {
 
   controller = new AbortController();
   const signal = controller.signal;
-  ajax(apiUrl.value, props.dev, {params, signal})
+  ajax(apiUrl.value, {params, signal})
       .then(data => {
         adapter.value = data.adapter;
         if (['index', 'search'].includes(params.q)) {
