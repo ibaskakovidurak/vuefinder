@@ -6,11 +6,11 @@ export default (url, { method = 'GET', params = {}, json = true, signal = null }
     const init = { method: method }
     init.signal = signal
     init.headers = { }
-    // init.headers['Content-Type'] = config.isFileUpload ? 'multipart/form-data' : 'application/json';
+    // init.headers['Content-Type'] = init.isFileUpload ? 'multipart/form-data' : 'application/json';
     init.mode = 'cors'
-    // init.headers['Access-Control-Allow-Origin'] = '*';
-    // init.headers['Access-Control-Allow-Methods'] = '';
-    // init.headers['Access-Control-Allow-Headers'] = '*';
+    init.headers['Access-Control-Allow-Origin'] = '*';
+    init.headers['Access-Control-Allow-Methods'] = '*';
+    init.headers['Access-Control-Allow-Headers'] = '*';
     init.headers.Authorization = `Bearer ${token}`
 
     if (method === 'GET') {
