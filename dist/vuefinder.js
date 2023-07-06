@@ -2,11 +2,11 @@ import { ref as L, watch as je, inject as P, openBlock as w, createElementBlock 
 import de from "plupload";
 var is;
 const jr = (is = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : is.getAttribute("content"), Ro = localStorage.getItem("token"), Oe = (r, { method: t = "GET", params: s = {}, json: o = !0, signal: i = null }) => {
-  const a = { method: "GET" };
-  if (a.signal = i, a.headers = {}, a.mode = "cors", a.headers["Access-Control-Allow-Methods"] = "", a.headers["Access-Control-Allow-Headers"] = "*", a.headers.Authorization = `Bearer ${Ro}`, t === "GET")
+  const a = { method: t };
+  if (a.signal = i, a.headers = {}, a.mode = "cors", a.headers.Authorization = `Bearer ${Ro}`, t === "GET")
     r += "?" + new URLSearchParams(s);
   else {
-    let d = new FormData();
+    const d = new FormData();
     for (const [m, l] of Object.entries(s))
       d.append(m, l);
     a.body = d;
