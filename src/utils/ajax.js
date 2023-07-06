@@ -2,7 +2,7 @@ export const csrf = document.querySelector('meta[name="csrf-token"]')?.getAttrib
 
 export const token = localStorage.getItem('token')
 
-export default (url, { method = 'GET', params = {}}) => {
+export default (url, { method = 'GET', params = {}, signal = null}) => {
     //let urlFinder = type ? 'https://sf-gate.7de-dev.space/api/vuefinder' : 'https://sf-core.7de-dev.space/api/vuefinder'
     const init = { method: method }
     init.signal = signal
