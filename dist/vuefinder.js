@@ -1,17 +1,17 @@
 import { ref as L, watch as je, inject as P, openBlock as w, createElementBlock as D, createElementVNode as f, unref as x, normalizeClass as ct, createTextVNode as st, toDisplayString as E, createCommentVNode as Z, createVNode as Ct, TransitionGroup as Lo, withCtx as F, Fragment as lt, renderList as wt, reactive as Le, onMounted as Mt, onUpdated as Oo, withDirectives as St, vShow as $e, withModifiers as Wt, nextTick as Re, isRef as as, vModelSelect as Nr, createStaticVNode as Po, customRef as No, withKeys as oe, vModelText as ne, normalizeStyle as ls, provide as Ut, createBlock as q, resolveDynamicComponent as jo, renderSlot as Ge } from "vue";
 import de from "plupload";
 var is;
-const jr = (is = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : is.getAttribute("content"), Ro = localStorage.getItem("token"), Oe = (r, { method: t = "GET", params: s = {} }) => {
-  const o = { method: t };
-  if (o.headers = {}, o.headers.Authorization = `Bearer ${Ro}`, t === "GET")
+const jr = (is = document.querySelector('meta[name="csrf-token"]')) == null ? void 0 : is.getAttribute("content"), Ro = localStorage.getItem("token"), Oe = (r, { method: t = "GET", params: s = {}, json: o = !0, signal: i = null }) => {
+  const a = { method: t };
+  if (a.signal = i, a.headers = {}, a.headers.Authorization = `Bearer ${Ro}`, t === "GET")
     r += "?" + new URLSearchParams(s);
   else {
-    const i = new FormData();
-    for (const [a, d] of Object.entries(s))
-      i.append(a, d);
-    o.body = i;
+    const d = new FormData();
+    for (const [m, l] of Object.entries(s))
+      d.append(m, l);
+    a.body = d;
   }
-  return fetch(r, o).then((i) => i.ok ? json ? i.json() : i.text() : i.json().then(Promise.reject.bind(Promise)));
+  return fetch(r, a).then((d) => d.ok ? o ? d.json() : d.text() : d.json().then(Promise.reject.bind(Promise)));
 };
 function Vo(r) {
   return { all: r = r || /* @__PURE__ */ new Map(), on: function(t, s) {
