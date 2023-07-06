@@ -6,14 +6,16 @@ export default (url, { method = 'GET', params = {}, json = true, signal = null }
     const init = { method: method }
     init.signal = signal
     init.headers = { }
-    // init.headers['Content-Type'] = init.isFileUpload ? 'multipart/form-data' : 'application/json';
-    // init.mode = 'cors'
-    init.headers['Cache-Control'] = 'no-cache';
-    init.headers['Access-Control-Allow-Origin'] = window.location.origin;
-    init.headers['Access-Control-Allow-Methods'] = '';
-    init.headers['Access-Control-Allow-Headers'] = '*';
-    init.headers['Access-Control-Allow-Credentials'] = true;
+    init.mode = 'cors'
+    init.headers['Content-Type'] = 'application/json';
+    init.headers['Accept'] = 'application/json';
     init.headers['Authorization'] = `Bearer ${token}`
+    init.headers['Cache-Control'] = 'no-cache';
+    init.headers['Origin'] = window.location.origin;
+    //init.headers['Access-Control-Allow-Origin'] = window.location.origin;
+    //init.headers['Access-Control-Allow-Methods'] = '';
+    //init.headers['Access-Control-Allow-Headers'] = '*';
+    //init.headers['Access-Control-Allow-Credentials'] = true;
 
     if (method === 'GET') {
         url += '?' + new URLSearchParams(params)
