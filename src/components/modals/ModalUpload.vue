@@ -89,7 +89,7 @@ onMounted(() => {
     // 	{title : "Zip files", extensions : "zip"}
     // ],
     headers: {
-      'Authorization': localStorage.getItem('token'),
+      'Authorization': 'Bearer ' + localStorage.getItem('token'),
       ...(csrf && {'X-CSRF-Token' : csrf})
     },
 

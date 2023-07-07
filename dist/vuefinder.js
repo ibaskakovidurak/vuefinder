@@ -6044,7 +6044,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
         // 	{title : "Zip files", extensions : "zip"}
         // ],
         headers: {
-          Authorization: localStorage.getItem("token"),
+          Authorization: "Bearer " + localStorage.getItem("token"),
           ...jr && { "X-CSRF-Token": jr }
         },
         init: {
