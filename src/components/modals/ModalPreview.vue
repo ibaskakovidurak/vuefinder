@@ -69,7 +69,7 @@ const props = defineProps({
 const loadPreview = (type) => (props.selection.item.mime_type ?? '').startsWith(type)
 
 const download = () => {
-  const url = apiUrl.value + '?' + buildURLQuery({q:'download', adapter: props.selection.adapter, path: props.selection.item.path});
+  const url = apiUrl.value + '?' + buildURLQuery({q:'download', adapter: props.selection.adapter || 'local', path: props.selection.item.path});
   emitter.emit('vf-download', url)
 }
 </script>

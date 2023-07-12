@@ -60,7 +60,7 @@ const createFile = () => {
     emitter.emit('vf-fetch', {
       params: {
         q: 'newfile',
-        adapter: adapter.value,
+        adapter: adapter.value || 'local',
         path: props.current.dirname,
         name: name.value
       },

@@ -4086,7 +4086,7 @@ const Bl = { class: "vuefinder" }, zl = /* @__PURE__ */ f("iframe", {
       a.value != "" && s.emit("vf-fetch", {
         params: {
           q: "newfile",
-          adapter: o.value,
+          adapter: o.value || "local",
           path: t.current.dirname,
           name: a.value
         },
@@ -5809,7 +5809,7 @@ const Nu = { class: "flex" }, ju = ["aria-label"], Ru = { class: "ml-auto mb-2" 
   },
   setup(r) {
     const t = r, { apiUrl: s } = At(), o = P("emitter"), { t: i } = P("i18n"), a = L(!1), d = (v) => a.value = v, m = (v) => (t.selection.item.mime_type ?? "").startsWith(v), l = () => {
-      const v = s.value + "?" + Ft({ q: "download", adapter: t.selection.adapter, path: t.selection.item.path });
+      const v = s.value + "?" + Ft({ q: "download", adapter: t.selection.adapter || "local", path: t.selection.item.path });
       o.emit("vf-download", v);
     };
     return (v, p) => (w(), q(Lt, null, {
