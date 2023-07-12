@@ -31,6 +31,8 @@ export default (url, { method = 'GET', params = {}, json = true, signal = null})
         init.body = formData
     }
 
+    console.log(url, init)
+
     return fetch(url, init).then((response) => {
         if (response.ok) {
             return json ? response.json() : response.text()
